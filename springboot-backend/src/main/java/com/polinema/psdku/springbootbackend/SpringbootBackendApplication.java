@@ -1,4 +1,4 @@
-package com.polinema.psdku.springboot_backend;
+package com.polinema.psdku.springbootbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
