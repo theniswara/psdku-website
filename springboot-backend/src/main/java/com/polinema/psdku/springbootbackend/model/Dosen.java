@@ -14,6 +14,9 @@ public class Dosen {
   @Column(name = "nip", length = 50)
   private String nip;
 
+  @Column(name = "nidn", length = 50)
+  private String nidn;
+
   @Column(name = "nama_dosen", length = 100)
   private String namaDosen;
 
@@ -27,8 +30,9 @@ public class Dosen {
   public Dosen() {
   }
 
-  public Dosen(String nip, String namaDosen, String username, String password) {
+  public Dosen(String nip, String nidn, String namaDosen, String username, String password) {
     this.nip = nip;
+    this.nidn = nidn;
     this.namaDosen = namaDosen;
     this.username = username;
     this.password = password;
@@ -49,6 +53,14 @@ public class Dosen {
 
   public void setNip(String nip) {
     this.nip = nip;
+  }
+
+  public String getNidn() {
+    return nidn;
+  }
+
+  public void setNidn(String nidn) {
+    this.nidn = nidn;
   }
 
   public String getNamaDosen() {
