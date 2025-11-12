@@ -63,7 +63,7 @@ Full Stack Web App built with **Angular 18** (frontend) and **Spring Boot 3** (b
 
 * Keep your `application.properties` **private** — it’s already added to `.gitignore`.
 * Frontend and backend can run separately during development.
-* The Angular app connects to backend API: `http://localhost:8080/api/v1/...`
+* The Angular app connects to backend API: `http://localhost:8080/api/dosen...`
 
 ---
 
