@@ -1,0 +1,28 @@
+<!-- <p>dosen-list works!</p> -->
+
+<div class="container">
+  <h2 class="title">Data Dosen</h2>
+
+  <div class="dosen-grid">
+    <div class="dosen-card" *ngFor="let d of dosenList">
+      <img [src]="d.foto || 'assets/default-avatar.png'" alt="{{ d.namaDosen }}" class="dosen-photo" />
+      <h3>{{ d.namaDosen }}</h3>
+      <p>{{ d.prodi }}</p>
+      <p>{{ d.email }}</p>
+
+      <span
+        class="status-dot"
+        [ngClass]="{
+          'online': d.statusPresensi === 'Hadir' && !d.waktuKeluar,
+          'offline': !d.statusPresensi
+        }"
+      ></span>
+      <p class="status-text">
+        {{ d.statusPresensi ? d.statusPresensi : 'Tidak Hadir' }}
+      </p>
+
+      <button class="detail-btn">Detail Profil</button>
+    </div>
+  </div>
+</div>
+
