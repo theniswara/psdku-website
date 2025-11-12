@@ -20,6 +20,24 @@ public class Dosen {
   @Column(name = "nama_dosen", length = 100)
   private String namaDosen;
 
+  @Column(name = "jabatan", length = 100)
+  private String jabatan;
+
+  @Column(name = "prodi", length = 100)
+  private String prodi;
+
+  @Column(name = "foto", length = 100)
+  private String foto;
+
+  @Column(name = "email", length = 100)
+  private String email;
+
+  @Column(name = "alamat_kantor", length = 100)
+  private String alamatKantor;
+
+  @Column(name = "website", length = 100)
+  private String website;
+
   @Column(name = "username", length = 100)
   private String username;
 
@@ -30,10 +48,18 @@ public class Dosen {
   public Dosen() {
   }
 
-  public Dosen(String nip, String nidn, String namaDosen, String username, String password) {
+  public Dosen(String nip, String nidn, String namaDosen, String jabatan, String prodi,
+      String foto, String email, String alamatKantor, String website,
+      String username, String password) {
     this.nip = nip;
     this.nidn = nidn;
     this.namaDosen = namaDosen;
+    this.jabatan = jabatan;
+    this.prodi = prodi;
+    this.foto = foto;
+    this.email = email;
+    this.alamatKantor = alamatKantor;
+    this.website = website;
     this.username = username;
     this.password = password;
   }
@@ -69,6 +95,54 @@ public class Dosen {
 
   public void setNamaDosen(String namaDosen) {
     this.namaDosen = namaDosen;
+  }
+
+  public String getJabatan() {
+    return jabatan;
+  }
+
+  public void setJabatan(String jabatan) {
+    this.jabatan = jabatan;
+  }
+
+  public String getProdi() {
+    return prodi;
+  }
+
+  public void setProdi(String prodi) {
+    this.prodi = prodi;
+  }
+
+  public String getFoto() {
+    return foto;
+  }
+
+  public void setFoto(String foto) {
+    this.foto = foto;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getAlamatKantor() {
+    return alamatKantor;
+  }
+
+  public void setAlamatKantor(String alamatKantor) {
+    this.alamatKantor = alamatKantor;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
   }
 
   public String getUsername() {
