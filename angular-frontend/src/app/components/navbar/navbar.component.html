@@ -1,19 +1,43 @@
-<nav class="sticky top-0 z-50 bg-[#0a2c66] text-white px-16 py-6 flex items-center justify-between shadow-md ">
+<nav
+  class="sticky top-0 z-50 backdrop-blur-sm bg-[#0F2C56]/90 text-white px-16 py-6 flex items-center justify-between shadow-md"
+>
   <!-- Logo + Text -->
   <div class="flex items-center space-x-3">
     <img src="assets/logo.png" alt="Logo" class="h-12" />
     <div>
       <h1 class="text-lg font-bold leading-tight">Politeknik Negeri Malang</h1>
-      <p class="text-sm text-orange-400 font-semibold">PSDKU Lumajang</p>
+      <p class="text-sm text-[#FF7F11] font-semibold">PSDKU Lumajang</p>
     </div>
   </div>
 
   <!-- Navigation Menu -->
-  <ul class="flex space-x-8 font-medium">
-    <li><a routerLink="/" class="hover:text-orange-400">Profil Kampus</a></li>
-    <li><a routerLink="/akademik" class="hover:text-orange-400">Akademik</a></li>
-    <li><a routerLink="/kemahasiswaan" class="hover:text-orange-400">Kemahasiswaan</a></li>
-    <li><a routerLink="/informasi" class="hover:text-orange-400">Informasi</a></li>
-    <li><a routerLink="/kontak" class="hover:text-orange-400">Kontak</a></li>
+  <ul class="flex space-x-10 font-medium">
+    <li><a routerLink="/" class="hover:text-[#FF7F11]">Profil Kampus</a></li>
+
+    <!-- Dropdown (Akademik) -->
+    <li class="relative group">
+      <span class="hover:text-[#FF7F11] cursor-pointer">Akademik</span>
+
+      <div
+        class="absolute hidden group-hover:block bg-white text-black rounded-md shadow-lg mt-2 w-48"
+      >
+        <a routerLink="/dosen" class="block px-4 py-2 hover:bg-gray-100"
+          >Data Dosen</a
+        >
+        <a class="block px-4 py-2 hover:bg-gray-100">Program Studi</a>
+        <a class="block px-4 py-2 hover:bg-gray-100">Kurikulum</a>
+        <a class="block px-4 py-2 hover:bg-gray-100">Jadwal Kuliah</a>
+      </div>
+    </li>
+
+    <li>
+      <a routerLink="/kemahasiswaan" class="hover:text-[#FF7F11]"
+        >Kemahasiswaan</a
+      >
+    </li>
+    <li>
+      <a routerLink="/informasi" class="hover:text-[#FF7F11]">Informasi</a>
+    </li>
+    <li><a routerLink="/kontak" class="hover:text-[#FF7F11]">Kontak</a></li>
   </ul>
 </nav>
