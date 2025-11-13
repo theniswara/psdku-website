@@ -1,1 +1,40 @@
-<p>data-dosen works!</p>
+<div class="px-8 md:px-16 py-12">
+  <h2 class="text-3xl md:text-4xl font-biryani font-bold mb-8">Data Dosen</h2>
+
+  <div *ngIf="loading" class="text-center text-gray-500">Loading...</div>
+  <div *ngIf="error" class="text-center text-red-600">{{ error }}</div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let d of dosenList" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+      <div class="flex flex-col items-center">
+        <img [src]="d.foto ? d.foto : 'assets/default-avatar.png'"
+             alt="{{ d.namaDosen || 'Foto Dosen' }}"
+             class="w-28 h-28 object-cover rounded-full" />
+
+        <h3 class="mt-4 text-xl font-biryani text-center">{{ d.namaDosen }}</h3>
+        <p class="text-sm text-gray-600 mt-1 font-inter text-center">{{ d.prodi || '-' }}</p>
+        <p class="text-sm text-gray-500 mt-1 font-inter text-center break-words">{{ d.email || '-' }}</p>
+
+        <div class="flex items-center mt-3">
+          <span class="w-3 h-3 rounded-full mr-2"
+                [ngClass]="{
+                  'bg-green-500': isOnline(d),
+                  'bg-yellow-400': d.statusPresensi === 'Izin',
+                  'bg-red-400': d.statusPresensi === 'Sakit',
+                  'bg-gray-300': !d.statusPresensi
+                }"></span>
+          <span class="text-sm font-inter">{{ getStatusLabel(d) }}</span>
+        </div>
+
+        <button [routerLink]="['/dosen', d.idDosen]"
+                class="mt-4 w-full bg-[#FF7F11] hover:bg-[#e56d0d] text-white py-2 rounded-lg font-inter transition">
+          Detail Profil
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && dosenList.length === 0" class="text-center text-gray-500 mt-8">
+    Tidak ada data dosen.
+  </div>
+</div>
