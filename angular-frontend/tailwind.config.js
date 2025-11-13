@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./src/**/*.{html,ts}",
+    "./src/**/*.{html,ts}",  
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        biryani: ['Biryani', 'sans-serif'],  // <-- Custom font for titles
+        inter: ['Inter', 'sans-serif'],      // <-- Default UI font
+      },
+    },
   },
   plugins: [],
-}
+};
