@@ -13,9 +13,7 @@ export class DosenService {
 
   // fetch list with today's presensi status (the endpoint name you used earlier)
   getDosenStatusToday(): Observable<any[]> {
-    // try both possible endpoints used in the convo
-    // change to '/status-today' if your backend uses that path
-    return this.http.get<any[]>(`${this.baseUrl}/status-today`);
+    return this.http.get<any[]>(this.baseUrl);  // just use main list
   }
 
   // fallback for plain list if your backend exposes GET /api/dosen

@@ -6,11 +6,11 @@
     <img src="assets/logo.png" alt="Logo" class="h-12" />
 
     <!-- PERFECT VERTICAL ALIGNMENT -->
-    <div class="flex flex-col -translate-y-[-4px]">
+    <div class="flex flex-col -translate-y-[-5px]">
       <h1 class="text-lg font-bold leading-tight font-biryani">
         Politeknik Negeri Malang
       </h1>
-      <p class="text-sm text-[#FF7F11] font-semibold font-biryani">
+      <p class="text-sm text-[#FF7F11] font-bold font-biryani">
         PSDKU Lumajang
       </p>
     </div>
@@ -22,17 +22,20 @@
 
     <!-- Dropdown (Akademik) -->
     <li class="relative group">
-      <span class="hover:text-[#FF7F11] cursor-pointer">Akademik</span>
+      <div class="hover:text-[#FF7F11] cursor-pointer pb-2">
+        Akademik
+      </div>
 
       <div
-        class="absolute hidden group-hover:block bg-white text-black rounded-md shadow-lg mt-2 w-48"
+        class="absolute left-0 top-full hidden group-hover:block 
+           bg-white text-[#0F2C56] rounded-md shadow-lg w-48 pt-3 pb-3 ps-2 pe-2"
       >
-        <a routerLink="/dosen" class="block px-4 py-2 hover:bg-gray-100">
+        <a routerLink="/dosen" class="block px-4 py-2 hover:bg-blue-100 rounded-md">
           Data Dosen
         </a>
-        <a class="block px-4 py-2 hover:bg-gray-100">Program Studi</a>
-        <a class="block px-4 py-2 hover:bg-gray-100">Kurikulum</a>
-        <a class="block px-4 py-2 hover:bg-gray-100">Jadwal Kuliah</a>
+        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Program Studi</a>
+        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Kurikulum</a>
+        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Jadwal Kuliah</a>
       </div>
     </li>
 
