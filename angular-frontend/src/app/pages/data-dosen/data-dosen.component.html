@@ -1,24 +1,26 @@
 <app-navbar></app-navbar>
 
-<div class="px-16 py-12">
-  <!-- Page Title -->
-  <h1
-    class="text-4xl font-biryani font-extrabold text-[#0F2C56] tracking-tight"
-  >
-    Data Dosen
-  </h1>
-  <p class="text-gray-500 mt-1 text-lg">
+<div class="bg-[#051D47] text-white px-16 pt-20 pb-14 shadow-md">
+
+  <h1 class="text-4xl font-biryani font-bold leading-tight">Data Dosen</h1>
+
+  <p class="text-gray-200 mt-2 text-lg">
     Informasi lengkap dosen, kehadiran, dan kontak
   </p>
 
+</div>
+
+<div class="px-16 py-14 bg-[#F8FAFC] min-h-screen">
   <!-- Search + Filter -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- Search Input -->
     <div class="relative">
       <input
         type="text"
         [(ngModel)]="searchKeyword"
-        class="w-full border-2 border-gray-300 rounded-lg py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-[#ffbb80]"
+        class="w-full border-2 border-gray-300 rounded-xl py-3.5 pl-12 pr-4 text-[15px]
+               focus:ring-2 focus:ring-[#0F2C56] focus:border-[#0F2C56]
+               transition-all duration-150 bg-white"
         placeholder="Cari nama dosen"
       />
       <span class="absolute left-4 top-3.5 text-gray-400">
@@ -30,7 +32,9 @@
     <div class="relative">
       <select
         [(ngModel)]="selectedProdi"
-        class="w-full border-2 border-gray-300 rounded-lg py-3 px-4 shadow-sm focus:ring-2 focus:ring-[#ffbb80] appearance-none"
+        class="w-full border-2 border-gray-300 rounded-xl py-3.5 px-4 text-[15px]
+               focus:ring-2 focus:ring-[#0F2C56] focus:border-[#0F2C56]
+               appearance-none bg-white transition-all duration-150"
       >
         <option value="">Program Studi</option>
         <option value="Teknologi Informasi">Teknologi Informasi</option>
@@ -48,7 +52,9 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
     <div
       *ngFor="let d of dosenList | filterDosen : searchKeyword : selectedProdi"
-      class="rounded-2xl border border-gray-200 shadow-md bg-white overflow-hidden hover:shadow-xl transition-all duration-300"
+      class="rounded-2xl border border-gray-200 overflow-hidden bg-white 
+             shadow-[0_4px_12px_rgba(0,0,0,0.07)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.1)]
+             transition-all duration-200 cursor-pointer"
     >
       <!-- Top section (image + name) -->
       <div class="p-5 flex items-center space-x-4 bg-[#E8F1F2]">
@@ -78,13 +84,13 @@
 
         <!-- Email -->
         <div class="flex items-center space-x-2 mt-3 text-sm">
-          <i class="fa-solid fa-envelope text-orange-300"></i>
+          <i class="fa-solid fa-envelope text-[#FF7F11]"></i>
           <span>{{ d.email }}</span>
         </div>
 
         <!-- Phone (dummy) -->
         <div class="flex items-center space-x-2 text-sm mt-1">
-          <i class="fa-solid fa-phone text-orange-300"></i>
+          <i class="fa-solid fa-phone text-[#FF7F11]"></i>
           <span>+62 812 3456 7890</span>
         </div>
 
