@@ -1,5 +1,5 @@
 package com.polinema.psdku.springbootbackend.model;
 
-public class admin {
+public class BidangKeahlian {
 
 }

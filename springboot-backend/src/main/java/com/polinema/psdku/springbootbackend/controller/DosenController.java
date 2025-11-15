@@ -3,6 +3,7 @@ package com.polinema.psdku.springbootbackend.controller;
 import com.polinema.psdku.springbootbackend.model.Dosen;
 import com.polinema.psdku.springbootbackend.repository.DosenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.polinema.psdku.springbootbackend.model.Presensi;
@@ -29,6 +30,14 @@ public class DosenController {
   public Dosen addDosen(@RequestBody Dosen dosen) {
     return dosenRepository.save(dosen);
   }
+
+  // GET dosen by ID
+@GetMapping("/{id}")
+public ResponseEntity<Dosen> getDosenById(@PathVariable int id) {
+    Optional<Dosen> dosen = dosenRepository.findById(id);
+    return dosen.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+}
 
   // DELETE dosen by id
   @DeleteMapping("/{id}")

@@ -59,7 +59,7 @@
       <!-- Top section (image + name) -->
       <div class="p-5 flex items-center space-x-4 bg-[#E8F1F2]">
         <img
-          [src]="d.foto ? d.foto : 'assets/default-foto.png'"
+          [src]="d.foto ? d.foto : 'assets/Inggrid.jpg'"
           class="h-16 w-16 rounded-full object-cover border"
           alt="Dosen"
         />
@@ -96,6 +96,7 @@
 
         <!-- Button -->
         <button
+        [routerLink]="['/dosen', d.idDosen]"
           class="mt-5 w-full bg-[#FF7F11] text-white py-2.5 rounded-lg font-semibold hover:bg-[#e57310] transition duration-200"
         >
           Detail Profil

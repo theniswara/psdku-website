@@ -2,6 +2,10 @@ package com.polinema.psdku.springbootbackend.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "dosen")
 public class Dosen {
@@ -28,6 +32,14 @@ public class Dosen {
 
   @Column(name = "foto", length = 100)
   private String foto;
+
+  @OneToMany(mappedBy = "dosen", cascade = CascadeType.ALL)
+  @JsonIgnoreProperties("dosen")
+  private List<Pendidikan> pendidikan;
+
+  @OneToMany(mappedBy = "dosen", cascade = CascadeType.ALL)
+  @JsonIgnoreProperties("dosen")
+  private List<MataKuliah> mataKuliah;
 
   @Column(name = "email", length = 100)
   private String email;
@@ -119,6 +131,22 @@ public class Dosen {
 
   public void setFoto(String foto) {
     this.foto = foto;
+  }
+
+  public List<Pendidikan> getPendidikan() {
+    return pendidikan;
+  }
+
+  public void setPendidikan(List<Pendidikan> pendidikan) {
+    this.pendidikan = pendidikan;
+  }
+
+   public List<MataKuliah> getMataKuliah() {
+    return mataKuliah;
+  }
+
+  public void setMataKuliah(List<MataKuliah> mataKuliah) {
+    this.mataKuliah = mataKuliah;
   }
 
   public String getEmail() {

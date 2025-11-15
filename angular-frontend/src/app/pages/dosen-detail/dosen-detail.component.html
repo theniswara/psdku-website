@@ -1,0 +1,242 @@
+<div
+  class="w-full bg-[#0F2C56] text-white pt-16 pb-20 px-16 flex flex-col md:flex-row items-center md:items-start gap-10"
+>
+  <!-- Foto -->
+  <img
+    [src]="dosen?.foto || 'assets/default-foto.png'"
+    alt="Foto Dosen"
+    class="h-40 w-40 rounded-full object-cover border-4 border-white shadow-lg"
+  />
+
+  <!-- Info -->
+  <div class="flex flex-col justify-center">
+    <h1 class="text-3xl md:text-4xl font-biryani font-bold">
+      {{ dosen?.namaDosen }}
+    </h1>
+
+    <p class="mt-1 text-[#FF7F11] font-semibold text-lg">
+      {{ dosen?.prodi }}
+    </p>
+
+    <!-- Status -->
+    <div class="mt-3 flex items-center gap-2">
+      <span
+        class="h-3 w-3 rounded-full"
+        [ngClass]="isOnline(dosen) ? 'bg-green-400' : 'bg-gray-400'"
+      ></span>
+      <span class="text-white font-medium">
+        {{ isOnline(dosen) ? "Online" : "Offline" }}
+      </span>
+    </div>
+
+    <!-- Social Buttons -->
+    <div class="flex gap-3 mt-5 flex-wrap">
+      <button
+        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
+      >
+        LinkedIn
+      </button>
+
+      <button
+        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
+      >
+        Google Scholar
+      </button>
+
+      <button
+        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
+      >
+        Sinta
+      </button>
+
+      <button
+        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
+      >
+        Email
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white px-16 pt-8">
+  <div class="flex flex-wrap gap-4">
+    <button
+      (click)="activeTab = 'biodata'"
+      [class]="
+        activeTab === 'biodata'
+          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
+          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
+      "
+    >
+      Biodata
+    </button>
+
+    <button
+      (click)="activeTab = 'pendidikan'"
+      [class]="
+        activeTab === 'pendidikan'
+          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
+          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
+      "
+    >
+      Pendidikan
+    </button>
+
+    <button
+      (click)="activeTab = 'kontak'"
+      [class]="
+        activeTab === 'kontak'
+          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
+          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
+      "
+    >
+      Kontak
+    </button>
+
+    <button
+      (click)="activeTab = 'matkul'"
+      [class]="
+        activeTab === 'matkul'
+          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
+          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
+      "
+    >
+      Mata Kuliah
+    </button>
+  </div>
+</div>
+
+<div class="px-16 mt-8 mb-20">
+  <!-- BIODATA -->
+ <div *ngIf="activeTab === 'biodata'" 
+     class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
+
+  <h2 class="text-xl font-bold text-[#0F2C56] mb-6">Biodata Dosen</h2>
+
+  <!-- NIP -->
+  <div class="flex items-start space-x-3 mb-4">
+    <i class="fa-solid fa-id-card text-[#FF7F11] mt-1"></i>
+    <div>
+      <p class="text-sm text-gray-500">NIP</p>
+      <p class="font-medium text-[#0F2C56]">{{ dosen?.nip }}</p>
+    </div>
+  </div>
+
+  <!-- NIDN -->
+  <div class="flex items-start space-x-3 mb-4">
+    <i class="fa-solid fa-id-badge text-[#FF7F11] mt-1"></i>
+    <div>
+      <p class="text-sm text-gray-500">NIDN</p>
+      <p class="font-medium text-[#0F2C56]">{{ dosen?.nidn }}</p>
+    </div>
+  </div>
+
+  <!-- Prodi -->
+  <div class="flex items-start space-x-3 mb-4">
+    <i class="fa-solid fa-graduation-cap text-[#FF7F11] mt-1"></i>
+    <div>
+      <p class="text-sm text-gray-500">Program Studi</p>
+      <p class="font-medium text-[#0F2C56]">{{ dosen?.prodi }}</p>
+    </div>
+  </div>
+
+  <!-- Jabatan -->
+  <div class="flex items-start space-x-3">
+    <i class="fa-solid fa-briefcase text-[#FF7F11] mt-1"></i>
+    <div>
+      <p class="text-sm text-gray-500">Jabatan</p>
+      <p class="font-medium text-[#0F2C56]">{{ dosen?.jabatan }}</p>
+    </div>
+  </div>
+
+</div>
+
+  <!-- PENDIDIKAN -->
+  <div
+    *ngIf="activeTab === 'pendidikan'"
+    class="bg-white shadow-md rounded-xl p-8 border border-gray-200"
+  >
+    <h2 class="text-xl font-bold text-[#0F2C56] mb-4">Pendidikan</h2>
+
+    <ul class="space-y-4">
+  <li *ngFor="let p of dosen?.pendidikan"
+      class="p-4 border rounded-lg hover:shadow transition">
+
+    <p class="text-lg font-semibold text-[#0F2C56]">
+      {{ p.jenjang }} — {{ p.jurusan }}
+    </p>
+
+    <p class="text-sm text-gray-600">
+      {{ p.universitas }}  
+      ({{ p.tahunMulai }} - {{ p.tahunSelesai }})
+    </p>
+
+  </li>
+</ul>
+  </div>
+
+  <!-- KONTAK -->
+<div *ngIf="activeTab === 'kontak'" 
+     class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
+
+  <h2 class="text-xl font-bold text-[#0F2C56] mb-6">Kontak</h2>
+
+  <!-- Email -->
+  <div class="flex items-start space-x-3 mb-4">
+    <i class="fa-solid fa-envelope text-[#FF7F11] mt-1"></i>
+    <div>
+      <p class="text-sm text-gray-500">Email</p>
+      <p class="font-medium text-[#0F2C56]">{{ dosen?.email }}</p>
+    </div>
+  </div>
+
+  <!-- Alamat Kantor -->
+  <div class="flex items-start space-x-3 mb-4">
+    <i class="fa-solid fa-location-dot text-[#FF7F11] mt-1"></i>
+    <div>
+      <p class="text-sm text-gray-500">Alamat Kantor</p>
+      <p class="font-medium text-[#0F2C56]">{{ dosen?.alamatKantor }}</p>
+    </div>
+  </div>
+
+  <!-- Website -->
+  <div *ngIf="dosen?.website" class="flex items-start space-x-3">
+    <i class="fa-solid fa-globe text-[#FF7F11] mt-1"></i>
+    <div>
+      <p class="text-sm text-gray-500">Website</p>
+      <a 
+        [href]="dosen?.website" 
+        target="_blank" 
+        class="font-medium text-blue-600 hover:underline"
+      >
+        {{ dosen?.website }}
+      </a>
+    </div>
+  </div>
+
+</div>
+
+  <!-- MATA KULIAH -->
+  <div
+    *ngIf="activeTab === 'matkul'"
+    class="bg-white shadow-md rounded-xl p-8 border border-gray-200"
+  >
+    <h2 class="text-xl font-bold text-[#0F2C56] mb-4">Mata Kuliah</h2>
+
+    <div class="space-y-4">
+      <div
+        *ngFor="let mk of dosen?.mataKuliah"
+        class="p-4 border rounded-lg hover:shadow transition"
+      >
+        <p class="text-lg font-semibold text-[#0F2C56]">
+          {{ mk.namaMk }}
+        </p>
+
+        <p class="text-sm text-gray-600">
+          Semester:
+          <span class="font-medium text-[#FF7F11]">{{ mk.semester }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
