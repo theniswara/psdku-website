@@ -1,11 +1,11 @@
-<nav
-  class="sticky top-0 z-50 bg-[#0F2C56] text-white px-16 py-6 flex items-center justify-between shadow-md"
->
-  <!-- Logo + Text -->
-  <a routerLink="/" class="flex items-center space-x-3">
-    <img src="assets/logo.png" alt="Logo" class="h-12" />
+<nav class="sticky top-0 z-50 bg-[#0F2C56] text-white py-4 px-6 md:px-16 shadow-md">
+  <div class="flex items-center justify-between">
 
-    <div class="flex flex-col -translate-y-[-5px]">
+    <!-- Logo Section -->
+    <a routerLink="/" class="flex items-center space-x-3">
+      <img src="assets/logo.png" alt="Logo" class="h-12 md:h-14" />
+
+  <div class="flex flex-col -translate-y-[-5px]">
       <h1 class="text-lg font-bold leading-tight font-biryani">
         Politeknik Negeri Malang
       </h1>
@@ -15,69 +15,66 @@
     </div>
   </a>
 
-  <!-- Navigation Menu -->
-  <ul class="flex space-x-10 font-semibold font-biryani">
-
-    <!-- Profil Kampus -->
-    <li
-      routerLinkActive="text-[#FF7F11] font-bold"
-      [routerLinkActiveOptions]="{ exact: true }"
+    <!-- Mobile Menu Toggle -->
+    <button
+      class="md:hidden text-white focus:outline-none"
+      (click)="isMenuOpen = !isMenuOpen"
     >
-      <a routerLink="/" class="hover:text-[#FF7F11]">Profil Kampus</a>
-    </li>
+      <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+    </button>
 
-    <!-- Akademik (Dropdown) -->
-    <li
-      class="relative group"
-      routerLinkActive="text-[#FF7F11] font-bold"
-      [routerLinkActiveOptions]="{ exact: false }"
-    >
-      <!-- Parent label -->
-      <div class="cursor-pointer pb-2 hover:text-[#FF7F11]">
-        Akademik
-      </div>
+    <!-- Desktop Menu -->
+    <ul class="hidden md:flex space-x-10 font-semibold font-biryani">
+      <li routerLinkActive="text-[#FF7F11] font-bold" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/" class="hover:text-[#FF7F11]">Profil Kampus</a>
+      </li>
 
-      <!-- Dropdown -->
-      <div
-        class="absolute left-0 top-full hidden group-hover:block
-               bg-white text-[#0F2C56] rounded-md shadow-lg w-48 pt-3 pb-3 ps-2 pe-2"
-      >
-        <a
-          routerLink="/dosen"
-          routerLinkActive="bg-blue-100 font-bold text-[#0F2C56]"
-          class="block px-4 py-2 hover:bg-blue-100 rounded-md"
+      <li class="relative group" routerLinkActive="text-[#FF7F11] font-bold">
+        <div class="cursor-pointer pb-2 hover:text-[#FF7F11]">Akademik</div>
+        <div
+          class="absolute hidden group-hover:block left-0 top-full bg-white text-[#0F2C56] rounded-md shadow-lg w-48 pt-3 pb-3 ps-2 pe-2"
         >
-          Data Dosen
-        </a>
+          <a routerLink="/dosen" routerLinkActive="bg-blue-100 font-bold text-[#0F2C56]"
+            class="block px-4 py-2 hover:bg-blue-100 rounded-md">
+            Data Dosen
+          </a>
+          <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Program Studi</a>
+          <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Kurikulum</a>
+          <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Jadwal Kuliah</a>
+        </div>
+      </li>
 
-        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">
-          Program Studi
-        </a>
+      <li routerLinkActive="text-[#FF7F11] font-bold">
+        <a routerLink="/kemahasiswaan" class="hover:text-[#FF7F11]">Kemahasiswaan</a>
+      </li>
+      <li routerLinkActive="text-[#FF7F11] font-bold">
+        <a routerLink="/informasi" class="hover:text-[#FF7F11]">Informasi</a>
+      </li>
+      <li routerLinkActive="text-[#FF7F11] font-bold">
+        <a routerLink="/kontak" class="hover:text-[#FF7F11]">Kontak</a>
+      </li>
+    </ul>
+  </div>
 
-        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">
-          Kurikulum
-        </a>
+  <!-- MOBILE MENU -->
+  <div *ngIf="isMenuOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40" (click)="isMenuOpen = false"></div>
+  <div
+    *ngIf="isMenuOpen"
+    class="md:hidden fixed top-0 right-0 w-2/3 h-full bg-[#0F2C56] text-white flex flex-col space-y-4 pt-20 px-8 z-50 overflow-y-auto transition-all duration-300"
+  >
+    <a routerLink="/" class="hover:text-[#FF7F11]">Profil Kampus</a>
+    <span class="hover:text-[#FF7F11] cursor-pointer" (click)="isSubMenuOpen = !isSubMenuOpen">Akademik</span>
 
-        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">
-          Jadwal Kuliah
-        </a>
-      </div>
-    </li>
+    <!-- Sub Dropdown for Akademik (on mobile) -->
+    <div *ngIf="isSubMenuOpen" class="pl-4 space-y-2 text-sm mt-1">
+      <a routerLink="/dosen" class="block hover:text-[#FF7F11]">Data Dosen</a>
+      <a class="hover:text-[#FF7F11]">Program Studi</a>
+      <a class="hover:text-[#FF7F11]">Kurikulum</a>
+      <a class="hover:text-[#FF7F11]">Jadwal Kuliah</a>
+    </div>
 
-    <!-- Others -->
-    <li routerLinkActive="text-[#FF7F11] font-bold">
-      <a routerLink="/kemahasiswaan" class="hover:text-[#FF7F11]">
-        Kemahasiswaan
-      </a>
-    </li>
-
-    <li routerLinkActive="text-[#FF7F11] font-bold">
-      <a routerLink="/informasi" class="hover:text-[#FF7F11]">Informasi</a>
-    </li>
-
-    <li routerLinkActive="text-[#FF7F11] font-bold">
-      <a routerLink="/kontak" class="hover:text-[#FF7F11]">Kontak</a>
-    </li>
-
-  </ul>
+    <a routerLink="/kemahasiswaan" class="hover:text-[#FF7F11]">Kemahasiswaan</a>
+    <a routerLink="/informasi" class="hover:text-[#FF7F11]">Informasi</a>
+    <a routerLink="/kontak" class="hover:text-[#FF7F11]">Kontak</a>
+  </div>
 </nav>
