@@ -43,7 +43,5 @@ export class DosenDetailComponent implements OnInit {
       (d.statusPresensi === 'Hadir' ||
       (!!d.waktuMasuk && !d.waktuKeluar));
   }
-
-  
 }
 
