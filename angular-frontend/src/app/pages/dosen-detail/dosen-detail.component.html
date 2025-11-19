@@ -1,111 +1,106 @@
 <app-navbar></app-navbar>
 
 <div
-  class="w-full bg-[#051D47] text-white pt-16 pb-20 px-16 flex flex-col md:flex-row items-center md:items-start gap-10"
+  class="w-full bg-[#051D47] text-white pt-16 pb-20 px-6 md:px-16 flex flex-col md:flex-row items-center md:items-start gap-10"
 >
   <!-- Foto -->
   <img
     [src]="dosen?.foto || 'assets/default-foto.png'"
     alt="Foto Dosen"
-    class="h-40 w-40 rounded-full object-cover border-4 border-white shadow-lg"
+    class="h-40 w-40 md:h-48 md:w-48 rounded-full object-cover border-4 border-white shadow-lg"
   />
 
   <!-- Info -->
-  <div class="flex flex-col justify-center">
-    <h1 class="text-3xl md:text-4xl font-biryani font-bold">
+  <div class="flex flex-col justify-center text-center md:text-left">
+    <h1 class="text-3xl md:text-4xl font-biryani font-bold leading-tight">
       {{ dosen?.namaDosen }}
     </h1>
 
-    <p class="mt-1 text-[#FF7F11] font-semibold text-lg">
+    <p class="mt-2 text-[#FF7F11] font-semibold text-lg md:text-xl">
       {{ dosen?.prodi }}
     </p>
 
     <!-- Status -->
-    <div class="mt-3 flex items-center gap-2">
+    <div class="mt-3 flex justify-center md:justify-start items-center gap-2">
       <span
         class="h-3 w-3 rounded-full"
         [ngClass]="isOnline(dosen) ? 'bg-green-400' : 'bg-gray-400'"
       ></span>
-      <span class="text-white font-medium">
+      <span class="font-medium">
         {{ isOnline(dosen) ? "Online" : "Offline" }}
       </span>
     </div>
 
-    <!-- Social Buttons -->
-  <div class="flex gap-3 mt-5 flex-wrap">
-  <a *ngFor="let link of dosen?.linkEksternal"
-     [href]="link.url"
-     target="_blank"
-     class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition block">
-     
-     {{ link.namaPlatform }}
-  </a>
-</div>
+    <!-- Social Buttons (Dynamic) -->
+    <div class="flex gap-3 mt-5 flex-wrap justify-center md:justify-start">
+      <a
+        *ngFor="let link of dosen?.linkEksternal"
+        [href]="link.url"
+        target="_blank"
+        class="px-5 py-2 bg-white text-[#051D47] font-medium rounded-lg border hover:bg-gray-100 transition shadow-sm"
+      >
+        {{ link.namaPlatform }}
+      </a>
+    </div>
   </div>
 </div>
 
-<div class="bg-white px-16 pt-8">
-  <div class="flex flex-wrap gap-4">
+<div class="bg-white px-6 md:px-16 pt-8">
+  <div class="flex flex-wrap gap-3 md:gap-4">
+
     <button
       (click)="activeTab = 'biodata'"
-      [class]="
-        activeTab === 'biodata'
-          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
-          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
-      "
+      [ngClass]="activeTab === 'biodata'
+        ? 'px-5 py-2.5 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full shadow-sm'
+        : 'px-5 py-2.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100'"
     >
       Biodata
     </button>
 
     <button
       (click)="activeTab = 'pendidikan'"
-      [class]="
-        activeTab === 'pendidikan'
-          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
-          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
-      "
+      [ngClass]="activeTab === 'pendidikan'
+        ? 'px-5 py-2.5 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full shadow-sm'
+        : 'px-5 py-2.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100'"
     >
       Pendidikan
     </button>
 
     <button
       (click)="activeTab = 'kontak'"
-      [class]="
-        activeTab === 'kontak'
-          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
-          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
-      "
+      [ngClass]="activeTab === 'kontak'
+        ? 'px-5 py-2.5 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full shadow-sm'
+        : 'px-5 py-2.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100'"
     >
       Kontak
     </button>
 
     <button
       (click)="activeTab = 'matkul'"
-      [class]="
-        activeTab === 'matkul'
-          ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full'
-          : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'
-      "
+      [ngClass]="activeTab === 'matkul'
+        ? 'px-5 py-2.5 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full shadow-sm'
+        : 'px-5 py-2.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100'"
     >
       Mata Kuliah
     </button>
 
-    <button 
-  (click)="activeTab = 'sertifikasi'"
-  [class]="activeTab === 'sertifikasi' 
-           ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full' 
-           : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'">
-  Sertifikasi
-</button>
+    <button
+      (click)="activeTab = 'sertifikasi'"
+      [ngClass]="activeTab === 'sertifikasi'
+        ? 'px-5 py-2.5 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full shadow-sm'
+        : 'px-5 py-2.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100'"
+    >
+      Sertifikasi
+    </button>
 
-    <button 
-  (click)="activeTab = 'keahlian'"
-  [class]="activeTab === 'keahlian' 
-           ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full' 
-           : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'">
-  Bidang Keahlian
-</button>
-
+    <button
+      (click)="activeTab = 'keahlian'"
+      [ngClass]="activeTab === 'keahlian'
+        ? 'px-5 py-2.5 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full shadow-sm'
+        : 'px-5 py-2.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100'"
+    >
+      Keahlian
+    </button>
 
   </div>
 </div>
@@ -162,17 +157,17 @@
   >
     <h2 class="text-xl font-bold text-[#0F2C56] mb-4">Pendidikan</h2>
 
-    <ul class="space-y-4">
+   <ul class="space-y-4">
   <li *ngFor="let p of dosen?.pendidikan"
-      class="p-4 border rounded-lg hover:shadow transition">
+      class="p-4 border rounded-xl hover:shadow-md transition bg-white">
 
-    <p class="text-lg font-semibold text-[#0F2C56]">
-      {{ p.jenjang }} — {{ p.jurusan }}
+    <p class="text-lg font-semibold text-[#051D47]">
+      {{ p.jenjang }} – {{ p.jurusan }}
     </p>
 
     <p class="text-sm text-gray-600">
-      {{ p.universitas }}  
-      ({{ p.tahunMulai }} - {{ p.tahunSelesai }})
+      {{ p.universitas }}
+      ({{ p.tahunMulai }} – {{ p.tahunSelesai }})
     </p>
 
   </li>
@@ -248,15 +243,28 @@
 <div *ngIf="activeTab === 'sertifikasi'" 
      class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
 
-  <h2 class="text-xl font-bold text-[#0F2C56] mb-4">Sertifikasi</h2>
+  <h2 class="text-xl font-bold text-[#051D47] mb-6">Sertifikasi</h2>
 
-  <ul class="list-disc ml-6 space-y-2">
-    <li *ngFor="let s of dosen?.sertifikasi">
-      <p class="font-bold">{{ s.namaSertifikasi }}</p>
-      <p class="text-sm text-gray-600">Penerbit: {{ s.penerbit }}</p>
-      <p class="text-sm text-gray-600">Terbit: {{ s.tanggalTerbit }}</p>
-    </li>
-  </ul>
+  <div class="space-y-4">
+    <div *ngFor="let s of dosen?.sertifikasi"
+         class="p-4 border rounded-xl bg-white hover:shadow-md transition">
+
+      <p class="text-lg font-semibold text-[#051D47]">
+        {{ s.namaSertifikasi }}
+      </p>
+
+      <p class="text-sm text-gray-600">
+        Penerbit:
+        <span class="font-medium text-[#FF7F11]">{{ s.penerbit }}</span>
+      </p>
+
+      <p class="text-sm text-gray-600">
+        Terbit:
+        <span class="font-medium">{{ s.tanggalTerbit }}</span>
+      </p>
+
+    </div>
+  </div>
 
 </div>
 
@@ -264,15 +272,14 @@
 <div *ngIf="activeTab === 'keahlian'" 
      class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
 
-  <h2 class="text-xl font-bold text-[#0F2C56] mb-4">Bidang Keahlian</h2>
+  <h2 class="text-xl font-bold text-[#051D47] mb-6">Bidang Keahlian</h2>
 
   <div class="flex flex-wrap gap-3">
-  <span *ngFor="let b of dosen?.bidangKeahlian"
-        class="px-4 py-2 bg-[#0F2C56] text-white rounded-full text-sm">
-    {{ b.namaKeahlian }}
-  </span>
-</div>
-
+    <span *ngFor="let b of dosen?.bidangKeahlian"
+          class="px-4 py-2 bg-[#051D47] text-white rounded-full text-sm font-medium shadow-sm">
+      {{ b.namaKeahlian }}
+    </span>
+  </div>
 
 </div>
 
