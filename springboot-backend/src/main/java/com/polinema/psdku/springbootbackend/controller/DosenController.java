@@ -1,13 +1,18 @@
 package com.polinema.psdku.springbootbackend.controller;
 
 import com.polinema.psdku.springbootbackend.model.Dosen;
+import com.polinema.psdku.springbootbackend.repository.BidangKeahlianRepository;
 import com.polinema.psdku.springbootbackend.repository.DosenRepository;
+import com.polinema.psdku.springbootbackend.repository.LinkEksternalRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.polinema.psdku.springbootbackend.model.Presensi;
 import com.polinema.psdku.springbootbackend.repository.PresensiRepository;
+import com.polinema.psdku.springbootbackend.repository.SertifikasiRepository;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -47,6 +52,15 @@ public ResponseEntity<Dosen> getDosenById(@PathVariable int id) {
 
   @Autowired
   private PresensiRepository presensiRepository;
+
+  @Autowired
+private SertifikasiRepository sertifikasiRepository;
+
+@Autowired
+private BidangKeahlianRepository bidangKeahlianRepository;
+
+@Autowired
+private LinkEksternalRepository linkEksternalRepository;
 
   @GetMapping("/status-today")
   public List<Map<String, Object>> getDosenWithStatusToday() {

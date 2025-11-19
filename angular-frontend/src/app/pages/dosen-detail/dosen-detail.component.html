@@ -32,31 +32,15 @@
     </div>
 
     <!-- Social Buttons -->
-    <div class="flex gap-3 mt-5 flex-wrap">
-      <button
-        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
-      >
-        LinkedIn
-      </button>
-
-      <button
-        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
-      >
-        Google Scholar
-      </button>
-
-      <button
-        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
-      >
-        Sinta
-      </button>
-
-      <button
-        class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition"
-      >
-        Email
-      </button>
-    </div>
+  <div class="flex gap-3 mt-5 flex-wrap">
+  <a *ngFor="let link of dosen?.linkEksternal"
+     [href]="link.url"
+     target="_blank"
+     class="px-5 py-2 bg-white text-[#0F2C56] font-medium rounded-lg border hover:bg-gray-100 transition block">
+     
+     {{ link.namaPlatform }}
+  </a>
+</div>
   </div>
 </div>
 
@@ -105,6 +89,24 @@
     >
       Mata Kuliah
     </button>
+
+    <button 
+  (click)="activeTab = 'sertifikasi'"
+  [class]="activeTab === 'sertifikasi' 
+           ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full' 
+           : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'">
+  Sertifikasi
+</button>
+
+    <button 
+  (click)="activeTab = 'keahlian'"
+  [class]="activeTab === 'keahlian' 
+           ? 'px-6 py-2 border-2 border-[#FF7F11] text-[#FF7F11] font-semibold rounded-full' 
+           : 'px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100'">
+  Bidang Keahlian
+</button>
+
+
   </div>
 </div>
 
@@ -241,4 +243,38 @@
       </div>
     </div>
   </div>
+
+  <!-- SERTIFIKASI -->
+<div *ngIf="activeTab === 'sertifikasi'" 
+     class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
+
+  <h2 class="text-xl font-bold text-[#0F2C56] mb-4">Sertifikasi</h2>
+
+  <ul class="list-disc ml-6 space-y-2">
+    <li *ngFor="let s of dosen?.sertifikasi">
+      <p class="font-bold">{{ s.namaSertifikasi }}</p>
+      <p class="text-sm text-gray-600">Penerbit: {{ s.penerbit }}</p>
+      <p class="text-sm text-gray-600">Terbit: {{ s.tanggalTerbit }}</p>
+    </li>
+  </ul>
+
+</div>
+
+<!-- BIDANG KEAHLIAN -->
+<div *ngIf="activeTab === 'keahlian'" 
+     class="bg-white shadow-md rounded-xl p-8 border border-gray-200">
+
+  <h2 class="text-xl font-bold text-[#0F2C56] mb-4">Bidang Keahlian</h2>
+
+  <div class="flex flex-wrap gap-3">
+  <span *ngFor="let b of dosen?.bidangKeahlian"
+        class="px-4 py-2 bg-[#0F2C56] text-white rounded-full text-sm">
+    {{ b.namaKeahlian }}
+  </span>
+</div>
+
+
+</div>
+
+
 </div>
