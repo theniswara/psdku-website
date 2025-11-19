@@ -41,6 +41,18 @@ public class Dosen {
   @JsonIgnoreProperties("dosen")
   private List<MataKuliah> mataKuliah;
 
+  @OneToMany(mappedBy = "dosen", cascade = CascadeType.ALL)
+  @JsonIgnoreProperties("dosen")
+  private List<Sertifikasi> sertifikasi;
+
+  @OneToMany(mappedBy = "dosen", cascade = CascadeType.ALL)
+  @JsonIgnoreProperties("dosen")
+  private List<BidangKeahlian> bidangKeahlian;
+
+  @OneToMany(mappedBy = "dosen", cascade = CascadeType.ALL)
+  @JsonIgnoreProperties("dosen")
+  private List<LinkEksternal> linkEksternal;
+
   @Column(name = "email", length = 100)
   private String email;
 
@@ -141,13 +153,38 @@ public class Dosen {
     this.pendidikan = pendidikan;
   }
 
-   public List<MataKuliah> getMataKuliah() {
+  public List<MataKuliah> getMataKuliah() {
     return mataKuliah;
   }
 
   public void setMataKuliah(List<MataKuliah> mataKuliah) {
     this.mataKuliah = mataKuliah;
   }
+
+  public List<Sertifikasi> getSertifikasi() {
+    return sertifikasi;
+  }
+
+  public void setSertifikasi(List<Sertifikasi> sertifikasi) {
+    this.sertifikasi = sertifikasi;
+  }
+
+  public List<BidangKeahlian> getBidangKeahlian() {
+    return bidangKeahlian;
+  }
+
+  public void setBidangKeahlian(List<BidangKeahlian> bidangKeahlian) {
+    this.bidangKeahlian = bidangKeahlian;
+  }
+
+  public List<LinkEksternal> getLinkEksternal() {
+    return linkEksternal;
+}
+
+public void setLinkEksternal(List<LinkEksternal> linkEksternal) {
+    this.linkEksternal = linkEksternal;
+}
+
 
   public String getEmail() {
     return email;

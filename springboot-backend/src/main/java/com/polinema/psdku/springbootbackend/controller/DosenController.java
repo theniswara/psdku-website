@@ -27,7 +27,7 @@ public class DosenController {
 
   //POST new dosen
   @PostMapping
-  public Dosen addDosen(@RequestBody Dosen dosen) {
+  public Dosen addDosen(@RequestBody Dosen dosen) { 
     return dosenRepository.save(dosen);
   }
 
