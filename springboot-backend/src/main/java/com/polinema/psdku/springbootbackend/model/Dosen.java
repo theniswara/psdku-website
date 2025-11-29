@@ -62,9 +62,6 @@ public class Dosen {
   @Column(name = "website", length = 100)
   private String website;
 
-  @Column(name = "username", length = 100)
-  private String username;
-
   @Column(name = "password", length = 100)
   private String password;
 
@@ -73,8 +70,7 @@ public class Dosen {
   }
 
   public Dosen(String nip, String nidn, String namaDosen, String jabatan, String prodi,
-      String foto, String email, String alamatKantor, String website,
-      String username, String password) {
+      String foto, String email, String alamatKantor, String website, String password) {
     this.nip = nip;
     this.nidn = nidn;
     this.namaDosen = namaDosen;
@@ -84,7 +80,6 @@ public class Dosen {
     this.email = email;
     this.alamatKantor = alamatKantor;
     this.website = website;
-    this.username = username;
     this.password = password;
   }
 
@@ -208,14 +203,6 @@ public void setLinkEksternal(List<LinkEksternal> linkEksternal) {
 
   public void setWebsite(String website) {
     this.website = website;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
   }
 
   public String getPassword() {
