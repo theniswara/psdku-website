@@ -1,107 +1,144 @@
 <app-navbar></app-navbar>
 
-<div class="bg-[#051D47] text-white px-16 pt-20 pb-14 shadow-md">
+<div class="min-h-screen bg-gray-100 font-sans">
 
-  <h1 class="text-4xl font-biryani font-bold leading-tight">Data Dosen</h1>
-
-  <p class="text-gray-200 mt-2 text-lg">
-    Informasi lengkap dosen, kehadiran, dan kontak
-  </p>
-
-</div>
-
-<div class="px-16 py-14 bg-[#F8FAFC] min-h-screen">
-  <!-- Search + Filter -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Search Input -->
-    <div class="relative">
-      <input
-        type="text"
-        [(ngModel)]="searchKeyword"
-        class="w-full border-2 border-gray-300 rounded-xl py-3.5 pl-12 pr-4 text-[15px]
-               focus:ring-2 focus:ring-[#0F2C56] focus:border-[#0F2C56]
-               transition-all duration-150 bg-white"
-        placeholder="Cari nama dosen"
-      />
-      <span class="absolute left-4 top-3.5 text-gray-400">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </span>
-    </div>
-
-    <!-- Program Studi Filter -->
-    <div class="relative">
-      <select
-        [(ngModel)]="selectedProdi"
-        class="w-full border-2 border-gray-300 rounded-xl py-3.5 px-4 text-[15px]
-               focus:ring-2 focus:ring-[#0F2C56] focus:border-[#0F2C56]
-               appearance-none bg-white transition-all duration-150"
-      >
-        <option value="">Program Studi</option>
-        <option value="Teknologi Informasi">Teknologi Informasi</option>
-        <option value="Teknik Mesin">Teknik Mesin</option>
-        <option value="Administrasi Bisnis">Administrasi Bisnis</option>
-      </select>
-
-      <span class="pointer-events-none absolute right-4 top-3.5 text-gray-400">
-        <i class="fa-solid fa-chevron-down"></i>
-      </span>
+  <div class="bg-[#051D47] pt-24 pb-32 px-4 md:px-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+    <div class="absolute top-0 right-0 w-64 h-64 bg-[#FF7F11] rounded-full blur-[100px] opacity-20 translate-x-1/2 -translate-y-1/2"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-biryani font-bold text-white leading-tight mb-4">
+        Direktori Dosen
+      </h1>
+      <p class="text-blue-200 text-lg max-w-2xl mx-auto">
+        Cari dan temukan profil pengajar, jadwal konsultasi, dan bidang keahlian.
+      </p>
     </div>
   </div>
 
-  <!-- Dosen Card Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
-    <div
-      *ngFor="let d of dosenList | filterDosen : searchKeyword : selectedProdi"
-      class="rounded-2xl border border-gray-200 overflow-hidden bg-white 
-             shadow-[0_4px_12px_rgba(0,0,0,0.07)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.1)]
-             transition-all duration-200 cursor-pointer"
-    >
-      <!-- Top section (image + name) -->
-      <div class="p-5 flex items-center space-x-4 bg-[#E8F1F2]">
-        <img
-          [src]="d.foto ? d.foto : 'assets/Inggrid.jpg'"
-          class="h-16 w-16 rounded-full object-cover border"
-          alt="Dosen"
+  <div class="px-4 md:px-8 -mt-14 relative z-20 mb-16">
+    <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] p-3 md:p-4 flex flex-col md:flex-row gap-3 border border-gray-100">
+      
+      <div class="flex-1 relative group">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <i class="fa-solid fa-magnifying-glass text-gray-400 group-focus-within:text-[#FF7F11] transition-colors"></i>
+        </div>
+        <input
+          type="text"
+          [(ngModel)]="searchKeyword"
+          class="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-transparent text-gray-900 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-0 transition-all placeholder-gray-400 font-medium"
+          placeholder="Cari nama dosen, NIP, atau keahlian..."
         />
-        <div>
-          <h2 class="font-semibold font-biryani text-l text-[#0F2C56] leading-tight">
-            {{ d.namaDosen }}
-          </h2>
-          <p class="text-sm text-gray-500">{{ d.prodi }}</p>
-        </div>
       </div>
 
-      <!-- Bottom blue section -->
-      <div class="p-5 bg-[#0F2C56] text-white">
-        <!-- Status -->
-        <div class="flex items-center space-x-2">
-          <span
-            class="h-3 w-3 rounded-full"
-            [ngClass]="isOnline(d) ? 'bg-green-400' : 'bg-gray-400'"
-          ></span>
-          <p class="font-medium">{{ isOnline(d) ? "Online" : "Offline" }}</p>
+      <div class="md:w-1/3 relative group">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <i class="fa-solid fa-layer-group text-gray-400 group-focus-within:text-[#FF7F11] transition-colors"></i>
         </div>
-
-        <!-- Email -->
-        <div class="flex items-center space-x-2 mt-3 text-sm">
-          <i class="fa-solid fa-envelope text-[#FF7F11]"></i>
-          <span>{{ d.email }}</span>
-        </div>
-
-        <!-- Phone (dummy) -->
-        <div class="flex items-center space-x-2 text-sm mt-1">
-          <i class="fa-solid fa-phone text-[#FF7F11]"></i>
-          <span>+62 812 3456 7890</span>
-        </div>
-
-        <!-- Button -->
-        <button
-        [routerLink]="['/dosen', d.idDosen]"
-          class="mt-5 w-full bg-[#FF7F11] text-white py-2.5 rounded-lg font-semibold hover:bg-[#e57310] transition duration-200"
+        <select
+          [(ngModel)]="selectedProdi"
+          class="w-full pl-11 pr-10 py-3.5 bg-gray-50 border border-transparent text-gray-900 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-0 transition-all appearance-none cursor-pointer font-medium"
         >
-          Detail Profil
-        </button>
+          <option value="">Semua Program Studi</option>
+          <option value="Teknologi Informasi">Teknologi Informasi</option>
+          <option value="Teknik Mesin">Teknik Mesin</option>
+          <option value="Administrasi Bisnis">Administrasi Bisnis</option>
+        </select>
+        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+          <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+        </div>
       </div>
+
+    </div>
+    
+    <div class="max-w-7xl mx-auto mt-4 text-right px-2">
+       <p class="text-sm text-gray-500 font-medium">
+         Menampilkan <span class="font-bold text-[#051D47]">{{ (dosenList | filterDosen:searchKeyword:selectedProdi).length }}</span> Dosen
+       </p>
     </div>
   </div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-8 pb-24">
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+      
+      <div
+        *ngFor="let d of dosenList | filterDosen : searchKeyword : selectedProdi"
+        class="flex flex-col h-full rounded-2xl overflow-hidden bg-white shadow-[0_2px_15px_rgb(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300 group border border-gray-100"
+      >
+        
+        <div class="p-6 flex flex-col items-center text-center bg-white relative z-10">
+           <div class="relative mb-4">
+             <div *ngIf="isOnline(d)" class="absolute -inset-1 bg-green-400 rounded-full blur opacity-40 animate-pulse"></div>
+             <img
+               [src]="d.foto ? d.foto : 'assets/default-foto.png'"
+               class="relative h-24 w-24 rounded-full object-cover border-[3px] border-white shadow-lg"
+               alt="Foto Dosen"
+             />
+             <div class="absolute bottom-1 right-1 h-5 w-5 bg-white rounded-full flex items-center justify-center" title="Status">
+                <div class="h-3 w-3 rounded-full" [ngClass]="isOnline(d) ? 'bg-green-500' : 'bg-gray-300'"></div>
+             </div>
+           </div>
+
+           <h2 class="font-biryani font-bold text-xl text-[#051D47] leading-tight mb-1 group-hover:text-[#FF7F11] transition-colors">
+             {{ d.namaDosen }}
+           </h2>
+           <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
+             {{ d.jabatan }}
+           </p>
+           
+           <span class="inline-block px-3 py-1 rounded-lg bg-blue-50 text-[#051D47] text-xs font-bold border border-blue-100">
+             {{ d.prodi }}
+           </span>
+        </div>
+
+        <div class="mt-auto bg-[#051D47] text-white p-6 relative overflow-hidden flex flex-col">
+          
+          <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white opacity-[0.03] rounded-full blur-xl"></div>
+
+          <div class="space-y-4 mb-6 relative z-10">
+            <div class="flex items-center gap-3 text-sm text-gray-300">
+              <div class="w-6 h-6 rounded bg-white/10 flex items-center justify-center text-[#FF7F11]">
+                <i class="fa-solid fa-envelope text-xs"></i>
+              </div>
+              <span class="truncate">{{ d.email }}</span>
+            </div>
+            
+            <div class="flex items-center gap-3 text-sm text-gray-300">
+              <div class="w-6 h-6 rounded bg-white/10 flex items-center justify-center text-[#FF7F11]">
+                <i class="fa-solid fa-id-badge text-xs"></i>
+              </div>
+              <span>NIDN: {{ d.nidn || '-' }}</span>
+            </div>
+          </div>
+
+          <button
+            [routerLink]="['/dosen', d.idDosen]"
+            class="w-full py-3 bg-[#FF7F11] text-white rounded-xl font-bold text-sm shadow-lg hover:bg-white hover:text-[#051D47] transition-all duration-300 flex items-center justify-center gap-2 group/btn mt-auto"
+          >
+            Lihat Profil Lengkap
+            <i class="fa-solid fa-arrow-right transition-transform group-hover/btn:translate-x-1"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="(dosenList | filterDosen : searchKeyword : selectedProdi).length === 0" 
+         class="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center max-w-2xl mx-auto mt-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-50 text-[#FF7F11] mb-4">
+        <i class="fa-solid fa-user-magnifying-glass text-2xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-[#051D47] mb-2">Data Tidak Ditemukan</h3>
+      <p class="text-gray-500">
+        Coba gunakan kata kunci lain atau ubah filter program studi.
+      </p>
+      <button (click)="searchKeyword = ''; selectedProdi = ''" class="mt-6 text-[#051D47] font-bold underline decoration-[#FF7F11] hover:text-[#FF7F11] transition">
+        Reset Semua Filter
+      </button>
+    </div>
+
+  </div>
+
 </div>

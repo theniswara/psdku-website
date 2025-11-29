@@ -1,78 +1,163 @@
-<nav class="sticky top-0 z-50 bg-[#0F2C56] text-white px-6 md:px-16 py-4 md:py-6 flex items-center justify-between shadow-md">
-  <!-- Logo + Text -->
-  <a routerLink="/" class="flex items-center space-x-3">
-    <img src="assets/logo.png" alt="Logo" class="h-10 md:h-14" />
+<nav class="sticky top-0 z-50 w-full bg-[#0F2C56] text-white shadow-lg border-b border-white/10 font-biryani">
+  
+  <div class="px-4 md:px-8 lg:px-16 mx-auto">
+    <div class="flex items-center justify-between h-20">
+      
+      <a routerLink="/" class="flex items-center gap-3 h-full group select-none">
+        <img 
+          src="assets/logo.png" 
+          alt="Logo" 
+          class="h-10 md:h-12 w-auto object-contain drop-shadow-sm" 
+        />
 
-    <div class="flex flex-col translate-y-1">
-      <h1 class="text-base md:text-lg font-bold leading-tight font-biryani">Politeknik Negeri Malang</h1>
-      <p class="text-xs md:text-base text-[#FF7F11] font-bold font-biryani">PSDKU Lumajang</p>
-    </div>
-  </a>
+        <div class="flex flex-col justify-center h-full pt-1">
+          <h1 class="text-sm md:text-lg font-bold leading-none tracking-wide">
+            Politeknik Negeri Malang
+          </h1>
+          <p class="text-[10px] md:text-sm text-[#FF7F11] font-bold leading-none -mt-0.5 md:-mt-1 tracking-wider uppercase">
+            PSDKU Lumajang
+          </p>
+        </div>
+      </a>
 
-  <!-- Mobile Menu Toggle -->
-  <button class="md:hidden text-white focus:outline-none" (click)="isMenuOpen = !isMenuOpen">
-    <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
-  </button>
+      <ul class="hidden lg:flex items-center space-x-8 text-sm font-semibold">
+        
+        <li>
+          <a routerLink="/" routerLinkActive="text-[#FF7F11]" [routerLinkActiveOptions]="{ exact: true }" 
+             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group">
+            Profil Kampus
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF7F11] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
 
-  <!-- Desktop Menu -->
-  <ul class="hidden md:flex space-x-10 font-semibold font-biryani">
-    <li routerLinkActive="text-[#FF7F11] font-bold" [routerLinkActiveOptions]="{ exact: true }">
-      <a routerLink="/" class="hover:text-[#FF7F11]">Profil Kampus</a>
-    </li>
+        <li class="relative group h-full flex items-center cursor-pointer"
+            [class.text-[#FF7F11]]="rlaDosen.isActive">
+          
+          <div class="flex items-center gap-1 py-2 hover:text-[#FF7F11] transition-colors">
+            Akademik
+            <i class="fa-solid fa-chevron-down text-[10px] pt-0.5 transition-transform duration-300 group-hover:-rotate-180"></i>
+          </div>
 
-    <li class="relative group" routerLinkActive="text-[#FF7F11] font-bold">
-      <div class="cursor-pointer pb-2 hover:text-[#FF7F11]">Akademik</div>
-      <div
-        class="absolute hidden group-hover:block left-0 top-full bg-white text-[#0F2C56] rounded-md shadow-lg w-48 pt-3 pb-3 ps-2 pe-2">
-        <a
-          routerLink="/dosen"
-          routerLinkActive="bg-blue-100 font-bold text-[#0F2C56]"
-          class="block px-4 py-2 hover:bg-blue-100 rounded-md"
-        >Data Dosen</a>
-        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Program Studi</a>
-        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Kurikulum</a>
-        <a class="block px-4 py-2 hover:bg-blue-100 rounded-md">Jadwal Kuliah</a>
-      </div>
-    </li>
+          <div class="absolute top-full left-0 pt-6 w-56 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
+            <div class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden py-1">
+              
+              <a routerLink="/dosen" 
+                 routerLinkActive="bg-blue-50 text-[#FF7F11]" 
+                 #rlaDosen="routerLinkActive"
+                 class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors border-b border-gray-100">
+                 Data Dosen
+              </a>
 
-    <li routerLinkActive="text-[#FF7F11] font-bold">
-      <a
-        routerLink="/kemahasiswaan"
-        class="hover:text-[#FF7F11]"
-      >Kemahasiswaan</a>
-    </li>
+              <a class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors border-b border-gray-100">
+                Program Studi
+              </a>
+              <a class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors border-b border-gray-100">
+                Kurikulum
+              </a>
+              <a class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors">
+                Jadwal Kuliah
+              </a>
+            </div>
+          </div>
+        </li>
 
-    <li routerLinkActive="text-[#FF7F11] font-bold">
-      <a
-        routerLink="/informasi"
-        class="hover:text-[#FF7F11]"
-      >Informasi</a>
-    </li>
+        <li>
+          <a routerLink="/kemahasiswaan" routerLinkActive="text-[#FF7F11]" 
+             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group">
+            Kemahasiswaan
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF7F11] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
 
-    <li routerLinkActive="text-[#FF7F11] font-bold">
-      <a
-        routerLink="/kontak"
-        class="hover:text-[#FF7F11]"
-      >Kontak</a>
-    </li>
-  </ul>
-</nav>
+        <li>
+          <a routerLink="/informasi" routerLinkActive="text-[#FF7F11]" 
+             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group">
+            Informasi
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF7F11] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
 
-<!-- Mobile Menu -->
-<div *ngIf="isMenuOpen" class="bg-[#0F2C56] text-white md:hidden px-6 py-4 space-y-3 font-semibold font-biryani">
-  <a routerLink="/" routerLinkActive="text-[#FF7F11] font-bold" [routerLinkActiveOptions]="{ exact: true }" class="hover:text-[#FF7F11] block">Profil Kampus</a>
+        <li>
+          <a routerLink="/kontak" routerLinkActive="bg-[#FF7F11] border-[#FF7F11] text-white" 
+             class="px-6 py-2 border border-white/30 rounded-full hover:bg-[#FF7F11] hover:border-[#FF7F11] transition-all duration-300">
+            Kontak
+          </a>
+        </li>
+      </ul>
 
-  <div>
-    <span class="hover:text-[#FF7F11] cursor-pointer">Akademik</span>
-    <div class="pl-4 space-y-2 text-sm mt-2">
-      <a routerLink="/dosen" routerLinkActive="text-[#FF7F11] font-bold" class="block hover:text-[#FF7F11]">Data Dosen</a>
-      <a class="block hover:text-[#FF7F11]">Program Studi</a>
-      <a class="block hover:text-[#FF7F11]">Kurikulum</a>
-      <a class="block hover:text-[#FF7F11]">Jadwal Kuliah</a>
+      <button (click)="isMenuOpen = true" class="lg:hidden text-white p-2 focus:outline-none">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
     </div>
   </div>
+</nav>
 
-  <a routerLink="/kemahasiswaan" routerLinkActive="text-[#FF7F11] font-bold" class="hover:text-[#FF7F11] block">Kemahasiswaan</a>
-  <a routerLink="/informasi" routerLinkActive="text-[#FF7F11] font-bold" class="hover:text-[#FF7F11] block">Informasi</a>
-  <a routerLink="/kontak" routerLinkActive="text-[#FF7F11] font-bold" class="hover:text-[#FF7F11] block">Kontak</a>
+
+<div 
+  class="fixed inset-0 bg-black/60 z-[60] transition-opacity duration-300 lg:hidden"
+  [class.opacity-0]="!isMenuOpen" 
+  [class.opacity-100]="isMenuOpen"
+  [class.pointer-events-none]="!isMenuOpen"
+  (click)="isMenuOpen = false">
+</div>
+
+<div 
+  class="fixed top-0 right-0 h-full w-[280px] bg-[#0F2C56] z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out lg:hidden flex flex-col font-biryani"
+  [ngClass]="isMenuOpen ? 'translate-x-0' : 'translate-x-full'">
+  
+  <div class="flex items-center justify-between p-6 border-b border-white/10">
+    <span class="text-white font-bold text-lg">Menu</span>
+    <button (click)="isMenuOpen = false" class="h-8 w-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#FF7F11] transition-colors">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="flex-1 overflow-y-auto py-4 px-4 space-y-2">
+    
+    <a routerLink="/" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" [routerLinkActiveOptions]="{ exact: true }" 
+       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+       Profil Kampus
+    </a>
+
+    <div class="space-y-1">
+      <div class="block px-4 py-3 rounded-lg font-medium bg-white/5"
+           [class.text-[#FF7F11]]="rlaDosenMobile.isActive" 
+           [class.text-white]="!rlaDosenMobile.isActive">
+        Akademik
+      </div>
+      <div class="pl-8 space-y-1 border-l-2 border-white/10 ml-4">
+        <a routerLink="/dosen" 
+           #rlaDosenMobile="routerLinkActive"
+           (click)="isMenuOpen = false" 
+           routerLinkActive="text-[#FF7F11] font-bold" 
+           class="block px-4 py-2 text-gray-300 hover:text-white text-sm transition-colors">
+          Data Dosen
+        </a>
+        <a (click)="isMenuOpen = false" class="block px-4 py-2 text-gray-300 hover:text-white text-sm">Program Studi</a>
+        <a (click)="isMenuOpen = false" class="block px-4 py-2 text-gray-300 hover:text-white text-sm">Kurikulum</a>
+        <a (click)="isMenuOpen = false" class="block px-4 py-2 text-gray-300 hover:text-white text-sm">Jadwal Kuliah</a>
+      </div>
+    </div>
+
+    <a routerLink="/kemahasiswaan" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" 
+       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+       Kemahasiswaan
+    </a>
+
+    <a routerLink="/informasi" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" 
+       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+       Informasi
+    </a>
+
+    <a routerLink="/kontak" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" 
+       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+       Kontak
+    </a>
+  </div>
+
+  <div class="p-6 border-t border-white/10 text-center">
+     <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+       Polinema PSDKU Lumajang
+     </p>
+  </div>
 </div>
