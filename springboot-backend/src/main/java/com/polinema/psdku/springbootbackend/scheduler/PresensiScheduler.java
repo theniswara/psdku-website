@@ -17,7 +17,7 @@ public class PresensiScheduler {
     private PresensiRepository presensiRepository;
 
     // AUTO-PULANG jam 17:00 WIB setiap hari
-    @Scheduled(cron = "0 0 17 * * *", zone = "Asia/Jakarta")
+    @Scheduled(cron = "0 */1 * * * *", zone = "Asia/Jakarta")
     public void autoLogoutDosen() {
 
         LocalDate today = LocalDate.now();
