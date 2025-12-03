@@ -95,5 +95,63 @@ private LinkEksternalRepository linkEksternalRepository;
 
     return output;
   }
+  // =======================
+// PRESENSI: ABSEN MASUK
+// =======================
+@PostMapping("/presensi/masuk")
+public ResponseEntity<?> presensiMasuk(@RequestBody Map<String, Integer> req) {
+    int idDosen = req.get("idDosen");
+    LocalDate today = LocalDate.now();
+
+    Optional<Presensi> existing = presensiRepository.findByIdDosenAndTanggal(idDosen, today);
+    if (existing.isPresent()) {
+        return ResponseEntity.status(400).body("Sudah absen masuk hari ini");
+    }
+
+    Presensi p = new Presensi();
+    p.setIdDosen(idDosen);
+    p.setTanggal(today);
+    p.setWaktuMasuk(java.time.LocalDateTime.now());
+    p.setStatusPresensi("Hadir");
+
+    return ResponseEntity.ok(presensiRepository.save(p));
+}
+
+
+// =======================
+// PRESENSI: ABSEN KELUAR
+// =======================
+@PostMapping("/presensi/keluar")
+public ResponseEntity<?> presensiKeluar(@RequestBody Map<String, Integer> req) {
+    int idDosen = req.get("idDosen");
+    LocalDate today = LocalDate.now();
+
+    Optional<Presensi> existing = presensiRepository.findByIdDosenAndTanggal(idDosen, today);
+    if (existing.isEmpty()) {
+        return ResponseEntity.status(400).body("Belum absen masuk");
+    }
+
+    Presensi p = existing.get();
+    p.setWaktuKeluar(java.time.LocalDateTime.now());
+    p.setStatusPresensi("Pulang");
+
+    return ResponseEntity.ok(presensiRepository.save(p));
+}
+
+
+// =======================
+// PRESENSI: GET STATUS HARI INI
+// =======================
+@GetMapping("/presensi/status/{id}")
+public ResponseEntity<?> getStatusHariIni(@PathVariable int id) {
+    LocalDate today = LocalDate.now();
+
+    Optional<Presensi> existing = presensiRepository.findByIdDosenAndTanggal(id, today);
+    if (existing.isEmpty()) {
+        return ResponseEntity.ok("Belum Hadir");
+    }
+
+    return ResponseEntity.ok(existing.get());
+}
 
 }

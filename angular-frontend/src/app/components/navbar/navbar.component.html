@@ -1,17 +1,17 @@
-<nav class="sticky top-0 z-50 w-full bg-[#0F2C56] text-white shadow-lg border-b border-white/10 font-biryani">
+<nav class="sticky top-0 z-50 w-full bg-[#0F2C56] text-white shadow-lg border-b border-white/10 font-biryani transition-all duration-300">
   
   <div class="px-4 md:px-8 lg:px-16 mx-auto">
     <div class="flex items-center justify-between h-20">
       
-      <a routerLink="/" class="flex items-center gap-3 h-full group select-none">
+      <a routerLink="/" class="flex items-center gap-3 h-full select-none outline-none focus-visible:ring-2 focus-visible:ring-[#FF7F11] rounded-lg px-2">
         <img 
           src="assets/logo.png" 
-          alt="Logo" 
-          class="h-10 md:h-12 w-auto object-contain drop-shadow-sm" 
+          alt="Logo Polinema" 
+          class="h-10 md:h-12 w-auto object-contain" 
         />
 
         <div class="flex flex-col justify-center h-full pt-1">
-          <h1 class="text-sm md:text-lg font-bold leading-none tracking-wide">
+          <h1 class="text-sm md:text-lg font-bold leading-none tracking-wide text-white">
             Politeknik Negeri Malang
           </h1>
           <p class="text-[10px] md:text-sm text-[#FF7F11] font-bold leading-none -mt-0.5 md:-mt-1 tracking-wider uppercase">
@@ -24,37 +24,38 @@
         
         <li>
           <a routerLink="/" routerLinkActive="text-[#FF7F11]" [routerLinkActiveOptions]="{ exact: true }" 
-             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group">
+             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group outline-none focus-visible:text-[#FF7F11]">
             Profil Kampus
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF7F11] transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
 
-        <li class="relative group h-full flex items-center cursor-pointer"
+        <li class="relative group/dropdown h-full flex items-center cursor-pointer"
             [class.text-[#FF7F11]]="rlaDosen.isActive">
           
           <div class="flex items-center gap-1 py-2 hover:text-[#FF7F11] transition-colors">
             Akademik
-            <i class="fa-solid fa-chevron-down text-[10px] pt-0.5 transition-transform duration-300 group-hover:-rotate-180"></i>
+            <i class="fa-solid fa-chevron-down text-[10px] pt-0.5 transition-transform duration-300 group-hover/dropdown:-rotate-180"></i>
           </div>
 
-          <div class="absolute top-full left-0 pt-6 w-56 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-            <div class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden py-1">
+          <div class="absolute top-full left-0 pt-4 w-60 invisible group-hover/dropdown:visible opacity-0 group-hover/dropdown:opacity-100 transition-all duration-200 transform translate-y-4 group-hover/dropdown:translate-y-0 z-50">
+            
+            <div class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2">
               
               <a routerLink="/dosen" 
-                 routerLinkActive="bg-blue-50 text-[#FF7F11]" 
                  #rlaDosen="routerLinkActive"
-                 class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors border-b border-gray-100">
+                 routerLinkActive="border-l-4 border-[#FF7F11] bg-orange-50 text-[#FF7F11] font-bold" 
+                 class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-gray-50 hover:text-[#FF7F11] hover:pl-6 transition-all duration-200 border-b border-gray-50 last:border-0">
                  Data Dosen
               </a>
 
-              <a class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors border-b border-gray-100">
+              <a class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-gray-50 hover:text-[#FF7F11] hover:pl-6 transition-all duration-200 border-b border-gray-50 last:border-0 cursor-pointer">
                 Program Studi
               </a>
-              <a class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors border-b border-gray-100">
+              <a class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-gray-50 hover:text-[#FF7F11] hover:pl-6 transition-all duration-200 border-b border-gray-50 last:border-0 cursor-pointer">
                 Kurikulum
               </a>
-              <a class="block px-4 py-3 hover:bg-gray-50 hover:text-[#FF7F11] transition-colors">
+              <a class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-gray-50 hover:text-[#FF7F11] hover:pl-6 transition-all duration-200 cursor-pointer">
                 Jadwal Kuliah
               </a>
             </div>
@@ -63,7 +64,7 @@
 
         <li>
           <a routerLink="/kemahasiswaan" routerLinkActive="text-[#FF7F11]" 
-             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group">
+             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group outline-none focus-visible:text-[#FF7F11]">
             Kemahasiswaan
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF7F11] transition-all duration-300 group-hover:w-full"></span>
           </a>
@@ -71,30 +72,29 @@
 
         <li>
           <a routerLink="/informasi" routerLinkActive="text-[#FF7F11]" 
-             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group">
+             class="relative py-2 hover:text-[#FF7F11] transition-colors duration-200 group outline-none focus-visible:text-[#FF7F11]">
             Informasi
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF7F11] transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
 
         <li>
-          <a routerLink="/kontak" routerLinkActive="bg-[#FF7F11] border-[#FF7F11] text-white" 
-             class="px-6 py-2 border border-white/30 rounded-full hover:bg-[#FF7F11] hover:border-[#FF7F11] transition-all duration-300">
+          <a routerLink="/kontak" routerLinkActive="bg-[#FF7F11] border-[#FF7F11] text-white shadow-lg" 
+             class="px-6 py-2.5 text-xs font-bold uppercase tracking-wide border border-white/30 rounded-full hover:bg-[#FF7F11] hover:border-[#FF7F11] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
             Kontak
           </a>
         </li>
       </ul>
 
-      <button (click)="isMenuOpen = true" class="lg:hidden text-white p-2 focus:outline-none">
+      <button (click)="isMenuOpen = true" class="lg:hidden text-white p-2 focus:outline-none hover:text-[#FF7F11] transition-colors">
         <i class="fa-solid fa-bars text-xl"></i>
       </button>
     </div>
   </div>
 </nav>
 
-
 <div 
-  class="fixed inset-0 bg-black/60 z-[60] transition-opacity duration-300 lg:hidden"
+  class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300 lg:hidden"
   [class.opacity-0]="!isMenuOpen" 
   [class.opacity-100]="isMenuOpen"
   [class.pointer-events-none]="!isMenuOpen"
@@ -102,62 +102,53 @@
 </div>
 
 <div 
-  class="fixed top-0 right-0 h-full w-[280px] bg-[#0F2C56] z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out lg:hidden flex flex-col font-biryani"
+  class="fixed top-0 right-0 h-full w-[280px] bg-[#0F2C56] z-[70] shadow-2xl transform transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) lg:hidden flex flex-col font-biryani border-l border-white/10"
   [ngClass]="isMenuOpen ? 'translate-x-0' : 'translate-x-full'">
   
-  <div class="flex items-center justify-between p-6 border-b border-white/10">
-    <span class="text-white font-bold text-lg">Menu</span>
-    <button (click)="isMenuOpen = false" class="h-8 w-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#FF7F11] transition-colors">
+  <div class="flex items-center justify-between p-6 border-b border-white/10 bg-[#0A1F3D]">
+    <span class="text-white font-bold text-lg tracking-wide">Menu Utama</span>
+    <button (click)="isMenuOpen = false" class="h-8 w-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#FF7F11] hover:rotate-90 transition-all duration-300">
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
 
   <div class="flex-1 overflow-y-auto py-4 px-4 space-y-2">
-    
-    <a routerLink="/" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" [routerLinkActiveOptions]="{ exact: true }" 
-       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+    <a routerLink="/" (click)="isMenuOpen = false" routerLinkActive="bg-[#FF7F11] text-white shadow-md" [routerLinkActiveOptions]="{ exact: true }" 
+       class="block px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-all font-medium">
        Profil Kampus
     </a>
 
-    <div class="space-y-1">
-      <div class="block px-4 py-3 rounded-lg font-medium bg-white/5"
-           [class.text-[#FF7F11]]="rlaDosenMobile.isActive" 
-           [class.text-white]="!rlaDosenMobile.isActive">
-        Akademik
+    <div class="space-y-1 bg-black/20 rounded-lg overflow-hidden">
+      <div class="block px-4 py-3 font-medium flex justify-between items-center text-gray-300"
+           [class.text-[#FF7F11]]="rlaDosenMobile.isActive">
+        <span>Akademik</span>
+        <i class="fa-solid fa-chevron-down text-xs opacity-50"></i>
       </div>
-      <div class="pl-8 space-y-1 border-l-2 border-white/10 ml-4">
+      
+      <div class="bg-black/20">
         <a routerLink="/dosen" 
            #rlaDosenMobile="routerLinkActive"
            (click)="isMenuOpen = false" 
-           routerLinkActive="text-[#FF7F11] font-bold" 
-           class="block px-4 py-2 text-gray-300 hover:text-white text-sm transition-colors">
+           routerLinkActive="text-[#FF7F11] font-bold border-l-4 border-[#FF7F11] bg-white/5" 
+           class="block pl-8 pr-4 py-3 text-gray-400 hover:text-white text-sm transition-colors border-l-4 border-transparent hover:border-gray-600">
           Data Dosen
         </a>
-        <a (click)="isMenuOpen = false" class="block px-4 py-2 text-gray-300 hover:text-white text-sm">Program Studi</a>
-        <a (click)="isMenuOpen = false" class="block px-4 py-2 text-gray-300 hover:text-white text-sm">Kurikulum</a>
-        <a (click)="isMenuOpen = false" class="block px-4 py-2 text-gray-300 hover:text-white text-sm">Jadwal Kuliah</a>
+        <a (click)="isMenuOpen = false" class="block pl-8 pr-4 py-3 text-gray-400 hover:text-white text-sm border-l-4 border-transparent hover:border-gray-600">Program Studi</a>
+        <a (click)="isMenuOpen = false" class="block pl-8 pr-4 py-3 text-gray-400 hover:text-white text-sm border-l-4 border-transparent hover:border-gray-600">Kurikulum</a>
       </div>
     </div>
 
-    <a routerLink="/kemahasiswaan" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" 
-       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+    <a routerLink="/kemahasiswaan" (click)="isMenuOpen = false" routerLinkActive="bg-[#FF7F11] text-white shadow-md" 
+       class="block px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-all font-medium">
        Kemahasiswaan
     </a>
-
-    <a routerLink="/informasi" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" 
-       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+    <a routerLink="/informasi" (click)="isMenuOpen = false" routerLinkActive="bg-[#FF7F11] text-white shadow-md" 
+       class="block px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-all font-medium">
        Informasi
     </a>
-
-    <a routerLink="/kontak" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-[#FF7F11]" 
-       class="block px-4 py-3 rounded-lg text-white hover:bg-white/5 transition-colors font-medium">
+    <a routerLink="/kontak" (click)="isMenuOpen = false" routerLinkActive="bg-[#FF7F11] text-white shadow-md" 
+       class="block px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-all font-medium">
        Kontak
     </a>
-  </div>
-
-  <div class="p-6 border-t border-white/10 text-center">
-     <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
-       Polinema PSDKU Lumajang
-     </p>
   </div>
 </div>

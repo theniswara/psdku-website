@@ -1,0 +1,48 @@
+<div class="min-h-screen bg-gray-100 py-10 px-6">
+
+  <div class="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
+    
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-[#051D47]">Dashboard Dosen</h2>
+
+      <button
+        (click)="logout()"
+        class="bg-red-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-red-600 transition">
+        Logout
+      </button>
+    </div>
+
+    <!-- INFO DOSEN -->
+    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+      <p><strong>Nama:</strong> {{ dosen?.namaDosen }}</p>
+      <p><strong>Prodi:</strong> {{ dosen?.prodi }}</p>
+      <p><strong>NIDN:</strong> {{ dosen?.nidn }}</p>
+    </div>
+
+    <hr class="my-6">
+
+    <!-- PRESENSI -->
+    <div *ngIf="loading" class="text-gray-500">Memuat status presensi...</div>
+
+    <div *ngIf="!loading" class="bg-gray-50 border rounded-lg p-4">
+      <h3 class="text-xl font-semibold mb-3">Presensi Hari Ini</h3>
+
+      <p><strong>Status:</strong> 
+        <span 
+          class="px-2 py-1 rounded text-white"
+          [ngClass]="{
+            'bg-green-600': presensi?.statusPresensi === 'Hadir',
+            'bg-gray-500': !presensi?.statusPresensi
+          }"
+        >
+          {{ presensi?.statusPresensi || 'Belum Presensi' }}
+        </span>
+      </p>
+
+      <p class="mt-2"><strong>Masuk:</strong> {{ presensi?.waktuMasuk || '-' }}</p>
+      <p class="mt-1"><strong>Keluar:</strong> {{ presensi?.waktuKeluar || '-' }}</p>
+    </div>
+
+  </div>
+
+</div>
