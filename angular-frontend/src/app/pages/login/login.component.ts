@@ -41,4 +41,6 @@ export class LoginComponent {
       },
     });
   }
+
+showPassword = false;
 }
