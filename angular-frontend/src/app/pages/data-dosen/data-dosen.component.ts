@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 
 import { DosenService } from '../../services/dosen.service';
 import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
@@ -41,19 +42,37 @@ export class DataDosenComponent implements OnInit {
 
   loadDosen(): void {
      this.loading = true;
-  this.error = '';
+    this.error = '';
 
-  this.dosenService.getStatusToday().subscribe({
-    next: (statusList) => {
-      this.dosenList = statusList;
-      this.loading = false;
-    },
-    error: (err) => {
-      console.error(err);
-      this.error = 'Gagal memuat data presensi';
-      this.loading = false;
-    }
-  });
+    // Load full dosen data and today's status, then merge so the list shows nidn and
+    // still has statusPresensi / waktuMasuk / waktuKeluar when available.
+    forkJoin({
+      dosenAll: this.dosenService.getAllDosen(),
+      statusAll: this.dosenService.getStatusToday()
+    }).subscribe({
+      next: ({ dosenAll, statusAll }) => {
+        const statusMap = new Map<any, any>();
+        (statusAll || []).forEach((s: any) => {
+          // prefer idDosen property as key, fallback to id
+          const key = s.idDosen ?? s.id;
+          if (key != null) statusMap.set(key, s);
+        });
+
+        this.dosenList = (dosenAll || []).map((d: any) => {
+          const key = d.idDosen ?? d.id;
+          const status = statusMap.get(key) || {};
+          // merge status fields onto the dosen object (non-destructive)
+          return { ...d, ...status };
+        });
+
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.error = 'Gagal memuat data dosen';
+        this.loading = false;
+      }
+    });
   }
 
   getStatusLabel(d: any): string {
