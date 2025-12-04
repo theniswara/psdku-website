@@ -1,0 +1,107 @@
+<div class="max-w-3xl mx-auto p-6">
+  <h2 class="text-2xl font-bold mb-6">Tambah Dosen Baru</h2>
+
+  <form (ngSubmit)="submit()" class="space-y-4">
+
+    <div>
+      <label>Nama Dosen</label>
+      <input class="w-full border p-2 rounded"
+             [(ngModel)]="dosen.namaDosen"
+             name="namaDosen"
+             required />
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label>NIP</label>
+        <input class="w-full border p-2 rounded"
+               [(ngModel)]="dosen.nip"
+               name="nip" />
+      </div>
+
+      <div>
+        <label>NIDN</label>
+        <input class="w-full border p-2 rounded"
+               [(ngModel)]="dosen.nidn"
+               name="nidn" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label>Jabatan</label>
+        <input class="w-full border p-2 rounded"
+               [(ngModel)]="dosen.jabatan"
+               name="jabatan" />
+      </div>
+
+      <div>
+        <label>Prodi</label>
+        <input class="w-full border p-2 rounded"
+               [(ngModel)]="dosen.prodi"
+               name="prodi"
+               required />
+      </div>
+    </div>
+
+    <div>
+      <label>Email</label>
+      <input class="w-full border p-2 rounded"
+             type="email"
+             [(ngModel)]="dosen.email"
+             name="email" />
+    </div>
+
+    <div>
+      <label>Alamat Kantor</label>
+      <input class="w-full border p-2 rounded"
+             [(ngModel)]="dosen.alamatKantor"
+             name="alamatKantor" />
+    </div>
+
+    <div>
+      <label>Foto URL (optional)</label>
+      <input class="w-full border p-2 rounded"
+             [(ngModel)]="dosen.foto"
+             name="foto" />
+    </div>
+
+    <div>
+      <label>Website (optional)</label>
+      <input class="w-full border p-2 rounded"
+             [(ngModel)]="dosen.website"
+             name="website" />
+    </div>
+
+    <hr />
+
+    <h3 class="text-lg font-semibold">Akun Login Dosen</h3>
+
+    <div>
+      <label>Username</label>
+      <input class="w-full border p-2 rounded"
+             [(ngModel)]="dosen.username"
+             name="username"
+             required />
+    </div>
+
+    <div>
+      <label>Password</label>
+      <input class="w-full border p-2 rounded"
+             type="password"
+             [(ngModel)]="dosen.password"
+             name="password"
+             required />
+    </div>
+
+    <div *ngIf="errorMsg" class="text-red-600 font-semibold">
+      {{ errorMsg }}
+    </div>
+
+    <button type="submit"
+            [disabled]="loading"
+            class="bg-blue-600 text-white px-4 py-2 rounded">
+      {{ loading ? 'Menyimpan...' : 'Simpan Dosen' }}
+    </button>
+  </form>
+</div>

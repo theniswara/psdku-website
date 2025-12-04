@@ -20,7 +20,8 @@ public class Pendidikan {
 
   private int tahunMulai;
 
-  private int tahunSelesai;
+  @Column(nullable = true)
+  private Integer tahunSelesai;
 
   // RELASI KE DOSEN
   @ManyToOne
@@ -69,11 +70,11 @@ public class Pendidikan {
     this.tahunMulai = tahunMulai;
   }
 
-  public int getTahunSelesai() {
+  public Integer getTahunSelesai() {
     return tahunSelesai;
   }
 
-  public void setTahunSelesai(int tahunSelesai) {
+  public void setTahunSelesai(Integer tahunSelesai) {
     this.tahunSelesai = tahunSelesai;
   }
 

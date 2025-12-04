@@ -1,0 +1,23 @@
+<div *ngIf="visible" class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="bg-white rounded-lg p-6 z-10 w-full max-w-md">
+    <h3 class="text-lg font-bold mb-4">{{ model.idPendidikan ? 'Edit Pendidikan' : 'Tambah Pendidikan' }}</h3>
+
+    <div class="space-y-3">
+      <input [(ngModel)]="model.jenjang" name="jenjang" placeholder="Jenjang (S1/S2/...)" class="w-full border p-2 rounded" />
+      <input [(ngModel)]="model.universitas" name="universitas" placeholder="Universitas" class="w-full border p-2 rounded" />
+      <input [(ngModel)]="model.jurusan" name="jurusan" placeholder="Jurusan" class="w-full border p-2 rounded" />
+      <div class="grid grid-cols-2 gap-2">
+        <input [(ngModel)]="model.tahunMulai" name="tahunMulai" placeholder="Tahun Mulai" class="w-full border p-2 rounded" />
+        <input [(ngModel)]="model.tahunSelesai" name="tahunSelesai" placeholder="Tahun Selesai" class="w-full border p-2 rounded" />
+      </div>
+    </div>
+
+    <div class="mt-4 flex justify-end gap-2">
+      <button (click)="onCancel()" class="px-4 py-2 rounded border">Batal</button>
+      <button (click)="onSave()" [disabled]="saving" class="px-4 py-2 rounded bg-blue-600 text-white">
+        {{ saving ? 'Menyimpan...' : 'Simpan' }}
+      </button>
+    </div>
+  </div>
+</div>

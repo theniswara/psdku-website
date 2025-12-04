@@ -1,48 +1,209 @@
-<div class="min-h-screen bg-gray-100 py-10 px-6">
+<div class="min-h-screen bg-[#F8FAFC] flex font-['Inter']">
 
-  <div class="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
+  <aside class="hidden lg:flex flex-col w-72 bg-[#051D47] text-white fixed h-full z-30">
+    <div class="h-20 flex items-center gap-3 px-8 border-b border-white/10">
+      <img src="assets/logo.png" alt="Logo" class="h-8 w-auto">
+      <div>
+        <h1 class="font-['Biryani'] font-bold text-lg leading-none">Siakad</h1>
+        <span class="text-[10px] text-[#FF7F11] font-bold tracking-widest uppercase">Dosen Portal</span>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-4 py-6 space-y-2">
+      
+      <a href="#" class="flex items-center gap-3 px-4 py-3 bg-[#FF7F11] text-white rounded-xl shadow-lg shadow-orange-900/20 font-medium transition-all">
+        <i class="fa-solid fa-gauge-high w-5 text-center"></i> Dashboard
+      </a>
+      
+      <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium group">
+        <i class="fa-solid fa-calendar-days w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> Jadwal Mengajar
+      </a>
+      
+      <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium group">
+        <i class="fa-solid fa-user-graduate w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> Perwalian
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium group">
+        <i class="fa-solid fa-file-invoice w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> Input Nilai
+      </a>
+
+    </nav>
+
+    <div class="p-4 border-t border-white/10">
+      <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/5">
+        <img [src]="dosen?.foto || 'assets/default-user.png'" class="h-10 w-10 rounded-full border-2 border-[#FF7F11]">
+        <div class="overflow-hidden">
+          <p class="text-sm font-bold truncate">{{ dosen?.namaDosen }}</p>
+          <p class="text-xs text-gray-400 truncate">{{ dosen?.nidn }}</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="flex-1 lg:ml-72 p-4 md:p-8">
     
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-2xl font-bold text-[#051D47]">Dashboard Dosen</h2>
-
-      <button
-        (click)="logout()"
-        class="bg-red-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-red-600 transition">
-        Logout
+    <header class="flex justify-between items-center mb-8">
+      <div>
+        <h2 class="text-2xl font-['Biryani'] font-bold text-[#051D47]">Overview</h2>
+        <p class="text-gray-500 text-sm">Selamat datang kembali, Bapak/Ibu Dosen.</p>
+      </div>
+      
+      <button (click)="logout()" class="group flex items-center gap-2 px-5 py-2.5 bg-white border border-red-100 text-red-600 rounded-xl font-bold text-sm hover:bg-red-50 hover:border-red-200 transition-all shadow-sm">
+        <i class="fa-solid fa-arrow-right-from-bracket group-hover:-translate-x-1 transition-transform"></i>
+        <span class="hidden md:inline">Logout</span>
       </button>
+    </header>
+
+    <div class="relative rounded-3xl bg-[#051D47] overflow-hidden p-8 md:p-10 mb-8 shadow-xl shadow-blue-900/10">
+       <div class="absolute top-0 right-0 w-64 h-64 bg-[#FF7F11] rounded-full blur-[100px] opacity-20 translate-x-1/3 -translate-y-1/3"></div>
+       <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+       
+       <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+         <div>
+           <span class="inline-block px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-xs font-bold text-[#FF7F11] mb-3 uppercase tracking-wider">
+             Semester Ganjil 2024/2025
+           </span>
+           <h3 class="text-3xl font-['Biryani'] font-bold text-white leading-tight">
+             Halo, {{ dosen?.namaDosen || 'Dosen' }}! 👋
+           </h3>
+           <p class="text-blue-100 mt-2 max-w-xl">
+             Anda memiliki <span class="text-white font-bold border-b border-[#FF7F11]">2 Jadwal Mengajar</span> hari ini. Jangan lupa melakukan presensi sebelum memulai kelas.
+           </p>
+         </div>
+         
+         <div class="hidden md:block text-right">
+           <p class="text-blue-200 text-sm font-medium">Total SKS Diampu</p>
+           <p class="text-4xl font-bold text-white font-['Biryani']">12 <span class="text-lg text-[#FF7F11]">SKS</span></p>
+         </div>
+       </div>
     </div>
 
-    <!-- INFO DOSEN -->
-    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
-      <p><strong>Nama:</strong> {{ dosen?.namaDosen }}</p>
-      <p><strong>Prodi:</strong> {{ dosen?.prodi }}</p>
-      <p><strong>NIDN:</strong> {{ dosen?.nidn }}</p>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <div class="lg:col-span-2">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 h-full flex flex-col">
+          
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-lg font-['Biryani'] font-bold text-[#051D47] flex items-center gap-2">
+              <span class="w-1.5 h-6 bg-[#FF7F11] rounded-full"></span>
+              Status Presensi
+            </h3>
+            <span class="text-sm text-gray-500 font-medium bg-gray-50 px-3 py-1 rounded-lg">
+              <i class="fa-regular fa-calendar mr-2"></i> {{ today | date:'dd MMMM yyyy' }}
+            </span>
+          </div>
+
+          <div *ngIf="loading" class="animate-pulse space-y-4">
+             <div class="h-32 bg-gray-100 rounded-xl"></div>
+             <div class="grid grid-cols-2 gap-4">
+               <div class="h-20 bg-gray-100 rounded-xl"></div>
+               <div class="h-20 bg-gray-100 rounded-xl"></div>
+             </div>
+          </div>
+
+          <div *ngIf="!loading" class="flex-1 flex flex-col gap-6">
+            
+            <div class="flex flex-col md:flex-row items-center justify-between p-6 rounded-2xl border-2 transition-all"
+                 [ngClass]="presensi?.statusPresensi === 'Hadir' 
+                    ? 'bg-green-50 border-green-100' 
+                    : 'bg-orange-50 border-orange-100'">
+               
+               <div class="flex items-center gap-4 mb-4 md:mb-0">
+                  <div class="h-14 w-14 rounded-full flex items-center justify-center text-2xl shadow-sm"
+                       [ngClass]="presensi?.statusPresensi === 'Hadir' ? 'bg-green-500 text-white' : 'bg-[#FF7F11] text-white'">
+                    <i class="fa-solid" [ngClass]="presensi?.statusPresensi === 'Hadir' ? 'fa-check' : 'fa-fingerprint'"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-wider opacity-70 mb-0.5"
+                       [ngClass]="presensi?.statusPresensi === 'Hadir' ? 'text-green-700' : 'text-orange-700'">
+                       Status Saat Ini
+                    </p>
+                    <h4 class="text-2xl font-bold"
+                        [ngClass]="presensi?.statusPresensi === 'Hadir' ? 'text-green-800' : 'text-[#051D47]'">
+                      {{ presensi?.statusPresensi || 'Belum Presensi' }}
+                    </h4>
+                  </div>
+               </div>
+
+               <button *ngIf="!presensi?.statusPresensi" 
+                       class="px-6 py-3 bg-[#051D47] hover:bg-[#0A2656] text-white rounded-xl font-bold shadow-lg shadow-blue-900/20 transition-all active:scale-95 flex items-center gap-2">
+                 <i class="fa-solid fa-location-arrow"></i> Lakukan Presensi
+               </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl border border-gray-100 bg-gray-50 flex items-center gap-3">
+                 <div class="h-10 w-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-blue-600">
+                   <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                 </div>
+                 <div>
+                   <p class="text-xs text-gray-500 font-bold uppercase">Jam Masuk</p>
+                   <p class="text-lg font-bold text-[#051D47]">{{ presensi?.waktuMasuk || '--:--' }}</p>
+                 </div>
+              </div>
+
+              <div class="p-4 rounded-xl border border-gray-100 bg-gray-50 flex items-center gap-3">
+                 <div class="h-10 w-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-orange-500">
+                   <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                 </div>
+                 <div>
+                   <p class="text-xs text-gray-500 font-bold uppercase">Jam Keluar</p>
+                   <p class="text-lg font-bold text-[#051D47]">{{ presensi?.waktuKeluar || '--:--' }}</p>
+                 </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+           <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Informasi Akun</h3>
+           <div class="flex flex-col items-center text-center">
+             <div class="relative mb-3">
+               <img [src]="dosen?.foto || 'assets/default-user.png'" class="h-24 w-24 rounded-full object-cover border-4 border-gray-50 shadow-md">
+               <div class="absolute bottom-1 right-1 h-5 w-5 bg-green-500 border-4 border-white rounded-full"></div>
+             </div>
+             <h4 class="text-lg font-bold text-[#051D47]">{{ dosen?.namaDosen }}</h4>
+             <p class="text-sm text-[#FF7F11] font-semibold mb-2">{{ dosen?.jabatan }}</p>
+             <p class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+               NIDN: {{ dosen?.nidn }}
+             </p>
+           </div>
+           
+           <div class="mt-6 pt-4 border-t border-gray-100">
+             <div class="flex justify-between items-center text-sm">
+               <span class="text-gray-500">Prodi</span>
+               <span class="font-bold text-[#051D47] text-right">{{ dosen?.prodi }}</span>
+             </div>
+           </div>
+        </div>
+
+        <div class="bg-[#051D47] rounded-2xl p-6 shadow-lg text-white relative overflow-hidden">
+           <div class="absolute top-0 right-0 w-32 h-32 bg-[#FF7F11] rounded-full blur-[60px] opacity-10"></div>
+           
+           <h3 class="text-base font-bold mb-4 flex items-center gap-2 relative z-10">
+             <i class="fa-regular fa-clock text-[#FF7F11]"></i> Jadwal Berikutnya
+           </h3>
+           
+           <div class="p-4 bg-white/10 rounded-xl backdrop-blur-sm border border-white/5 relative z-10">
+              <p class="text-[#FF7F11] text-xs font-bold uppercase mb-1">09:30 - 12:00 WIB</p>
+              <p class="text-lg font-bold leading-tight mb-2">Pemrograman Web Lanjut</p>
+              <div class="flex items-center gap-2 text-xs text-gray-300">
+                <i class="fa-solid fa-location-dot"></i> Lab. Komputer 2
+              </div>
+           </div>
+           
+           <button class="w-full mt-4 py-2 text-xs font-bold text-white hover:text-[#FF7F11] transition-colors border-t border-white/10 pt-3">
+             Lihat Semua Jadwal <i class="fa-solid fa-arrow-right ml-1"></i>
+           </button>
+        </div>
+
+      </div>
+
     </div>
 
-    <hr class="my-6">
-
-    <!-- PRESENSI -->
-    <div *ngIf="loading" class="text-gray-500">Memuat status presensi...</div>
-
-    <div *ngIf="!loading" class="bg-gray-50 border rounded-lg p-4">
-      <h3 class="text-xl font-semibold mb-3">Presensi Hari Ini</h3>
-
-      <p><strong>Status:</strong> 
-        <span 
-          class="px-2 py-1 rounded text-white"
-          [ngClass]="{
-            'bg-green-600': presensi?.statusPresensi === 'Hadir',
-            'bg-gray-500': !presensi?.statusPresensi
-          }"
-        >
-          {{ presensi?.statusPresensi || 'Belum Presensi' }}
-        </span>
-      </p>
-
-      <p class="mt-2"><strong>Masuk:</strong> {{ presensi?.waktuMasuk || '-' }}</p>
-      <p class="mt-1"><strong>Keluar:</strong> {{ presensi?.waktuKeluar || '-' }}</p>
-    </div>
-
-  </div>
-
+  </main>
 </div>

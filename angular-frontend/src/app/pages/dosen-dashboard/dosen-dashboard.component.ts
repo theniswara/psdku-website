@@ -15,6 +15,7 @@ export class DosenDashboardComponent implements OnInit {
   dosen: any;
   presensi: any;
   loading = true;
+today: string | number | Date | undefined;
 
   constructor(
     private auth: AuthService,

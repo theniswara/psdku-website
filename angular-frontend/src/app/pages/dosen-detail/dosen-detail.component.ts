@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DosenService } from '../../services/dosen.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { FooterComponent } from "../../components/footer/footer.component";
+import { FooterComponent } from '../../components/footer/footer.component';
 
-interface StatusData {
+interface PresensiStatus {
   statusPresensi: string;
   waktuMasuk: string | null;
   waktuKeluar: string | null;
@@ -21,7 +21,8 @@ interface StatusData {
 export class DosenDetailComponent implements OnInit {
 
   id!: number;
-  dosen: any;
+  dosen: any = null;
+  loading = true;
   activeTab: string = 'biodata';
 
   constructor(
@@ -31,43 +32,66 @@ export class DosenDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadDosenDetail();
+    this.loadDosen();
   }
 
-loadDosenDetail() {
-  this.dosenService.getDosenById(this.id).subscribe({
-    next: (data) => {
-      this.dosen = data;
+  /* ========================================================
+     LOAD DOSEN + STATUS PRESENSI
+     ======================================================== */
+  loadDosen() {
+    this.loading = true;
 
-      // ambil status hari ini
-      this.dosenService.getStatusById(this.id).subscribe({
-        next: (statusData: StatusData | string) => {
-          if (typeof statusData === 'string') {
-            // "Belum Hadir"
-            this.dosen.statusPresensi = "Belum Hadir";
-            this.dosen.waktuMasuk = null;
-            this.dosen.waktuKeluar = null;
-          } else {
-            this.dosen.statusPresensi = statusData.statusPresensi;
-            this.dosen.waktuMasuk = statusData.waktuMasuk;
-            this.dosen.waktuKeluar = statusData.waktuKeluar;
-          }
+    this.dosenService.getDosenById(this.id).subscribe({
+      next: (data) => {
+        this.dosen = data;
+
+        // Load presensi status separately
+        this.loadPresensi(this.id);
+      },
+      error: (err) => {
+        console.error("Error load dosen:", err);
+        this.loading = false;
+      }
+    });
+  }
+
+  loadPresensi(idDosen: number) {
+    this.dosenService.getStatusById(idDosen).subscribe({
+      next: (status: PresensiStatus | string) => {
+        if (typeof status === 'string') {
+          this.dosen.statusPresensi = "Belum Hadir";
+          this.dosen.waktuMasuk = null;
+          this.dosen.waktuKeluar = null;
+        } else {
+          this.dosen.statusPresensi = status.statusPresensi;
+          this.dosen.waktuMasuk = status.waktuMasuk;
+          this.dosen.waktuKeluar = status.waktuKeluar;
         }
-      });
-    },
-    error: (err) => console.error("Failed to load detail:", err)
-  });
-}
 
+        this.loading = false;
+      },
+      error: () => {
+        // If presensi doesn't exist
+        this.dosen.statusPresensi = "Belum Hadir";
+        this.dosen.waktuMasuk = null;
+        this.dosen.waktuKeluar = null;
+
+        this.loading = false;
+      }
+    });
+  }
+
+  /* ========================================================
+     UI HELPERS
+     ======================================================== */
 
   setTab(tab: string) {
     this.activeTab = tab;
   }
 
   isOnline(d: any): boolean {
-    return !!d &&
+    return d &&
       (d.statusPresensi === 'Hadir' ||
       (!!d.waktuMasuk && !d.waktuKeluar));
   }
 }
-
