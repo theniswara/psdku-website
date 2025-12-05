@@ -1,289 +1,326 @@
 <div class="p-6" *ngIf="!loading">
-  <!-- Header -->
-  <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold">Kelola Dosen — {{ dosen.dosen.namaDosen }}</h2>
+  
+  <!-- HEADER -->
+
+ <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+  <div>
+    <h2 class="text-3xl font-bold text-gray-800 tracking-tight">
+      Kelola Dosen
+    </h2>
+    <p class="text-gray-500 mt-1">
+      Manajemen profil lengkap dosen
+    </p>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <div class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold text-sm">
+      {{ dosen?.dosen?.namaDosen || dosen?.namaDosen }}
+    </div>
 
     <a
       routerLink="/admin-dashboard"
-      class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm"
+      class="px-4 py-2 rounded-lg border text-sm hover:bg-gray-100 transition"
     >
       ← Kembali
     </a>
   </div>
+</div>
+
 
   <!-- Tabs -->
-  <div class="flex gap-4 border-b mb-6">
-    <button
-      class="pb-2 font-semibold"
-      [ngClass]="
-        activeTab === 'biodata' ? 'border-b-2 border-blue-600' : 'text-gray-500'
-      "
-      (click)="setTab('biodata')"
-    >
-      Biodata
-    </button>
+<div class="flex flex-wrap gap-2 mb-8 bg-gray-100 p-2 rounded-xl">
 
-    <button
-      class="pb-2 font-semibold"
-      [ngClass]="
-        activeTab === 'pendidikan'
-          ? 'border-b-2 border-blue-600'
-          : 'text-gray-500'
-      "
-      (click)="setTab('pendidikan')"
-    >
-      Pendidikan
-    </button>
+  <button
+    *ngFor="let tab of ['biodata','pendidikan','keahlian','sertifikasi','matkul','link']"
+    (click)="setTab(tab)"
+    class="px-4 py-2 rounded-lg text-sm font-semibold transition"
+    [ngClass]="
+      activeTab === tab
+        ? 'bg-white shadow text-blue-600'
+        : 'text-gray-600 hover:bg-white'
+    "
+  >
+    {{ tab | titlecase }}
+  </button>
 
-    <button
-      class="pb-2 font-semibold"
-      [ngClass]="
-        activeTab === 'keahlian'
-          ? 'border-b-2 border-blue-600'
-          : 'text-gray-500'
-      "
-      (click)="setTab('keahlian')"
-    >
-      Keahlian
-    </button>
-
-    <button
-      class="pb-2 font-semibold"
-      [ngClass]="
-        activeTab === 'sertifikasi'
-          ? 'border-b-2 border-blue-600'
-          : 'text-gray-500'
-      "
-      (click)="setTab('sertifikasi')"
-    >
-      Sertifikasi
-    </button>
-
-    <button
-      class="pb-2 font-semibold"
-      [ngClass]="
-        activeTab === 'matkul' ? 'border-b-2 border-blue-600' : 'text-gray-500'
-      "
-      (click)="setTab('matkul')"
-    >
-      Mata Kuliah
-    </button>
-
-    <button
-      class="pb-2 font-semibold"
-      [ngClass]="
-        activeTab === 'link' ? 'border-b-2 border-blue-600' : 'text-gray-500'
-      "
-      (click)="setTab('link')"
-    >
-      Link Eksternal
-    </button>
-  </div>
+</div>
 
   <!-- ===================================== -->
   <!--           TAB: BIODATA               -->
   <!-- ===================================== -->
-  <div *ngIf="activeTab === 'biodata'">
-    <div class="bg-white p-6 rounded shadow border">
-      <h3 class="text-xl font-semibold mb-4">Biodata Dosen</h3>
+<div *ngIf="activeTab === 'biodata'" class="bg-white rounded-xl shadow border p-6">
 
-      <p><strong>Nama:</strong> {{ dosen?.dosen?.namaDosen }}</p>
-      <p><strong>NIP:</strong> {{ dosen?.dosen?.nip }}</p>
-      <p><strong>NIDN:</strong> {{ dosen?.dosen?.nidn }}</p>
-      <p><strong>Jabatan:</strong> {{ dosen?.dosen?.jabatan }}</p>
-      <p><strong>Prodi:</strong> {{ dosen?.dosen?.prodi }}</p>
-      <p><strong>Email:</strong> {{ dosen?.dosen?.email }}</p>
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">Biodata Dosen</h3>
 
-      <button
-        class="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
-        (click)="openModal('biodata', dosen.dosen)"
-      >
-        Edit Biodata
-      </button>
-    </div>
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+      (click)="openModal('biodata', dosen.dosen)"
+    >
+      ✎ Edit Biodata
+    </button>
   </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700">
+
+    <div>
+      <p class="text-gray-500">Nama</p>
+      <p class="font-semibold">{{ dosen.dosen.namaDosen }}</p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">Jabatan</p>
+      <p class="font-semibold">{{ dosen.dosen.jabatan }}</p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">NIP</p>
+      <p class="font-semibold">{{ dosen.dosen.nip }}</p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">NIDN</p>
+      <p class="font-semibold">{{ dosen.dosen.nidn }}</p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">Prodi</p>
+      <p class="font-semibold">{{ dosen.dosen.prodi }}</p>
+    </div>
+
+    <div>
+      <p class="text-gray-500">Email</p>
+      <p class="font-semibold break-all">{{ dosen.dosen.email }}</p>
+    </div>
+
+  </div>
+</div>
+
 
   <!-- ===================================== -->
   <!--           TAB: Pendidikan             -->
   <!-- ===================================== -->
   <div *ngIf="activeTab === 'pendidikan'">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xl font-semibold">Riwayat Pendidikan</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      
+  <div
+    *ngFor="let item of dosen.pendidikan"
+    class="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition"
+  >
+
+    <h4 class="font-semibold text-gray-800 mb-1">
+      {{ item.jenjang }} - {{ item.jurusan }}
+    </h4>
+
+    <p class="text-sm text-gray-500">{{ item.universitas }}</p>
+    <p class="text-xs text-gray-400 mt-1">
+      {{ item.tahunMulai }} - {{ item.tahunSelesai || ' ' }}
+    </p>
+
+    <div class="flex justify-end gap-2 mt-4">
       <button
-        class="bg-blue-600 text-white px-4 py-2 rounded"
-        (click)="openModal('pendidikan')"
+        class="px-3 py-1 rounded bg-gray-100 text-sm hover:bg-gray-200"
+        (click)="openModal('edit-pendidikan', item)"
       >
-        + Tambah Pendidikan
-      </button>
-    </div>
-
-    <div *ngFor="let p of dosen.pendidikan" class="p-4 border rounded mb-3">
-      <p>
-        <strong>{{ p.jenjang }} - {{ p.jurusan }}</strong>
-      </p>
-      <p>{{ p.universitas }}</p>
-      <p>{{ p.tahunMulai }} - {{ p.tahunSelesai }}</p>
-
-      <div class="mt-2 flex gap-2">
-        <button
-          class="px-3 py-1 bg-gray-200 rounded"
-          (click)="openModal('pendidikan', p)"
-        >
-          Edit
-        </button>
-
-        <button
-          class="px-3 py-1 bg-red-500 text-white rounded"
-          (click)="openModal('delete-pendidikan', p)"
-        >
-          Hapus
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- (Keahlian, Sertifikasi, Matkul, Link akan sama formatnya) -->
-
-  <!-- TAB: KEAHLIAN -->
-  <div *ngIf="activeTab === 'keahlian'">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xl font-semibold">Bidang Keahlian</h3>
-      <button
-        class="bg-blue-600 text-white px-4 py-2 rounded"
-        (click)="openModal('keahlian')"
-      >
-        + Tambah Keahlian
-      </button>
-    </div>
-
-    <div *ngFor="let k of dosen.bidangKeahlian" class="p-4 border rounded mb-3">
-      <p class="font-semibold">{{ k.namaKeahlian }}</p>
-
-      <div class="mt-2 flex gap-2">
-        <button
-          class="px-3 py-1 bg-gray-200 rounded"
-          (click)="openModal('edit-keahlian', k)"
-        >
-          Edit
-        </button>
-
-        <button
-          class="px-3 py-1 bg-red-500 text-white rounded"
-          (click)="openModal('delete-keahlian', k)"
-        >
-          Hapus
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================================== -->
-  <!--           TAB: SERTIFIKASI            -->
-  <!-- ===================================== -->
-  <div *ngIf="activeTab === 'sertifikasi'">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xl font-semibold">Sertifikasi</h3>
-      <button
-        class="bg-blue-600 text-white px-4 py-2 rounded"
-        (click)="openModal('sertifikasi')"
-      >
-        + Tambah Sertifikasi
-      </button>
-    </div>
-
-    <div *ngFor="let s of dosen.sertifikasi" class="p-4 border rounded mb-3">
-      <p class="font-semibold">{{ s.namaSertifikasi }}</p>
-      <p class="text-sm text-gray-600">Penerbit: {{ s.penerbit }}</p>
-      <p class="text-sm text-gray-600">Tanggal: {{ s.tanggalTerbit }}</p>
-
-      <div class="mt-2 flex gap-2">
-        <button
-          class="px-3 py-1 bg-gray-200 rounded"
-          (click)="openModal('edit-sertifikasi', s)"
-        >
-          Edit
-        </button>
-
-        <button
-          class="px-3 py-1 bg-red-500 text-white rounded"
-          (click)="openModal('delete-sertifikasi', s)"
-        >
-          Hapus
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================================== -->
-  <!--           TAB: MATA KULIAH            -->
-  <!-- ===================================== -->
-  <div *ngIf="activeTab === 'matkul'">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xl font-semibold">Mata Kuliah</h3>
-      <button
-        class="bg-blue-600 text-white px-4 py-2 rounded"
-        (click)="openModal('matkul')"
-      >
-        + Tambah Mata Kuliah
-      </button>
-    </div>
-
-    <div *ngFor="let m of dosen.mataKuliah" class="p-4 border rounded mb-3">
-      <p class="font-semibold">{{ m.namaMk }}</p>
-      <p class="text-sm text-gray-600">Semester: {{ m.semester }}</p>
-
-      <div class="mt-2 flex gap-2">
-        <button
-          class="px-3 py-1 bg-gray-200 rounded"
-          (click)="openModal('edit-matkul', m)"
-        >
-          Edit
-        </button>
-
-        <button
-          class="px-3 py-1 bg-red-500 text-white rounded"
-          (click)="openModal('delete-matkul', m)"
-        >
-          Hapus
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================================== -->
-<!--           TAB: LINK EKSTERNAL         -->
-<!-- ===================================== -->
-<div *ngIf="activeTab === 'link'">
-
-  <div class="flex justify-between items-center mb-4">
-    <h3 class="text-xl font-semibold">Link Eksternal</h3>
-    <button class="bg-blue-600 text-white px-4 py-2 rounded"
-            (click)="openModal('link')">
-      + Tambah Link
-    </button>
-  </div>
-
-  <div *ngFor="let l of dosen.linkEksternal" class="p-4 border rounded mb-3">
-
-    <p class="font-semibold">{{ l.namaPlatform }}</p>
-    <a [href]="l.url" target="_blank" class="text-blue-600 underline text-sm">
-      {{ l.url }}
-    </a>
-
-    <div class="mt-2 flex gap-2">
-      <button class="px-3 py-1 bg-gray-200 rounded"
-              (click)="openModal('edit-link', l)">
         Edit
       </button>
 
-      <button class="px-3 py-1 bg-red-500 text-white rounded"
-              (click)="openModal('delete-link', l)">
+      <button
+        class="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600"
+        (click)="openModal('delete-pendidikan', item)"
+      >
         Hapus
       </button>
     </div>
 
   </div>
 
+</div>
+  </div>
+
+  <!-- (Keahlian, Sertifikasi, Matkul, Link akan sama formatnya) -->
+
+  <!-- TAB: KEAHLIAN -->
+<div *ngIf="activeTab === 'keahlian'">
+
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">Bidang Keahlian</h3>
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
+      (click)="openModal('keahlian')"
+    >
+      + Tambah Keahlian
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <div
+      *ngFor="let k of dosen.bidangKeahlian"
+      class="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition"
+    >
+      <p class="font-semibold text-gray-800">{{ k.namaKeahlian }}</p>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button
+          class="px-3 py-1 rounded bg-gray-100 text-sm hover:bg-gray-200"
+          (click)="openModal('edit-keahlian', k)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600"
+          (click)="openModal('delete-keahlian', k)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- ===================================== -->
+  <!--           TAB: SERTIFIKASI            -->
+  <!-- ===================================== -->
+<div *ngIf="activeTab === 'sertifikasi'">
+
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">Sertifikasi</h3>
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
+      (click)="openModal('sertifikasi')"
+    >
+      + Tambah Sertifikasi
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <div
+      *ngFor="let s of dosen.sertifikasi"
+      class="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition"
+    >
+      <p class="font-semibold text-gray-800">{{ s.namaSertifikasi }}</p>
+      <p class="text-sm text-gray-500">Penerbit: {{ s.penerbit }}</p>
+      <p class="text-xs text-gray-400 mt-1">{{ s.tanggalTerbit }}</p>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button
+          class="px-3 py-1 rounded bg-gray-100 text-sm hover:bg-gray-200"
+          (click)="openModal('edit-sertifikasi', s)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600"
+          (click)="openModal('delete-sertifikasi', s)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- ===================================== -->
+  <!--           TAB: MATA KULIAH            -->
+  <!-- ===================================== -->
+<div *ngIf="activeTab === 'matkul'">
+
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">Mata Kuliah</h3>
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
+      (click)="openModal('matkul')"
+    >
+      + Tambah Mata Kuliah
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <div
+      *ngFor="let m of dosen.mataKuliah"
+      class="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition"
+    >
+      <p class="font-semibold text-gray-800">{{ m.namaMk }}</p>
+      <p class="text-sm text-gray-500">Semester: {{ m.semester }}</p>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button
+          class="px-3 py-1 rounded bg-gray-100 text-sm hover:bg-gray-200"
+          (click)="openModal('edit-matkul', m)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600"
+          (click)="openModal('delete-matkul', m)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <!-- ===================================== -->
+<!--           TAB: LINK EKSTERNAL         -->
+<!-- ===================================== -->
+<div *ngIf="activeTab === 'link'">
+
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">Link Eksternal</h3>
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
+      (click)="openModal('link')"
+    >
+      + Tambah Link
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <div
+      *ngFor="let l of dosen.linkEksternal"
+      class="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition"
+    >
+      <p class="font-semibold text-gray-800">{{ l.namaPlatform }}</p>
+
+      <a
+        [href]="l.url"
+        target="_blank"
+        class="text-blue-600 underline text-sm break-all"
+      >
+        {{ l.url }}
+      </a>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button
+          class="px-3 py-1 rounded bg-gray-100 text-sm hover:bg-gray-200"
+          (click)="openModal('edit-link', l)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600"
+          (click)="openModal('delete-link', l)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 
