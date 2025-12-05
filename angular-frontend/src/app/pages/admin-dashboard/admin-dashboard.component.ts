@@ -1,24 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { forkJoin } from 'rxjs'; // Import forkJoin
+
+// Services
 import { AuthService } from '../../services/auth.service';
 import { DosenService } from '../../services/dosen.service';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // Import FormsModule for Search
+
+// Pipe (IMPORTANT: Import the same pipe you used in DataDosen)
+import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [
+    CommonModule, 
+    RouterLink, 
+    FormsModule, 
+    FilterDosenPipe // Register the Pipe here
+  ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
 
   admin: any;
-  dosenList: any[] = [];
+  dosenList: any[] = []; // Will hold merged data
   loading = true;
   deletingId: number | null = null;
-  searchTerm: string = ''; // For the search bar
+
+  // Search Variable (Matches your reference)
+  searchKeyword: string = ''; 
 
   constructor(
     private auth: AuthService,
@@ -27,37 +40,43 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.admin = this.auth.getLoggedInUser();
-    this.loadStatusHariIni();
+    this.loadData(); // Changed name to match the logic of loading ALL data
   }
 
-  loadStatusHariIni() {
+  // LOGIC COPIED & ADAPTED FROM YOUR REFERENCE
+  loadData() {
     this.loading = true;
-    this.dosenService.getStatusToday().subscribe({
-      next: (data) => {
-        this.dosenList = data;
+
+    // Use forkJoin to get BOTH the profile data and the status data
+    forkJoin({
+      dosenAll: this.dosenService.getAllDosen(),
+      statusAll: this.dosenService.getStatusToday()
+    }).subscribe({
+      next: ({ dosenAll, statusAll }) => {
+        // 1. Create a Map for fast status lookup
+        const statusMap = new Map<any, any>();
+        (statusAll || []).forEach((s: any) => {
+          const key = s.idDosen ?? s.id;
+          if (key != null) statusMap.set(key, s);
+        });
+
+        // 2. Merge status into the main list
+        this.dosenList = (dosenAll || []).map((d: any) => {
+          const key = d.idDosen ?? d.id;
+          const status = statusMap.get(key) || {};
+          return { ...d, ...status }; // Merged Object
+        });
+
         this.loading = false;
       },
-      error: () => {
+      error: (err) => {
+        console.error('Gagal memuat data dashboard', err);
         this.loading = false;
       }
     });
   }
 
-  // Helper to filter list based on search term
-  get filteredDosen() {
-    if (!this.searchTerm) return this.dosenList;
-    const lower = this.searchTerm.toLowerCase();
-    return this.dosenList.filter(d => 
-      d.namaDosen.toLowerCase().includes(lower) || 
-      d.prodi.toLowerCase().includes(lower)
-    );
-  }
-
-  // Helpers for Stats Cards
-  get totalDosen() { return this.dosenList.length; }
-  get totalHadir() { return this.dosenList.filter(d => d.statusPresensi === 'Hadir').length; }
-  get totalOffline() { return this.dosenList.filter(d => !d.statusPresensi).length; }
-
+  // Your delete logic remains the same
   deleteDosen(id: number) {
     const ok = confirm('Yakin ingin menghapus dosen ini? Data tidak bisa dikembalikan.');
     if (!ok) return;
@@ -74,4 +93,9 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+  
+  // Helpers for the stats cards based on the NOW MERGED list
+  get totalDosen() { return this.dosenList.length; }
+  get totalHadir() { return this.dosenList.filter(d => d.statusPresensi === 'Hadir').length; }
+  get totalOffline() { return this.dosenList.filter(d => !d.statusPresensi).length; }
 }

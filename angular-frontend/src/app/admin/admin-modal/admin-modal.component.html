@@ -1,221 +1,177 @@
-<!-- Background overlay -->
-<div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+  
+  <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" (click)="closeModal()"></div>
 
-  <!-- Modal box -->
-<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 animate-fadeIn relative">
+  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 animate-fade-in-up overflow-hidden flex flex-col max-h-[90vh]">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-semibold">{{ getTitle() }}</h2>
-      <button (click)="closeModal()" class="text-gray-500 hover:text-black">✕</button>
+    <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-white shrink-0">
+      <h2 class="text-lg font-['Biryani'] font-bold text-[#051D47]">{{ getTitle() }}</h2>
+      <button (click)="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
     </div>
 
-    <!-- DELETE UNIVERSAL -->
-    <div *ngIf="type?.startsWith('delete')" class="space-y-4">
-      <p>Yakin ingin menghapus data ini?</p>
+    <div class="p-6 overflow-y-auto font-['Inter']">
 
-      <div class="flex justify-end gap-3">
-        <button class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
-        <button class="px-4 py-2 bg-red-600 text-white rounded" (click)="submit()">Hapus</button>
-      </div>
-    </div>
-
-    <!-- Form Pendidikan -->
-    <form *ngIf="type === 'pendidikan' || type === 'edit-pendidikan'" class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium mb-1">Jenjang</label>
-        <input type="text" [(ngModel)]="formData.jenjang" name="jenjang" class="w-full border px-3 py-2 rounded">
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Jurusan</label>
-        <input type="text" [(ngModel)]="formData.jurusan" name="jurusan" class="w-full border px-3 py-2 rounded">
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Universitas</label>
-        <input type="text" [(ngModel)]="formData.universitas" name="universitas" class="w-full border px-3 py-2 rounded">
-      </div>
-
-      <div class="flex gap-4">
-        <div class="flex-1">
-          <label class="block text-sm font-medium mb-1">Tahun Mulai</label>
-          <input type="number" [(ngModel)]="formData.tahunMulai" name="tahunMulai" class="w-full border px-3 py-2 rounded">
+      <div *ngIf="type?.startsWith('delete')" class="flex flex-col items-center text-center space-y-4">
+        <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-red-500 mb-2">
+          <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
         </div>
-
-        <div class="flex-1">
-          <label class="block text-sm font-medium mb-1">Tahun Selesai</label>
-          <input type="number" [(ngModel)]="formData.tahunSelesai" name="tahunSelesai" class="w-full border px-3 py-2 rounded">
+        <h3 class="text-xl font-bold text-gray-800">Hapus Data?</h3>
+        <p class="text-gray-500 text-sm max-w-xs">Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus data ini?</p>
+        
+        <div class="flex w-full gap-3 pt-4">
+          <button (click)="closeModal()" class="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition-colors">
+            Batal
+          </button>
+          <button (click)="submit()" class="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20">
+            Hapus
+          </button>
         </div>
       </div>
 
-      <div class="flex justify-end gap-3 pt-4">
-        <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
-        <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
-      </div>
-    </form>
+      <form *ngIf="type === 'pendidikan' || type === 'edit-pendidikan'" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Jenjang</label>
+          <select [(ngModel)]="formData.jenjang" name="jenjang" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+            <option value="D3">D3</option>
+            <option value="D4">D4</option>
+            <option value="S1">S1</option>
+            <option value="S2">S2</option>
+            <option value="S3">S3</option>
+          </select>
+        </div>
 
-    <!-- ✅ FORM SERTIFIKASI -->
-<form *ngIf="type === 'sertifikasi' || type === 'edit-sertifikasi'" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Jurusan</label>
+          <input type="text" [(ngModel)]="formData.jurusan" name="jurusan" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none placeholder-gray-400" placeholder="Contoh: Teknik Informatika">
+        </div>
 
-  <div>
-    <label class="block text-sm font-medium mb-1">Nama Sertifikasi</label>
-    <input type="text" [(ngModel)]="formData.namaSertifikasi" name="namaSertifikasi"
-           class="w-full border px-3 py-2 rounded">
-  </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Universitas</label>
+          <input type="text" [(ngModel)]="formData.universitas" name="universitas" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none placeholder-gray-400" placeholder="Nama Universitas">
+        </div>
 
-  <div>
-    <label class="block text-sm font-medium mb-1">Penerbit</label>
-    <input type="text" [(ngModel)]="formData.penerbit" name="penerbit"
-           class="w-full border px-3 py-2 rounded">
-  </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Tahun Mulai</label>
+            <input type="number" [(ngModel)]="formData.tahunMulai" name="tahunMulai" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Tahun Selesai</label>
+            <input type="number" [(ngModel)]="formData.tahunSelesai" name="tahunSelesai" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+          </div>
+        </div>
+      </form>
 
-  <div>
-    <label class="block text-sm font-medium mb-1">Tanggal Terbit</label>
-    <input type="date" [(ngModel)]="formData.tanggalTerbit" name="tanggalTerbit"
-           class="w-full border px-3 py-2 rounded">
-  </div>
+      <form *ngIf="type === 'sertifikasi' || type === 'edit-sertifikasi'" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Nama Sertifikasi</label>
+          <input type="text" [(ngModel)]="formData.namaSertifikasi" name="namaSertifikasi" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Penerbit</label>
+          <input type="text" [(ngModel)]="formData.penerbit" name="penerbit" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Tanggal Terbit</label>
+          <input type="date" [(ngModel)]="formData.tanggalTerbit" name="tanggalTerbit" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+        </div>
+      </form>
 
-  <div class="flex justify-end gap-3 pt-4">
-    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
-    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
-  </div>
-</form>
+      <form *ngIf="type === 'keahlian' || type === 'edit-keahlian'" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Nama Keahlian</label>
+          <input type="text" [(ngModel)]="formData.namaKeahlian" name="namaKeahlian" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none" placeholder="Contoh: Web Development">
+        </div>
+      </form>
 
+      <form *ngIf="type === 'matkul' || type === 'edit-matkul'" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Nama Mata Kuliah</label>
+          <input type="text" [(ngModel)]="formData.namaMk" name="namaMk" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Semester</label>
+          <select [(ngModel)]="formData.semester" name="semester" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
+          </select>
+        </div>
+      </form>
 
-    <!-- ========================= -->
-<!-- KEAHLIAN FORM -->
-<!-- ========================= -->
-<form *ngIf="type === 'keahlian' || type === 'edit-keahlian'" class="space-y-4">
+      <form *ngIf="type === 'link' || type === 'edit-link'" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Nama Platform</label>
+          <input type="text" [(ngModel)]="formData.namaPlatform" name="namaPlatform" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none" placeholder="Google Scholar, LinkedIn, dll">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">URL</label>
+          <input type="text" [(ngModel)]="formData.url" name="url" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none" placeholder="https://...">
+        </div>
+      </form>
 
-  <div>
-    <label class="block text-sm font-medium mb-1">Nama Keahlian</label>
-    <input [(ngModel)]="formData.namaKeahlian"
-           name="namaKeahlian"
-           class="w-full border px-3 py-2 rounded">
-  </div>
+      <form *ngIf="type === 'biodata'" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
+          <input [(ngModel)]="formData.namaDosen" name="namaDosen" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">NIP</label>
+            <input [(ngModel)]="formData.nip" name="nip" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">NIDN</label>
+            <input [(ngModel)]="formData.nidn" name="nidn" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Jabatan Fungsional</label>
+          <input [(ngModel)]="formData.jabatan" name="jabatan" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Program Studi</label>
+          <select [(ngModel)]="formData.prodi" name="prodi" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+            <option value="Teknologi Informasi">Teknologi Informasi</option>
+            <option value="Teknik Sipil">Teknik Sipil</option>
+            <option value="Akuntansi">Akuntansi</option>
+            <option value="Teknologi Rekayasa Otomotif">Teknologi Rekayasa Otomotif</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Email</label>
+          <input [(ngModel)]="formData.email" name="email" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none">
+        </div>
+      </form>
 
-  <div class="flex justify-end gap-3 pt-4">
-    <button type="button" class="px-4 py-2 bg-gray-200 rounded"
-            (click)="closeModal()">
-      Batal
-    </button>
-
-    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded"
-            (click)="submit()">
-      Simpan
-    </button>
-  </div>
-
-</form>
-
-
-
-<!-- ✅ FORM MATA KULIAH -->
-<form *ngIf="type === 'matkul' || type === 'edit-matkul'" class="space-y-4">
-
-  <div>
-    <label class="block text-sm font-medium mb-1">Nama Mata Kuliah</label>
-    <input type="text" [(ngModel)]="formData.namaMk" name="namaMk"
-           class="w-full border px-3 py-2 rounded">
-  </div>
-
-  <div>
-    <label class="block text-sm font-medium mb-1">Semester</label>
-    <select [(ngModel)]="formData.semester" name="semester"
-            class="w-full border px-3 py-2 rounded">
-      <option value="Ganjil">Ganjil</option>
-      <option value="Genap">Genap</option>
-    </select>
-  </div>
-
-  <div class="flex justify-end gap-3 pt-4">
-    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
-    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
-  </div>
-</form>
-
-<!-- ✅ FORM LINK EKSTERNAL -->
-<form *ngIf="type === 'link' || type === 'edit-link'" class="space-y-4">
-
-  <div>
-    <label class="block text-sm font-medium mb-1">Nama Platform</label>
-    <input type="text" [(ngModel)]="formData.namaPlatform" name="namaPlatform"
-           class="w-full border px-3 py-2 rounded">
-  </div>
-
-  <div>
-    <label class="block text-sm font-medium mb-1">URL</label>
-    <input type="text" [(ngModel)]="formData.url" name="url"
-           class="w-full border px-3 py-2 rounded">
-  </div>
-
-  <div class="flex justify-end gap-3 pt-4">
-    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
-    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
-  </div>
-</form>
-
-
-
-
-    <!-- ========================= -->
-<!-- BIODATA FORM -->
-<!-- ========================= -->
-<form *ngIf="type === 'biodata'" class="space-y-4">
-
-  <div>
-    <label class="block text-sm font-medium mb-1">Nama</label>
-    <input [(ngModel)]="formData.namaDosen" name="namaDosen"
-           class="w-full border px-3 py-2 rounded">
-  </div>
-
-  <div class="flex gap-4">
-    <div class="flex-1">
-      <label class="block text-sm font-medium mb-1">NIP</label>
-      <input [(ngModel)]="formData.nip" name="nip"
-             class="w-full border px-3 py-2 rounded">
     </div>
 
-    <div class="flex-1">
-      <label class="block text-sm font-medium mb-1">NIDN</label>
-      <input [(ngModel)]="formData.nidn" name="nidn"
-             class="w-full border px-3 py-2 rounded">
+    <div *ngIf="!type?.startsWith('delete')" class="p-6 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 shrink-0">
+      
+      <button 
+        (click)="closeModal()" 
+        class="px-6 py-2.5 border border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-white hover:text-gray-800 hover:border-gray-400 transition-all text-sm">
+        Batal
+      </button>
+
+      <button 
+        (click)="submit()" 
+        class="px-6 py-2.5 bg-blue-900 text-white font-bold rounded-xl hover:bg-blue-800 transition-all shadow-lg shadow-blue-900/20 text-sm flex items-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none" 
+        [disabled]="loading">
+        
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="loading"></i>
+        
+        <span>{{ loading ? 'Menyimpan...' : 'Simpan Data' }}</span>
+      </button>
+
     </div>
-  </div>
-
-  <div>
-    <label class="block text-sm font-medium mb-1">Jabatan</label>
-    <input [(ngModel)]="formData.jabatan" name="jabatan"
-           class="w-full border px-3 py-2 rounded">
-  </div>
-
-  <div>
-    <label class="block text-sm font-medium mb-1">Prodi</label>
-    <input [(ngModel)]="formData.prodi" name="prodi"
-           class="w-full border px-3 py-2 rounded">
-  </div>
-
-  <div>
-    <label class="block text-sm font-medium mb-1">Email</label>
-    <input [(ngModel)]="formData.email" name="email"
-           class="w-full border px-3 py-2 rounded">
-  </div>
-
-  <div class="flex justify-end gap-3 pt-4">
-    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">
-      Batal
-    </button>
-    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded"
-            (click)="submit()">
-      Simpan
-    </button>
-  </div>
-</form>
-
 
   </div>
-
 </div>
-
-

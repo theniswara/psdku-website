@@ -1,7 +1,6 @@
 <div class="min-h-screen bg-[#F8FAFC] flex font-['Inter']">
 
   <aside class="hidden lg:flex flex-col w-72 bg-[#051D47] text-white fixed h-full z-40 border-r border-white/5">
-    
     <div class="h-20 flex items-center gap-3 px-8 border-b border-white/10 bg-[#04183d]">
       <div class="h-8 w-8 bg-white/10 rounded-lg flex items-center justify-center text-[#FF7F11] font-bold">
         <i class="fa-solid fa-shield-halved"></i>
@@ -11,36 +10,23 @@
         <span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">Polinema PSDKU</span>
       </div>
     </div>
-
     <nav class="flex-1 px-4 py-6 space-y-1.5">
-      
       <div class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 mt-2">Menu Utama</div>
-      
       <a routerLink="/admin" class="flex items-center gap-3 px-4 py-3 bg-[#FF7F11] text-white rounded-xl shadow-lg shadow-orange-500/20 font-medium transition-all">
         <i class="fa-solid fa-chart-line w-5 text-center"></i> Dashboard
       </a>
-      
-      <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium group">
+      <a routerLink="/admin/rekap" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium group">
         <i class="fa-solid fa-calendar-check w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> Rekap Presensi
       </a>
-
-      <div class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 mt-6">Master Data</div>
-
-      <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium group">
-        <i class="fa-solid fa-users-gear w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> Data Pengguna
-      </a>
     </nav>
-
     <div class="p-4 border-t border-white/10 bg-[#04183d]">
       <div class="flex items-center gap-3">
         <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-[#FF7F11] to-orange-400 flex items-center justify-center text-white font-bold shadow-lg">
-          {{ admin?.username?.charAt(0).toUpperCase() }}
+          A
         </div>
         <div class="overflow-hidden">
-          <p class="text-sm font-bold truncate text-white">{{ admin?.username }}</p>
-          <p class="text-xs text-green-400 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Online
-          </p>
+          <p class="text-sm font-bold truncate text-white">Administrator</p>
+          <p class="text-xs text-green-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Online</p>
         </div>
       </div>
     </div>
@@ -53,38 +39,28 @@
         <h2 class="text-3xl font-['Biryani'] font-bold text-[#051D47]">Dashboard</h2>
         <p class="text-gray-500 mt-1">Ringkasan aktivitas dosen dan status kehadiran hari ini.</p>
       </div>
-      
       <button class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold text-sm hover:text-red-600 hover:border-red-100 hover:bg-red-50 transition-all shadow-sm">
         <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
       </button>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-      
-      <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
-        <div class="h-14 w-14 rounded-2xl bg-blue-50 text-[#051D47] flex items-center justify-center text-2xl">
-          <i class="fa-solid fa-user-tie"></i>
-        </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+        <div class="h-14 w-14 rounded-2xl bg-blue-50 text-[#051D47] flex items-center justify-center text-2xl"><i class="fa-solid fa-user-tie"></i></div>
         <div>
           <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">Total Dosen</p>
           <h3 class="text-2xl font-['Biryani'] font-bold text-[#051D47]">{{ totalDosen }}</h3>
         </div>
       </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
-        <div class="h-14 w-14 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center text-2xl">
-          <i class="fa-solid fa-user-check"></i>
-        </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+        <div class="h-14 w-14 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center text-2xl"><i class="fa-solid fa-user-check"></i></div>
         <div>
           <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">Hadir Hari Ini</p>
           <h3 class="text-2xl font-['Biryani'] font-bold text-[#051D47]">{{ totalHadir }}</h3>
         </div>
       </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
-        <div class="h-14 w-14 rounded-2xl bg-orange-50 text-[#FF7F11] flex items-center justify-center text-2xl">
-          <i class="fa-solid fa-user-clock"></i>
-        </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+        <div class="h-14 w-14 rounded-2xl bg-orange-50 text-[#FF7F11] flex items-center justify-center text-2xl"><i class="fa-solid fa-user-clock"></i></div>
         <div>
           <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">Belum Presensi</p>
           <h3 class="text-2xl font-['Biryani'] font-bold text-[#051D47]">{{ totalOffline }}</h3>
@@ -105,8 +81,8 @@
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
             <input 
               type="text" 
-              [(ngModel)]="searchTerm"
-              placeholder="Cari nama dosen..." 
+              [(ngModel)]="searchKeyword"
+              placeholder="Cari nama atau prodi..." 
               class="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#FF7F11] focus:ring-1 focus:ring-[#FF7F11] transition-all w-full md:w-64"
             >
           </div>
@@ -118,93 +94,80 @@
         </div>
       </div>
 
-      <div *ngIf="loading" class="p-8 text-center space-y-3">
-        <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#FF7F11] border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-        <p class="text-sm text-gray-500">Sedang memuat data...</p>
-      </div>
+      <ng-container *ngIf="dosenList | filterDosen:searchKeyword:'' as filteredList">
+        
+        <div *ngIf="loading" class="p-8 text-center space-y-3">
+          <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#FF7F11] border-r-transparent"></div>
+          <p class="text-sm text-gray-500">Memuat data...</p>
+        </div>
 
-      <div *ngIf="!loading" class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead class="bg-[#F8FAFC] text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100">
-            <tr>
-              <th class="p-5 font-bold">Dosen</th>
-              <th class="p-5 font-bold">Status</th>
-              <th class="p-5 font-bold text-center">Masuk</th>
-              <th class="p-5 font-bold text-center">Keluar</th>
-              <th class="p-5 font-bold text-right">Aksi</th>
-            </tr>
-          </thead>
-          <tbody class="text-sm divide-y divide-gray-50">
-            
-            <tr *ngFor="let d of filteredDosen" class="group hover:bg-blue-50/30 transition-colors">
+        <div *ngIf="!loading" class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-[#F8FAFC] text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100">
+              <tr>
+                <th class="p-5 font-bold">Dosen</th>
+                <th class="p-5 font-bold">Status</th>
+                <th class="p-5 font-bold text-center">Masuk</th>
+                <th class="p-5 font-bold text-center">Keluar</th>
+                <th class="p-5 font-bold text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm divide-y divide-gray-50">
               
-              <td class="p-5">
-                <div class="flex items-center gap-3">
-                  <div class="h-10 w-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-[#051D47] font-bold text-xs shrink-0">
-                    {{ d.namaDosen.charAt(0) }}
-                  </div>
-                  <div>
-                    <p class="font-bold text-[#051D47]">{{ d.namaDosen }}</p>
-                    <p class="text-xs text-gray-400">{{ d.prodi }}</p>
-                  </div>
-                </div>
-              </td>
-
-              <td class="p-5">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border"
-                  [ngClass]="{
-                    'bg-green-50 text-green-700 border-green-200': d.statusPresensi === 'Hadir',
-                    'bg-yellow-50 text-yellow-700 border-yellow-200': d.statusPresensi === 'Selesai',
-                    'bg-gray-50 text-gray-500 border-gray-200': !d.statusPresensi
-                  }">
-                  <span class="h-1.5 w-1.5 rounded-full" 
-                        [ngClass]="d.statusPresensi === 'Hadir' ? 'bg-green-500 animate-pulse' : (d.statusPresensi === 'Selesai' ? 'bg-yellow-500' : 'bg-gray-400')"></span>
-                  {{ d.statusPresensi || 'Offline' }}
-                </span>
-              </td>
-
-              <td class="p-5 text-center text-gray-600 font-mono text-xs">
-                {{ d.waktuMasuk || '--:--' }}
-              </td>
-              <td class="p-5 text-center text-gray-600 font-mono text-xs">
-                {{ d.waktuKeluar || '--:--' }}
-              </td>
-
-              <td class="p-5 text-right space-x-2">
-                <a [routerLink]="['/admin/dosen', d.idDosen]" 
-                   class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors"
-                   title="Edit Data">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </a>
+              <tr *ngFor="let d of filteredList" class="group hover:bg-blue-50/30 transition-colors">
                 
-                <button (click)="deleteDosen(d.idDosen)"
-                   class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-colors disabled:opacity-50"
-                   [disabled]="deletingId === d.idDosen"
-                   title="Hapus Data">
-                   <i class="fa-solid" [ngClass]="deletingId === d.idDosen ? 'fa-spinner fa-spin' : 'fa-trash'"></i>
-                </button>
-              </td>
+                <td class="p-5">
+                  <div class="flex items-center gap-3">
+                    <img [src]="d.foto || 'assets/default-user.png'" class="h-10 w-10 rounded-full object-cover border border-gray-200">
+                    <div>
+                      <p class="font-bold text-[#051D47]">{{ d.namaDosen }}</p>
+                      <p class="text-xs text-gray-400">{{ d.prodi }}</p>
+                    </div>
+                  </div>
+                </td>
 
-            </tr>
+                <td class="p-5">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border"
+                    [ngClass]="{
+                      'bg-green-50 text-green-700 border-green-200': d.statusPresensi === 'Hadir',
+                      'bg-gray-50 text-gray-500 border-gray-200': !d.statusPresensi
+                    }">
+                    <span class="h-1.5 w-1.5 rounded-full" 
+                          [ngClass]="d.statusPresensi === 'Hadir' ? 'bg-green-500 animate-pulse' : 'bg-gray-400'"></span>
+                    {{ d.statusPresensi || 'Offline' }}
+                  </span>
+                </td>
 
-            <tr *ngIf="filteredDosen.length === 0">
-              <td colspan="5" class="p-12 text-center">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-gray-400 mb-3">
-                  <i class="fa-solid fa-magnifying-glass text-xl"></i>
-                </div>
-                <p class="text-gray-500 font-medium">Tidak ada dosen yang ditemukan.</p>
-              </td>
-            </tr>
+                <td class="p-5 text-center font-mono text-gray-600">{{ d.waktuMasuk || '--:--' }}</td>
+                <td class="p-5 text-center font-mono text-gray-600">{{ d.waktuKeluar || '--:--' }}</td>
 
-          </tbody>
-        </table>
-      </div>
+                <td class="p-5 text-right space-x-2">
+                  <a [routerLink]="['/admin/dosen', d.idDosen]" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <button (click)="deleteDosen(d.idDosen)" [disabled]="deletingId === d.idDosen" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-colors disabled:opacity-50">
+                    <i class="fa-solid" [ngClass]="deletingId === d.idDosen ? 'fa-spinner fa-spin' : 'fa-trash'"></i>
+                  </button>
+                </td>
+              </tr>
 
-      <div class="p-4 border-t border-gray-100 bg-gray-50 flex justify-end">
-        <p class="text-xs text-gray-400">Menampilkan {{ filteredDosen.length }} data</p>
-      </div>
+              <tr *ngIf="filteredList.length === 0">
+                <td colspan="5" class="p-12 text-center">
+                  <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-gray-400 mb-3"><i class="fa-solid fa-magnifying-glass text-xl"></i></div>
+                  <p class="text-gray-500 font-medium">Tidak ada dosen yang ditemukan.</p>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-4 border-t border-gray-100 bg-gray-50 flex justify-end">
+          <p class="text-xs text-gray-400">Menampilkan {{ filteredList.length }} dari {{ dosenList.length }} data</p>
+        </div>
+
+      </ng-container>
 
     </div>
-
   </main>
 </div>

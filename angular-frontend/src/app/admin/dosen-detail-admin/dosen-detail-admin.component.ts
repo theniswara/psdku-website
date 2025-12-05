@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common'; // Added Location
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DosenService } from '../../services/dosen.service';
 import { AdminModalComponent } from '../admin-modal/admin-modal.component';
@@ -12,30 +12,35 @@ import { AdminModalComponent } from '../admin-modal/admin-modal.component';
   styleUrls: ['./dosen-detail-admin.component.css']
 })
 export class DosenDetailAdminComponent implements OnInit {
-goBack() {
-throw new Error('Method not implemented.');
-}
 
   id!: number;
   dosen: any = null;
   loading = true;
-  activeTab: string = 'biodata';
   
-  // untuk modal
+  // Changed from 'activeTab' to 'activeSection' to support the new scroll layout
+  activeSection: string = 'biodata';
+  
+  // Modal State (Kept exactly as yours)
   showModal = false;
   modalType: string | null = null; 
   editingItem: any = null;
 
   constructor(
     private route: ActivatedRoute,
-    private dosenService: DosenService
+    private dosenService: DosenService,
+    private location: Location // Inject Location for goBack functionality
   ) {}
 
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadFullProfile();
+    // Ensure ID is a number
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.id = Number(idParam);
+      this.loadFullProfile();
+    }
   }
 
+  // ✅ YOUR EXISTING LOGIC KEPT INTACT
   loadFullProfile() {
     this.loading = true;
     this.dosenService.getFullProfile(this.id).subscribe({
@@ -43,18 +48,31 @@ throw new Error('Method not implemented.');
         this.dosen = data;
         this.loading = false;
       },
-      error: () => {
+      error: (err) => {
+        console.error(err);
         this.loading = false;
-        alert("Gagal memuat data dosen");
+        // Optional: Add a toast notification here instead of alert
+        // alert("Gagal memuat data dosen"); 
       }
     });
   }
 
-  setTab(tab: string) {
-    this.activeTab = tab;
+  // ✅ NEW: Scroll Logic for the Sidebar Navigation
+  scrollTo(section: string) {
+    this.activeSection = section;
+    const element = document.getElementById(section);
+    if (element) {
+      // Smooth scroll to the specific section ID in the HTML
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
-  // buka modal
+  // ✅ FIXED: Now actually goes back
+  goBack() {
+    this.location.back();
+  }
+
+  // ✅ YOUR EXISTING MODAL LOGIC KEPT INTACT
   openModal(type: string, item: any = null) {
     this.modalType = type;
     this.editingItem = item;
@@ -65,6 +83,8 @@ throw new Error('Method not implemented.');
     this.showModal = false;
     this.modalType = null;
     this.editingItem = null;
-    if (reload) this.loadFullProfile();
+    if (reload) {
+      this.loadFullProfile();
+    }
   }
 }
