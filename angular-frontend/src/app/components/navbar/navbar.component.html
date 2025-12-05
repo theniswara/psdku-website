@@ -4,7 +4,9 @@
   <div class="px-4 md:px-8 lg:px-16 mx-auto">
     <div class="flex items-center justify-between h-20">
       <a
-        routerLink="/"
+        routerLink="#hero"
+      (click)="scrollToFooter($event)"
+
         class="flex items-center gap-3 h-full select-none outline-none focus-visible:ring-2 focus-visible:ring-[#FF7F11] rounded-lg px-2"
       >
         <img
