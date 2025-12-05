@@ -1,0 +1,55 @@
+.
+|-- angular.json
+|-- package.json
+|-- package-lock.json
+|-- PROJECT_TREE.txt
+|-- public
+|   `-- favicon.ico
+|-- README.md
+|-- server.ts
+|-- src
+|   |-- app
+|   |   |-- admin
+|   |   |   |-- dosen-detail-admin
+|   |   |   `-- dosen-form
+|   |   |-- app.component.css
+|   |   |-- app.component.html
+|   |   |-- app.component.spec.ts
+|   |   |-- app.component.ts
+|   |   |-- app.config.server.ts
+|   |   |-- app.config.ts
+|   |   |-- app.routes.ts
+|   |   |-- components
+|   |   |   |-- footer
+|   |   |   |-- hero
+|   |   |   `-- navbar
+|   |   |-- guards
+|   |   |   `-- auth.guard.ts
+|   |   |-- pages
+|   |   |   |-- admin-dashboard
+|   |   |   |-- data-dosen
+|   |   |   |-- dosen-dashboard
+|   |   |   |-- dosen-detail
+|   |   |   |-- home
+|   |   |   `-- login
+|   |   |-- pipes
+|   |   |   `-- filter-dosen.pipe.ts
+|   |   `-- services
+|   |       |-- auth.service.ts
+|   |       |-- dosen.service.spec.ts
+|   |       `-- dosen.service.ts
+|   |-- assets
+|   |   |-- default-foto.png
+|   |   |-- hero-bg.png
+|   |   |-- Inggrid.jpg
+|   |   `-- logo.png
+|   |-- index.html
+|   |-- main.server.ts
+|   |-- main.ts
+|   `-- styles.css
+|-- tailwind.config.js
+|-- tsconfig.app.json
+|-- tsconfig.json
+`-- tsconfig.spec.json
+
+21 directories, 31 files

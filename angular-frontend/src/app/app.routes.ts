@@ -55,7 +55,22 @@ export const routes: Routes = [
   },
 
   // ADMIN: Manage a specific lecturer (CRUD full profile)
-  
+  // {
+  //   path: 'admin/dosen/:id',
+  //   loadComponent: () =>
+  //     import('./admin/dosen-detail/admin-dosen-detail.component')
+  //       .then(m => m.AdminDosenDetailComponent),
+  //   canActivate: [AuthGuard]
+  // },
+
+  {
+  path: 'admin/dosen/:id',
+  loadComponent: () =>
+    import('./admin/dosen-detail-admin/dosen-detail-admin.component')
+      .then(m => m.DosenDetailAdminComponent),
+  canActivate: [AuthGuard]
+},
+
   // fallback
   { path: '**', redirectTo: '' }
 ];

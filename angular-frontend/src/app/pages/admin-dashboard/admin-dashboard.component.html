@@ -60,13 +60,15 @@
 
         <td class="p-3 space-x-2">
 
-          <!-- Lihat Detail -->
-          <a
-            [routerLink]="['/dosen', d.idDosen]"
-            class="inline-block px-3 py-1 rounded border border-gray-300 text-xs hover:bg-gray-100"
-          >
-            Lihat
-          </a>
+      <td class="p-3 space-x-2">
+
+        <!-- ✅ KELOLA (ADMIN DETAIL CRUD) -->
+        <a
+          [routerLink]="['/admin/dosen', d.idDosen]"
+          class="inline-block px-3 py-1 rounded bg-blue-600 text-white text-xs hover:bg-blue-700"
+        >
+          Kelola
+        </a>
 
           <!-- Tombol Hapus -->
           <button

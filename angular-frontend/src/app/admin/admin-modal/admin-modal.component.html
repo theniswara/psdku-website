@@ -1,0 +1,221 @@
+<!-- Background overlay -->
+<div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+
+  <!-- Modal box -->
+  <div class="bg-white w-full max-w-lg rounded-xl shadow-lg p-6 animate-fadeIn">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold">{{ getTitle() }}</h2>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-black">✕</button>
+    </div>
+
+    <!-- DELETE UNIVERSAL -->
+    <div *ngIf="type?.startsWith('delete')" class="space-y-4">
+      <p>Yakin ingin menghapus data ini?</p>
+
+      <div class="flex justify-end gap-3">
+        <button class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
+        <button class="px-4 py-2 bg-red-600 text-white rounded" (click)="submit()">Hapus</button>
+      </div>
+    </div>
+
+    <!-- Form Pendidikan -->
+    <form *ngIf="type === 'pendidikan' || type === 'edit-pendidikan'" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Jenjang</label>
+        <input type="text" [(ngModel)]="formData.jenjang" name="jenjang" class="w-full border px-3 py-2 rounded">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Jurusan</label>
+        <input type="text" [(ngModel)]="formData.jurusan" name="jurusan" class="w-full border px-3 py-2 rounded">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Universitas</label>
+        <input type="text" [(ngModel)]="formData.universitas" name="universitas" class="w-full border px-3 py-2 rounded">
+      </div>
+
+      <div class="flex gap-4">
+        <div class="flex-1">
+          <label class="block text-sm font-medium mb-1">Tahun Mulai</label>
+          <input type="number" [(ngModel)]="formData.tahunMulai" name="tahunMulai" class="w-full border px-3 py-2 rounded">
+        </div>
+
+        <div class="flex-1">
+          <label class="block text-sm font-medium mb-1">Tahun Selesai</label>
+          <input type="number" [(ngModel)]="formData.tahunSelesai" name="tahunSelesai" class="w-full border px-3 py-2 rounded">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4">
+        <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
+        <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
+      </div>
+    </form>
+
+    <!-- ✅ FORM SERTIFIKASI -->
+<form *ngIf="type === 'sertifikasi' || type === 'edit-sertifikasi'" class="space-y-4">
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Nama Sertifikasi</label>
+    <input type="text" [(ngModel)]="formData.namaSertifikasi" name="namaSertifikasi"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Penerbit</label>
+    <input type="text" [(ngModel)]="formData.penerbit" name="penerbit"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Tanggal Terbit</label>
+    <input type="date" [(ngModel)]="formData.tanggalTerbit" name="tanggalTerbit"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div class="flex justify-end gap-3 pt-4">
+    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
+    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
+  </div>
+</form>
+
+
+    <!-- ========================= -->
+<!-- KEAHLIAN FORM -->
+<!-- ========================= -->
+<form *ngIf="type === 'keahlian' || type === 'edit-keahlian'" class="space-y-4">
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Nama Keahlian</label>
+    <input [(ngModel)]="formData.namaKeahlian"
+           name="namaKeahlian"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div class="flex justify-end gap-3 pt-4">
+    <button type="button" class="px-4 py-2 bg-gray-200 rounded"
+            (click)="closeModal()">
+      Batal
+    </button>
+
+    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded"
+            (click)="submit()">
+      Simpan
+    </button>
+  </div>
+
+</form>
+
+
+
+<!-- ✅ FORM MATA KULIAH -->
+<form *ngIf="type === 'matkul' || type === 'edit-matkul'" class="space-y-4">
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Nama Mata Kuliah</label>
+    <input type="text" [(ngModel)]="formData.namaMk" name="namaMk"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Semester</label>
+    <select [(ngModel)]="formData.semester" name="semester"
+            class="w-full border px-3 py-2 rounded">
+      <option value="Ganjil">Ganjil</option>
+      <option value="Genap">Genap</option>
+    </select>
+  </div>
+
+  <div class="flex justify-end gap-3 pt-4">
+    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
+    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
+  </div>
+</form>
+
+<!-- ✅ FORM LINK EKSTERNAL -->
+<form *ngIf="type === 'link' || type === 'edit-link'" class="space-y-4">
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Nama Platform</label>
+    <input type="text" [(ngModel)]="formData.namaPlatform" name="namaPlatform"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">URL</label>
+    <input type="text" [(ngModel)]="formData.url" name="url"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div class="flex justify-end gap-3 pt-4">
+    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">Batal</button>
+    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded" (click)="submit()">Simpan</button>
+  </div>
+</form>
+
+
+
+
+    <!-- ========================= -->
+<!-- BIODATA FORM -->
+<!-- ========================= -->
+<form *ngIf="type === 'biodata'" class="space-y-4">
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Nama</label>
+    <input [(ngModel)]="formData.namaDosen" name="namaDosen"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div class="flex gap-4">
+    <div class="flex-1">
+      <label class="block text-sm font-medium mb-1">NIP</label>
+      <input [(ngModel)]="formData.nip" name="nip"
+             class="w-full border px-3 py-2 rounded">
+    </div>
+
+    <div class="flex-1">
+      <label class="block text-sm font-medium mb-1">NIDN</label>
+      <input [(ngModel)]="formData.nidn" name="nidn"
+             class="w-full border px-3 py-2 rounded">
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Jabatan</label>
+    <input [(ngModel)]="formData.jabatan" name="jabatan"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Prodi</label>
+    <input [(ngModel)]="formData.prodi" name="prodi"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Email</label>
+    <input [(ngModel)]="formData.email" name="email"
+           class="w-full border px-3 py-2 rounded">
+  </div>
+
+  <div class="flex justify-end gap-3 pt-4">
+    <button type="button" class="px-4 py-2 bg-gray-200 rounded" (click)="closeModal()">
+      Batal
+    </button>
+    <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded"
+            (click)="submit()">
+      Simpan
+    </button>
+  </div>
+</form>
+
+
+  </div>
+
+</div>
+
+

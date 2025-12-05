@@ -1,0 +1,303 @@
+<div class="p-6" *ngIf="!loading">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold">Kelola Dosen — {{ dosen.dosen.namaDosen }}</h2>
+
+    <a
+      routerLink="/admin-dashboard"
+      class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm"
+    >
+      ← Kembali
+    </a>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex gap-4 border-b mb-6">
+    <button
+      class="pb-2 font-semibold"
+      [ngClass]="
+        activeTab === 'biodata' ? 'border-b-2 border-blue-600' : 'text-gray-500'
+      "
+      (click)="setTab('biodata')"
+    >
+      Biodata
+    </button>
+
+    <button
+      class="pb-2 font-semibold"
+      [ngClass]="
+        activeTab === 'pendidikan'
+          ? 'border-b-2 border-blue-600'
+          : 'text-gray-500'
+      "
+      (click)="setTab('pendidikan')"
+    >
+      Pendidikan
+    </button>
+
+    <button
+      class="pb-2 font-semibold"
+      [ngClass]="
+        activeTab === 'keahlian'
+          ? 'border-b-2 border-blue-600'
+          : 'text-gray-500'
+      "
+      (click)="setTab('keahlian')"
+    >
+      Keahlian
+    </button>
+
+    <button
+      class="pb-2 font-semibold"
+      [ngClass]="
+        activeTab === 'sertifikasi'
+          ? 'border-b-2 border-blue-600'
+          : 'text-gray-500'
+      "
+      (click)="setTab('sertifikasi')"
+    >
+      Sertifikasi
+    </button>
+
+    <button
+      class="pb-2 font-semibold"
+      [ngClass]="
+        activeTab === 'matkul' ? 'border-b-2 border-blue-600' : 'text-gray-500'
+      "
+      (click)="setTab('matkul')"
+    >
+      Mata Kuliah
+    </button>
+
+    <button
+      class="pb-2 font-semibold"
+      [ngClass]="
+        activeTab === 'link' ? 'border-b-2 border-blue-600' : 'text-gray-500'
+      "
+      (click)="setTab('link')"
+    >
+      Link Eksternal
+    </button>
+  </div>
+
+  <!-- ===================================== -->
+  <!--           TAB: BIODATA               -->
+  <!-- ===================================== -->
+  <div *ngIf="activeTab === 'biodata'">
+    <div class="bg-white p-6 rounded shadow border">
+      <h3 class="text-xl font-semibold mb-4">Biodata Dosen</h3>
+
+      <p><strong>Nama:</strong> {{ dosen?.dosen?.namaDosen }}</p>
+      <p><strong>NIP:</strong> {{ dosen?.dosen?.nip }}</p>
+      <p><strong>NIDN:</strong> {{ dosen?.dosen?.nidn }}</p>
+      <p><strong>Jabatan:</strong> {{ dosen?.dosen?.jabatan }}</p>
+      <p><strong>Prodi:</strong> {{ dosen?.dosen?.prodi }}</p>
+      <p><strong>Email:</strong> {{ dosen?.dosen?.email }}</p>
+
+      <button
+        class="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+        (click)="openModal('biodata', dosen.dosen)"
+      >
+        Edit Biodata
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================================== -->
+  <!--           TAB: Pendidikan             -->
+  <!-- ===================================== -->
+  <div *ngIf="activeTab === 'pendidikan'">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Riwayat Pendidikan</h3>
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded"
+        (click)="openModal('pendidikan')"
+      >
+        + Tambah Pendidikan
+      </button>
+    </div>
+
+    <div *ngFor="let p of dosen.pendidikan" class="p-4 border rounded mb-3">
+      <p>
+        <strong>{{ p.jenjang }} - {{ p.jurusan }}</strong>
+      </p>
+      <p>{{ p.universitas }}</p>
+      <p>{{ p.tahunMulai }} - {{ p.tahunSelesai }}</p>
+
+      <div class="mt-2 flex gap-2">
+        <button
+          class="px-3 py-1 bg-gray-200 rounded"
+          (click)="openModal('pendidikan', p)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 bg-red-500 text-white rounded"
+          (click)="openModal('delete-pendidikan', p)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- (Keahlian, Sertifikasi, Matkul, Link akan sama formatnya) -->
+
+  <!-- TAB: KEAHLIAN -->
+  <div *ngIf="activeTab === 'keahlian'">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Bidang Keahlian</h3>
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded"
+        (click)="openModal('keahlian')"
+      >
+        + Tambah Keahlian
+      </button>
+    </div>
+
+    <div *ngFor="let k of dosen.bidangKeahlian" class="p-4 border rounded mb-3">
+      <p class="font-semibold">{{ k.namaKeahlian }}</p>
+
+      <div class="mt-2 flex gap-2">
+        <button
+          class="px-3 py-1 bg-gray-200 rounded"
+          (click)="openModal('edit-keahlian', k)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 bg-red-500 text-white rounded"
+          (click)="openModal('delete-keahlian', k)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================== -->
+  <!--           TAB: SERTIFIKASI            -->
+  <!-- ===================================== -->
+  <div *ngIf="activeTab === 'sertifikasi'">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Sertifikasi</h3>
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded"
+        (click)="openModal('sertifikasi')"
+      >
+        + Tambah Sertifikasi
+      </button>
+    </div>
+
+    <div *ngFor="let s of dosen.sertifikasi" class="p-4 border rounded mb-3">
+      <p class="font-semibold">{{ s.namaSertifikasi }}</p>
+      <p class="text-sm text-gray-600">Penerbit: {{ s.penerbit }}</p>
+      <p class="text-sm text-gray-600">Tanggal: {{ s.tanggalTerbit }}</p>
+
+      <div class="mt-2 flex gap-2">
+        <button
+          class="px-3 py-1 bg-gray-200 rounded"
+          (click)="openModal('edit-sertifikasi', s)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 bg-red-500 text-white rounded"
+          (click)="openModal('delete-sertifikasi', s)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================== -->
+  <!--           TAB: MATA KULIAH            -->
+  <!-- ===================================== -->
+  <div *ngIf="activeTab === 'matkul'">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Mata Kuliah</h3>
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded"
+        (click)="openModal('matkul')"
+      >
+        + Tambah Mata Kuliah
+      </button>
+    </div>
+
+    <div *ngFor="let m of dosen.mataKuliah" class="p-4 border rounded mb-3">
+      <p class="font-semibold">{{ m.namaMk }}</p>
+      <p class="text-sm text-gray-600">Semester: {{ m.semester }}</p>
+
+      <div class="mt-2 flex gap-2">
+        <button
+          class="px-3 py-1 bg-gray-200 rounded"
+          (click)="openModal('edit-matkul', m)"
+        >
+          Edit
+        </button>
+
+        <button
+          class="px-3 py-1 bg-red-500 text-white rounded"
+          (click)="openModal('delete-matkul', m)"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================== -->
+<!--           TAB: LINK EKSTERNAL         -->
+<!-- ===================================== -->
+<div *ngIf="activeTab === 'link'">
+
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-xl font-semibold">Link Eksternal</h3>
+    <button class="bg-blue-600 text-white px-4 py-2 rounded"
+            (click)="openModal('link')">
+      + Tambah Link
+    </button>
+  </div>
+
+  <div *ngFor="let l of dosen.linkEksternal" class="p-4 border rounded mb-3">
+
+    <p class="font-semibold">{{ l.namaPlatform }}</p>
+    <a [href]="l.url" target="_blank" class="text-blue-600 underline text-sm">
+      {{ l.url }}
+    </a>
+
+    <div class="mt-2 flex gap-2">
+      <button class="px-3 py-1 bg-gray-200 rounded"
+              (click)="openModal('edit-link', l)">
+        Edit
+      </button>
+
+      <button class="px-3 py-1 bg-red-500 text-white rounded"
+              (click)="openModal('delete-link', l)">
+        Hapus
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+  <!-- ===================================== -->
+  <!--           MODAL PLACEHOLDER          -->
+  <!-- ===================================== -->
+  <app-admin-modal
+    *ngIf="showModal"
+    [type]="modalType"
+    [item]="editingItem"
+    [idDosen]="id"
+    (close)="closeModal($event)"
+  >
+  </app-admin-modal>
+</div>
+
+<div *ngIf="loading" class="p-6">Memuat data...</div>
