@@ -180,4 +180,13 @@ export class DosenService {
   deleteLink(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseLinkUrl}/${id}`);
   }
+
+  uploadFoto(id: number, file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return this.http.post(`$http://localhost:8080/api/dosen/{id}/upload-foto`, formData);
+}
+
+
 }

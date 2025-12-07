@@ -24,6 +24,18 @@ export class AdminModalComponent implements OnChanges {
 
   @Output() close = new EventEmitter<boolean>();
 
+  selectedFile: File | null = null;
+
+  onFileSelected(event: Event) {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.selectedFile = input.files[0];
+    // Optional: kalau mau lihat di console
+    // console.log('File selected:', this.selectedFile);
+  }
+}
+
+
   formData: any = {};
   loading = false;
 
@@ -95,15 +107,57 @@ export class AdminModalComponent implements OnChanges {
     if (this.type === 'delete-link') return this.deleteLink();
   }
 
+
   // --- CRUD METHODS (Identical to your original code) ---
   
+  // updateBiodata() {
+  //   this.loading = true;
+  //   this.dosenService.updateDosen(this.idDosen, this.formData).subscribe({
+  //     next: () => this.closeModal(true),
+  //     error: () => { alert('Gagal mengubah biodata'); this.loading = false; },
+  //   });
+  // }
+
   updateBiodata() {
-    this.loading = true;
-    this.dosenService.updateDosen(this.idDosen, this.formData).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal mengubah biodata'); this.loading = false; },
-    });
-  }
+  this.loading = true;
+
+  // 1. Update biodata dulu (JSON)
+  this.dosenService.updateDosen(this.idDosen, this.formData).subscribe({
+    next: () => {
+      // 2. Kalau TIDAK ada file baru → selesai di sini
+      if (!this.selectedFile) {
+        this.loading = false;
+        this.closeModal(true);
+        return;
+      }
+
+      // 3. Kalau ADA file → lanjut upload foto
+      this.dosenService.uploadFoto(this.idDosen, this.selectedFile).subscribe({
+        next: (res: any) => {
+          // res = nama file dari backend
+          // Optional: update di UI kalau perlu
+          // this.formData.foto = res;
+
+          this.loading = false;
+          this.closeModal(true);
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Biodata tersimpan, tapi upload foto gagal.');
+          this.loading = false;
+          // bisa tetap close / tetap buka, terserah UX-mu
+          // this.closeModal(true);
+        }
+      });
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Gagal mengubah biodata');
+      this.loading = false;
+    }
+  });
+}
+
 
   createPendidikan() {
     this.loading = true;

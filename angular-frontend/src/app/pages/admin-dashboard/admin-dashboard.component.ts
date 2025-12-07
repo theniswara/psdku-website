@@ -24,6 +24,9 @@ import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
+logout() {
+throw new Error('Method not implemented.');
+}
 
   admin: any;
   dosenList: any[] = []; // Will hold merged data
@@ -35,7 +38,7 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private dosenService: DosenService
+    private dosenService: DosenService,
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,8 @@ export class AdminDashboardComponent implements OnInit {
   // LOGIC COPIED & ADAPTED FROM YOUR REFERENCE
   loadData() {
     this.loading = true;
+
+
 
     // Use forkJoin to get BOTH the profile data and the status data
     forkJoin({

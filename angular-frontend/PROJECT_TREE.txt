@@ -10,6 +10,7 @@
 |-- src
 |   |-- app
 |   |   |-- admin
+|   |   |   |-- admin-modal
 |   |   |   |-- dosen-detail-admin
 |   |   |   `-- dosen-form
 |   |   |-- app.component.css
@@ -22,11 +23,15 @@
 |   |   |-- components
 |   |   |   |-- footer
 |   |   |   |-- hero
-|   |   |   `-- navbar
+|   |   |   |-- home-about
+|   |   |   |-- home-prodi
+|   |   |   |-- navbar
+|   |   |   `-- quick-access
 |   |   |-- guards
 |   |   |   `-- auth.guard.ts
 |   |   |-- pages
 |   |   |   |-- admin-dashboard
+|   |   |   |-- admin-rekap-presensi
 |   |   |   |-- data-dosen
 |   |   |   |-- dosen-dashboard
 |   |   |   |-- dosen-detail
@@ -52,4 +57,4 @@
 |-- tsconfig.json
 `-- tsconfig.spec.json
 
-21 directories, 31 files
+26 directories, 31 files

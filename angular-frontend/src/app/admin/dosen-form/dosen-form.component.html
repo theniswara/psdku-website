@@ -59,12 +59,12 @@
              name="alamatKantor" />
     </div>
 
-    <div>
-      <label>Foto URL (optional)</label>
-      <input class="w-full border p-2 rounded"
-             [(ngModel)]="dosen.foto"
-             name="foto" />
-    </div>
+<div>
+  <label>Foto (Upload)</label>
+  <input type="file"
+         (change)="onFileSelected($event)"
+         class="w-full border p-2 rounded bg-white">
+</div>
 
     <div>
       <label>Website (optional)</label>

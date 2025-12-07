@@ -10,11 +10,13 @@ import com.polinema.psdku.springbootbackend.repository.MataKuliahRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.polinema.psdku.springbootbackend.model.Presensi;
 import com.polinema.psdku.springbootbackend.repository.PresensiRepository;
 import com.polinema.psdku.springbootbackend.repository.SertifikasiRepository;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -185,5 +187,37 @@ public class DosenController {
 
     return ResponseEntity.ok(out);
   }
+
+  @PostMapping("/{id}/upload-foto")
+public ResponseEntity<?> uploadFoto(
+        @PathVariable int id,
+        @RequestParam("file") MultipartFile file
+) {
+    try {
+        Optional<Dosen> dosenOpt = dosenRepository.findById(id);
+        if (dosenOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Dosen tidak ditemukan");
+        }
+
+        Dosen dosen = dosenOpt.get();
+
+        String uploadDir = System.getProperty("user.dir") + "/uploads/";
+        File dir = new File(uploadDir);
+        if (!dir.exists()) dir.mkdirs();
+
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File destination = new File(uploadDir + filename);
+        file.transferTo(destination);
+
+        dosen.setFoto(filename);
+        dosenRepository.save(dosen);
+
+        return ResponseEntity.ok(filename);
+
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError().body("Upload gagal");
+    }
+}
+
 
 }
