@@ -113,6 +113,8 @@ export class AdminModalComponent implements OnChanges {
       case 'edit-link': return 'Edit Link Eksternal';
       case 'delete-link': return 'Hapus Data Link';
 
+      case 'delete-dosen': return 'Hapus Akun Dosen';
+
       default: return 'Form Data';
     }
   }
@@ -156,6 +158,9 @@ export class AdminModalComponent implements OnChanges {
       case 'link': return this.createLink();
       case 'edit-link': return this.updateLink();
       case 'delete-link': return this.deleteLink();
+
+      case 'delete-dosen': return this.deleteDosenAccount();
+
 
       default: 
         console.warn('Unknown type:', this.type);
@@ -297,6 +302,21 @@ export class AdminModalComponent implements OnChanges {
       error: (err: any) => {
         console.error(err);
         alert('Gagal memproses data');
+        this.loading = false;
+      }
+    });
+  }
+
+  deleteDosenAccount() {
+    this.loading = true;
+    this.dosenService.deleteDosen(this.idDosen).subscribe({
+      next: () => {
+        this.loading = false;
+        this.closeModal(true); // Close and refresh dashboard
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Gagal menghapus dosen. Pastikan data tidak sedang digunakan.');
         this.loading = false;
       }
     });

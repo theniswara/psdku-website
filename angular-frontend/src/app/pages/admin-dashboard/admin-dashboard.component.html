@@ -1,19 +1,19 @@
 <div class="min-h-screen bg-[#F1F5F9] flex font-['Inter']">
 
-  <aside class="hidden lg:flex flex-col w-72 bg-[#051D47] text-white fixed h-full z-50 shadow-2xl">
+  <aside class="hidden lg:flex flex-col w-72 bg-[#051D47] text-white fixed h-full z-50 shadow-2xl border-r border-white/5">
     
     <div class="h-20 flex items-center gap-3 px-6 border-b border-white/10 bg-[#04183d]">
-      <img src="assets/logo.png" alt="Logo" class="h-8 w-auto brightness-110">
+      <img src="assets/logo.png" alt="Logo" class="h-8 w-auto brightness-110 drop-shadow-md">
       <div>
-        <h1 class="font-['Biryani'] font-bold text-lg leading-none tracking-wide text-white">Admin Panel</h1>
-        <span class="text-[10px] text-blue-300 font-bold tracking-widest uppercase">System Administrator</span>
+        <h1 class="font-['Biryani'] font-bold text-lg leading-none tracking-wide text-white">Admin Portal</h1>
+        <span class="text-[10px] text-blue-300 font-bold tracking-widest uppercase">System Admin</span>
       </div>
     </div>
 
     <nav class="flex-1 px-4 py-6 space-y-1">
-      <p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 mt-2">Main Module</p>
+      <p class="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 mt-1">Main Module</p>
       
-      <a routerLink="/admin" class="group flex items-center gap-3 px-4 py-3 bg-[#FF7F11] text-white rounded-xl shadow-lg shadow-orange-900/30 font-medium transition-all relative overflow-hidden">
+      <a routerLink="/admin" class="group flex items-center gap-3 px-4 py-3 bg-[#FF7F11] text-white rounded-xl shadow-lg shadow-orange-900/40 font-medium transition-all relative overflow-hidden">
         <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
         <i class="fa-solid fa-chart-pie w-5 text-center"></i> 
         <span>Dashboard</span>
@@ -24,16 +24,21 @@
         <span>Rekap Presensi</span>
       </a>
 
-      <p class="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 mt-8">Database</p>
+      <p class="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 mt-8">Database</p>
 
       <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all font-medium group">
         <i class="fa-solid fa-users w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> 
         <span>Data Dosen</span>
       </a>
+      
+      <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all font-medium group">
+        <i class="fa-solid fa-user-graduate w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> 
+        <span>Data Mahasiswa</span>
+      </a>
     </nav>
 
     <div class="p-4 border-t border-white/10 bg-[#04183d]">
-      <div class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer">
+      <div class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer border border-transparent hover:border-white/10">
         <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-[#FF7F11] to-orange-600 flex items-center justify-center text-white font-bold shadow-lg border-2 border-[#051D47]">
           {{ admin?.username?.charAt(0).toUpperCase() }}
         </div>
@@ -49,13 +54,18 @@
 
   <main class="flex-1 lg:ml-72 p-6 md:p-10 relative">
     
-    <header class="flex justify-between items-center mb-8">
+    <header class="flex justify-between items-end mb-10">
       <div>
-        <h2 class="text-2xl font-['Biryani'] font-bold text-[#051D47]">Overview</h2>
-        <p class="text-gray-500 text-sm">Pemantauan aktivitas akademik real-time.</p>
+        <h2 class="text-2xl font-['Biryani'] font-bold text-[#051D47]">Dashboard Overview</h2>
+        <p class="text-gray-500 text-sm mt-1">Pantau aktivitas akademik dan presensi secara realtime.</p>
       </div>
       
       <div class="flex items-center gap-4">
+        <div class="hidden md:flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-500 shadow-sm">
+          <i class="fa-regular fa-clock text-[#FF7F11]"></i>
+          <span>{{ today | date:'EEEE, dd MMMM yyyy' }}</span>
+        </div>
+
         <button class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-500 flex items-center justify-center hover:text-[#051D47] hover:border-[#051D47] transition-all relative shadow-sm">
           <i class="fa-regular fa-bell"></i>
           <span class="absolute top-2.5 right-3 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
@@ -69,36 +79,51 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       
-      <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-gray-200 flex items-center gap-5 relative overflow-hidden group">
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-[#051D47]"></div>
-        <div class="h-14 w-14 rounded-xl bg-[#051D47] text-white flex items-center justify-center text-2xl shadow-lg shadow-blue-900/20">
-          <i class="fa-solid fa-chalkboard-user"></i>
-        </div>
-        <div>
-          <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Total Dosen</p>
-          <h3 class="text-3xl font-['Biryani'] font-bold text-[#051D47]">{{ totalDosen }}</h3>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-gray-200 flex items-center gap-5 relative overflow-hidden group">
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-green-500"></div>
-        <div class="h-14 w-14 rounded-xl bg-green-50 text-green-600 flex items-center justify-center text-2xl">
-          <i class="fa-solid fa-check-double"></i>
-        </div>
-        <div>
-          <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Hadir Hari Ini</p>
-          <h3 class="text-3xl font-['Biryani'] font-bold text-gray-800">{{ totalHadir }}</h3>
+      <div class="bg-[#051D47] p-6 rounded-2xl shadow-xl shadow-blue-900/20 relative overflow-hidden group">
+        <div class="absolute -right-6 -top-6 w-24 h-24 bg-white/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
+        <div class="relative z-10 flex items-start justify-between">
+          <div>
+            <p class="text-blue-200 text-xs font-bold uppercase tracking-wider mb-1">Total Dosen</p>
+            <h3 class="text-4xl font-['Biryani'] font-bold text-white">{{ totalDosen }}</h3>
+            <p class="text-[10px] text-blue-300 mt-2 flex items-center gap-1">
+              <i class="fa-solid fa-database"></i> Terdaftar
+            </p>
+          </div>
+          <div class="h-12 w-12 rounded-xl bg-white/10 text-white flex items-center justify-center text-xl backdrop-blur-sm border border-white/10">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </div>
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-gray-200 flex items-center gap-5 relative overflow-hidden group">
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-[#FF7F11]"></div>
-        <div class="h-14 w-14 rounded-xl bg-orange-50 text-[#FF7F11] flex items-center justify-center text-2xl">
-          <i class="fa-solid fa-user-clock"></i>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-md transition-all">
+        <div class="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Hadir Hari Ini</p>
+            <h3 class="text-4xl font-['Biryani'] font-bold text-gray-800">{{ totalHadir }}</h3>
+            <p class="text-[10px] text-green-600 mt-2 flex items-center gap-1 font-bold">
+              <i class="fa-solid fa-arrow-trend-up"></i> Presensi Masuk
+            </p>
+          </div>
+          <div class="h-12 w-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-check-double"></i>
+          </div>
         </div>
-        <div>
-          <p class="text-gray-500 text-xs font-bold uppercase tracking-wider">Belum Presensi</p>
-          <h3 class="text-3xl font-['Biryani'] font-bold text-gray-800">{{ totalOffline }}</h3>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative overflow-hidden group hover:shadow-md transition-all">
+        <div class="absolute top-0 left-0 w-1 h-full bg-[#FF7F11]"></div>
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Belum Presensi</p>
+            <h3 class="text-4xl font-['Biryani'] font-bold text-gray-800">{{ totalOffline }}</h3>
+            <p class="text-[10px] text-orange-600 mt-2 flex items-center gap-1 font-bold">
+              <i class="fa-solid fa-clock"></i> Menunggu
+            </p>
+          </div>
+          <div class="h-12 w-12 rounded-xl bg-orange-50 text-[#FF7F11] flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-user-clock"></i>
+          </div>
         </div>
       </div>
 
@@ -106,7 +131,7 @@
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col overflow-hidden">
       
-      <div class="p-5 border-b border-gray-100 flex flex-col xl:flex-row xl:items-center justify-between gap-4 bg-gray-50/50">
+      <div class="p-5 border-b border-gray-200 flex flex-col xl:flex-row xl:items-center justify-between gap-4 bg-[#F8FAFC]">
         
         <div class="flex flex-col md:flex-row gap-3 w-full xl:w-auto">
           
@@ -116,32 +141,42 @@
               type="text" 
               [(ngModel)]="searchKeyword"
               placeholder="Cari Nama / NIDN..." 
-              class="pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#FF7F11] focus:ring-1 focus:ring-orange-100 transition-all w-full shadow-sm"
+              class="pl-9 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#FF7F11] focus:ring-1 focus:ring-orange-100 transition-all w-full shadow-sm placeholder-gray-400"
             >
           </div>
 
-          <select [(ngModel)]="selectedProdi" class="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-600 focus:outline-none focus:border-[#FF7F11] cursor-pointer shadow-sm w-full md:w-auto">
-            <option value="">Semua Program Studi</option>
-            <option *ngFor="let p of prodiList" [value]="p">{{ p }}</option>
-          </select>
+          <div class="relative w-full md:w-48">
+            <select [(ngModel)]="selectedProdi" class="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-[#FF7F11] cursor-pointer shadow-sm appearance-none hover:border-gray-400 transition-colors">
+              <option value="">Semua Program Studi</option>
+              <option *ngFor="let p of prodiList" [value]="p">{{ p }}</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+              <i class="fa-solid fa-chevron-down text-xs"></i>
+            </div>
+          </div>
 
-          <select [(ngModel)]="selectedStatus" class="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-600 focus:outline-none focus:border-[#FF7F11] cursor-pointer shadow-sm w-full md:w-auto">
-            <option value="">Semua Status</option>
-            <option value="Hadir">Hadir</option>
-            <option value="Offline">Belum Hadir</option>
-          </select>
+          <div class="relative w-full md:w-40">
+            <select [(ngModel)]="selectedStatus" class="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-[#FF7F11] cursor-pointer shadow-sm appearance-none hover:border-gray-400 transition-colors">
+              <option value="">Semua Status</option>
+              <option value="Hadir">Hadir</option>
+              <option value="Offline">Belum Hadir</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+              <i class="fa-solid fa-chevron-down text-xs"></i>
+            </div>
+          </div>
 
         </div>
 
         <a [routerLink]="['/admin/dosen/add']" 
-           class="flex items-center justify-center gap-2 bg-[#051D47] hover:bg-[#0A2656] text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg active:scale-95 shrink-0">
+           class="flex items-center justify-center gap-2 bg-[#051D47] hover:bg-[#0A2656] text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-md hover:shadow-lg active:scale-95 shrink-0">
           <i class="fa-solid fa-plus"></i> <span>Tambah Dosen</span>
         </a>
       </div>
 
       <ng-container *ngIf="dosenList | filterDosen:searchKeyword:selectedProdi:selectedStatus as filteredList">
         
-        <div *ngIf="loading" class="p-12 text-center">
+        <div *ngIf="loading" class="p-16 text-center">
           <div class="inline-block w-8 h-8 border-4 border-[#FF7F11] border-t-transparent rounded-full animate-spin"></div>
           <p class="text-sm text-gray-500 mt-2 font-medium">Sedang memuat data...</p>
         </div>
@@ -151,73 +186,79 @@
             
             <thead class="bg-[#051D47] text-white text-[11px] font-bold uppercase tracking-wider">
               <tr>
-                <th class="px-6 py-4 rounded-tl-lg">Dosen & Prodi</th>
-                <th class="px-6 py-4">Status Kehadiran</th>
-                <th class="px-6 py-4 text-center">Jam Masuk</th>
-                <th class="px-6 py-4 text-center">Jam Keluar</th>
-                <th class="px-6 py-4 text-right rounded-tr-lg">Aksi</th>
+                <th class="px-6 py-4 font-semibold">Identitas Dosen</th>
+                <th class="px-6 py-4 font-semibold">Kehadiran</th>
+                <th class="px-6 py-4 text-center font-semibold">Jam Masuk</th>
+                <th class="px-6 py-4 text-center font-semibold">Jam Keluar</th>
+                <th class="px-6 py-4 text-right font-semibold">Aksi</th>
               </tr>
             </thead>
             
-            <tbody class="text-sm divide-y divide-gray-50">
+            <tbody class="text-sm divide-y divide-gray-100">
               
-              <tr *ngFor="let d of filteredList" class="group hover:bg-blue-50/20 transition-colors">
+              <tr *ngFor="let d of filteredList" class="group transition-colors even:bg-slate-50 hover:bg-blue-50/50">
                 
                 <td class="px-6 py-4">
                   <div class="flex items-center gap-3">
-                    <img 
-                      [src]="d.foto ? 'http://localhost:8080/uploads/' + d.foto : 'assets/default-user.png'"
-                      class="h-10 w-10 rounded-full object-cover border-2 border-gray-100 shadow-sm">
+                    <div class="relative">
+                      <img [src]="d.foto ? 'http://localhost:8080/uploads/' + d.foto : 'assets/default-user.png'"
+                           class="h-10 w-10 rounded-full object-cover border-2 border-gray-100 bg-white">
+                      <span *ngIf="d.statusPresensi === 'Hadir'" class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+                    </div>
                     <div>
                       <p class="font-bold text-[#051D47] text-sm">{{ d.namaDosen }}</p>
-                      <p class="text-[11px] text-gray-400 uppercase tracking-wide">{{ d.prodi }}</p>
+                      <p class="text-[11px] text-gray-500 font-medium">{{ d.prodi }}</p>
                     </div>
                   </div>
                 </td>
 
                 <td class="px-6 py-4">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-sm"
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold border shadow-sm bg-white"
                     [ngClass]="{
-                      'bg-green-50 text-green-700 border-green-200': d.statusPresensi === 'Hadir',
-                      'bg-gray-50 text-gray-500 border-gray-200': !d.statusPresensi
+                      'text-green-700 border-green-200 ring-1 ring-green-50': d.statusPresensi === 'Hadir',
+                      'text-gray-500 border-gray-200': !d.statusPresensi
                     }">
-                    <span class="h-2 w-2 rounded-full" 
+                    <span class="h-1.5 w-1.5 rounded-full" 
                           [ngClass]="d.statusPresensi === 'Hadir' ? 'bg-green-500 animate-pulse' : 'bg-gray-400'"></span>
-                    {{ d.statusPresensi || 'Offline' }}
+                    {{ d.statusPresensi || 'Belum Presensi' }}
                   </span>
                 </td>
 
-                <td class="px-6 py-4 text-center font-mono text-gray-600 text-xs">
-                  {{ d.waktuMasuk || '--:--' }}
+                <td class="px-6 py-4 text-center font-mono text-gray-600 text-xs tracking-tight">
+                  <span [class]="d.waktuMasuk ? 'bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-100' : 'text-gray-400'">
+                    {{ d.waktuMasuk || '--:--' }}
+                  </span>
                 </td>
-                <td class="px-6 py-4 text-center font-mono text-gray-600 text-xs">
-                  {{ d.waktuKeluar || '--:--' }}
+                <td class="px-6 py-4 text-center font-mono text-gray-600 text-xs tracking-tight">
+                  <span [class]="d.waktuKeluar ? 'bg-orange-50 text-orange-700 px-2 py-0.5 rounded border border-orange-100' : 'text-gray-400'">
+                    {{ d.waktuKeluar || '--:--' }}
+                  </span>
                 </td>
 
                 <td class="px-6 py-4 text-right">
                   <div class="inline-flex gap-2">
                     <a [routerLink]="['/admin/dosen', d.idDosen]" 
-                       class="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors border border-blue-100" 
+                       class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-blue-600 hover:bg-blue-600 hover:text-white transition-colors border border-blue-200 shadow-sm" 
                        title="Edit Profil">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <button (click)="deleteDosen(d.idDosen)" 
-                            [disabled]="deletingId === d.idDosen" 
-                            class="w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-colors border border-red-100 disabled:opacity-50"
-                            title="Hapus">
-                      <i class="fa-solid" [ngClass]="deletingId === d.idDosen ? 'fa-spinner fa-spin' : 'fa-trash'"></i>
+                    
+                    <button (click)="openDeleteModal(d.idDosen)" 
+                            class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-red-600 hover:bg-red-600 hover:text-white transition-colors border border-red-200 shadow-sm"
+                            title="Hapus Data">
+                      <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>
                 </td>
               </tr>
 
               <tr *ngIf="filteredList.length === 0">
-                <td colspan="5" class="p-12 text-center">
-                  <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-gray-400 mb-4 bg-opacity-50">
+                <td colspan="5" class="p-16 text-center">
+                  <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 text-gray-400 mb-4 bg-opacity-50">
                     <i class="fa-solid fa-filter-circle-xmark text-2xl"></i>
                   </div>
-                  <h3 class="text-gray-900 font-bold mb-1">Data Tidak Ditemukan</h3>
-                  <p class="text-gray-500 text-sm mb-4">Coba ubah kata kunci atau filter pencarian Anda.</p>
+                  <h3 class="text-gray-900 font-bold mb-1">Tidak Ditemukan</h3>
+                  <p class="text-gray-500 text-sm mb-4">Tidak ada data yang cocok dengan filter Anda.</p>
                   
                   <button *ngIf="searchKeyword || selectedProdi || selectedStatus" 
                           (click)="searchKeyword=''; selectedProdi=''; selectedStatus=''" 
@@ -231,13 +272,13 @@
           </table>
         </div>
 
-        <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center rounded-b-2xl">
-          <p class="text-xs text-gray-400 font-medium">
+        <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-between items-center rounded-b-2xl">
+          <p class="text-xs text-gray-500 font-medium">
             Total Data: <span class="text-[#051D47] font-bold">{{ filteredList.length }}</span>
           </p>
           <div class="flex gap-2">
-             <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-400 hover:text-[#051D47] disabled:opacity-50"><i class="fa-solid fa-chevron-left text-xs"></i></button>
-             <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-400 hover:text-[#051D47] disabled:opacity-50"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+             <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-500 hover:text-[#051D47] hover:border-[#051D47] disabled:opacity-50 transition-all shadow-sm"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+             <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-500 hover:text-[#051D47] hover:border-[#051D47] disabled:opacity-50 transition-all shadow-sm"><i class="fa-solid fa-chevron-right text-xs"></i></button>
           </div>
         </div>
 
@@ -246,4 +287,16 @@
     </div>
 
   </main>
+
+  <div class="fixed inset-0 z-[100] flex items-center justify-center" *ngIf="showModal">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" (click)="closeModal(false)"></div>
+    
+    <app-admin-modal
+      class="relative z-10 w-full max-w-lg mx-4"
+      [type]="modalType"
+      [idDosen]="selectedDosenId"
+      (close)="closeModal($event)"
+    ></app-admin-modal>
+  </div>
+
 </div>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router'; // Ensure Router is imported
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
 import { DosenService } from '../../services/dosen.service';
 import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
+import { AdminModalComponent } from '../../admin/admin-modal/admin-modal.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,27 +16,34 @@ import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
     CommonModule, 
     RouterLink, 
     FormsModule, 
-    FilterDosenPipe
+    FilterDosenPipe,
+    AdminModalComponent
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
 
+  today = new Date();
+
   admin: any;
   dosenList: any[] = [];
   loading = true;
-  deletingId: number | null = null;
-
+  
   // Filter Variables
   searchKeyword: string = ''; 
-  selectedProdi: string = ''; // New filter for Prodi
-  selectedStatus: string = ''; // New filter for Status (e.g., 'Hadir', 'Offline')
+  selectedProdi: string = '';
+  selectedStatus: string = '';
+
+  // ✅ Modal State Variables
+  showModal = false;
+  modalType: string | null = null;
+  selectedDosenId: number = 0;
 
   constructor(
     private auth: AuthService,
     private dosenService: DosenService,
-    private router: Router // Inject Router for logout
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -71,36 +79,37 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-logout() {
-  this.auth.logoutFrontend();
-  this.router.navigate(['/login']);
-}
-
-  deleteDosen(id: number) {
-    const ok = confirm('Yakin ingin menghapus dosen ini? Data tidak bisa dikembalikan.');
-    if (!ok) return;
-
-    this.deletingId = id;
-    this.dosenService.deleteDosen(id).subscribe({
-      next: () => {
-        this.dosenList = this.dosenList.filter(d => d.idDosen !== id);
-        this.deletingId = null;
-      },
-      error: () => {
-        alert('Gagal menghapus dosen.');
-        this.deletingId = null;
-      }
-    });
+  logout() {
+    this.auth.logoutFrontend();
+    this.router.navigate(['/login']);
   }
-  
+
+  // ✅ 1. NEW: Open the Modal instead of confirm()
+  openDeleteModal(id: number) {
+    this.selectedDosenId = id;
+    this.modalType = 'delete-dosen'; // Matches the type in AdminModalComponent
+    this.showModal = true;
+  }
+
+  // ✅ 2. NEW: Handle closing (and refreshing if deleted)
+  closeModal(refresh: boolean) {
+    this.showModal = false;
+    this.selectedDosenId = 0;
+    this.modalType = null;
+
+    if (refresh) {
+      // If modal returned 'true', it means delete was successful
+      this.loadData(); 
+    }
+  }
+
+  // Helper Getters
   get totalDosen() { return this.dosenList.length; }
   get totalHadir() { return this.dosenList.filter(d => d.statusPresensi === 'Hadir').length; }
   get totalOffline() { return this.dosenList.filter(d => !d.statusPresensi).length; }
   
-  // Helper to get unique Prodis for dropdown
   get prodiList() {
-    // Get unique prodi names from the list
-    const prodis = this.dosenList.map(d => d.prodi).filter(p => p); // filter out null/undefined
-    return [...new Set(prodis)]; // Returns unique array
+    const prodis = this.dosenList.map(d => d.prodi).filter(p => p);
+    return [...new Set(prodis)];
   }
 }

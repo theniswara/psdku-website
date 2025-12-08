@@ -1,87 +1,93 @@
-<section class="py-24 bg-white font-['Inter'] overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 md:px-8">
-    
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-      
-      <div class="relative group">
-        
-        <div class="absolute -bottom-6 -left-6 w-full h-full bg-[#051D47] rounded-3xl -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
-        
-        <div class="absolute -top-6 -right-6 text-[#FF7F11] opacity-60">
-           <svg width="100" height="100" fill="currentColor" viewBox="0 0 100 100">
-             <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-               <circle cx="2" cy="2" r="2"></circle>
-             </pattern>
-             <rect width="100" height="100" fill="url(#dots)"></rect>
-           </svg>
-        </div>
+<section class="py-24 bg-white font-['Inter'] relative overflow-hidden">
+  
+  <div class="absolute inset-0 opacity-[0.03]" 
+       style="background-image: radial-gradient(#051D47 1px, transparent 1px); background-size: 32px 32px;">
+  </div>
 
-        <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-100 relative">
-           <img src="assets/hero-bg.png" alt="Kampus Polinema Lumajang" class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+    
+    <div class="text-center mb-20 max-w-3xl mx-auto">
+      <span class="text-[#FF7F11] font-bold tracking-widest uppercase text-xs mb-3 block">Profil Kampus</span>
+      
+      <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47] mb-6 relative inline-block">
+        Tentang Kami
+        <span class="absolute left-1/2 -translate-x-1/2 -bottom-4 w-16 h-1.5 bg-[#FF7F11] rounded-full"></span>
+      </h2>
+
+      <h3 class="text-xl md:text-2xl font-bold text-gray-700 leading-snug mt-6">
+        Mewujudkan Pendidikan Vokasi <br>
+        <span class="text-[#051D47]">Unggul & Berkarakter</span>
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <div class="relative group pl-4 pb-4">
+        
+        <div class="absolute top-0 left-0 w-full h-full bg-[#051D47] rounded-3xl -z-10 transform -translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
+        
+        <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10 h-[500px]">
+           <img src="assets/hero-bg.png" 
+                alt="Kampus Polinema Lumajang" 
+                class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
            
-           <div class="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-lg border-l-4 border-[#FF7F11]">
-             <p class="text-[#051D47] font-bold text-lg leading-none">Est. 2014</p>
-             <p class="text-gray-500 text-xs mt-1">Dedikasi Vokasi</p>
+           <div class="absolute inset-0 bg-gradient-to-t from-[#051D47]/90 via-transparent to-transparent"></div>
+
+           <div class="absolute bottom-8 left-8 right-8">
            </div>
         </div>
       </div>
 
       <div class="space-y-8">
         
-        <div>
-          <span class="text-[#FF7F11] font-bold tracking-widest uppercase text-xs mb-2 block">Tentang Kami</span>
-          <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47] leading-tight">
-            Membangun Generasi <br>
-            <span class="relative inline-block">
-              Unggul & Kompeten
-              <span class="absolute bottom-1 left-0 w-full h-3 bg-orange-100 -z-10 transform -rotate-1"></span>
-            </span>
-          </h2>
-        </div>
-
-        <p class="text-gray-500 text-lg leading-relaxed text-justify">
-          Politeknik Negeri Malang PSDKU Lumajang hadir sebagai inisiatif strategis untuk memeratakan akses pendidikan tinggi vokasi berkualitas. Dengan kurikulum berbasis industri, kami mencetak lulusan yang tidak hanya siap kerja, tetapi juga siap memimpin perubahan.
+        <p class="text-xl text-[#051D47] leading-relaxed font-medium">
+          Politeknik Negeri Malang PSDKU Lumajang hadir sebagai inisiatif strategis untuk memeratakan akses pendidikan tinggi vokasi berkualitas. 
+        </p>
+        
+        <p class="text-gray-600 leading-relaxed text-justify">
+          Kami menggabungkan kurikulum berbasis industri dengan pendidikan karakter untuk mencetak lulusan yang tidak hanya siap kerja, tetapi juga siap memimpin perubahan di era global. Fokus kami adalah menjembatani kebutuhan industri dengan kompetensi akademik.
         </p>
 
-        <div class="space-y-4">
+        <div class="grid grid-cols-1 gap-4 pt-4">
           
-          <div class="bg-[#F8FAFC] p-6 rounded-2xl border border-gray-100 hover:border-[#051D47] transition-colors group">
-            <div class="flex items-center gap-4 mb-3">
-              <div class="w-10 h-10 rounded-full bg-[#051D47] flex items-center justify-center text-white group-hover:bg-[#FF7F11] transition-colors">
+          <div class="flex gap-5 p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:border-blue-100 transition-all duration-300 group">
+            <div class="shrink-0">
+              <div class="w-12 h-12 rounded-full bg-blue-50 text-[#051D47] flex items-center justify-center text-xl group-hover:bg-[#051D47] group-hover:text-white transition-colors">
                 <i class="fa-solid fa-eye"></i>
               </div>
-              <h3 class="text-lg font-bold text-[#051D47]">Visi</h3>
             </div>
-            <p class="text-gray-600 text-sm italic">
-              "Menjadi Lembaga Pendidikan Tinggi Vokasi yang Unggul dalam Persaingan Global."
-            </p>
+            <div>
+              <h4 class="font-bold text-[#051D47] mb-1 font-['Biryani']">Visi Kampus</h4>
+              <p class="text-sm text-gray-600 italic">"Menjadi Lembaga Pendidikan Tinggi Vokasi yang Unggul dalam Persaingan Global."</p>
+            </div>
           </div>
 
-          <div class="bg-[#F8FAFC] p-6 rounded-2xl border border-gray-100 hover:border-[#051D47] transition-colors group">
-            <div class="flex items-center gap-4 mb-3">
-              <div class="w-10 h-10 rounded-full bg-[#051D47] flex items-center justify-center text-white group-hover:bg-[#FF7F11] transition-colors">
-                <i class="fa-solid fa-bullseye"></i>
+          <div class="flex gap-5 p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:border-orange-100 transition-all duration-300 group">
+            <div class="shrink-0">
+              <div class="w-12 h-12 rounded-full bg-orange-50 text-[#FF7F11] flex items-center justify-center text-xl group-hover:bg-[#FF7F11] group-hover:text-white transition-colors">
+                <i class="fa-solid fa-rocket"></i>
               </div>
-              <h3 class="text-lg font-bold text-[#051D47]">Misi Utama</h3>
             </div>
-            <ul class="space-y-2 text-sm text-gray-600">
-              <li class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-[#FF7F11] mt-1"></i>
-                <span>Menyelenggarakan pendidikan vokasi yang berkualitas.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-[#FF7F11] mt-1"></i>
-                <span>Mengembangkan penelitian terapan dan pengabdian masyarakat.</span>
-              </li>
-            </ul>
+            <div>
+              <h4 class="font-bold text-[#051D47] mb-1 font-['Biryani']">Misi Utama</h4>
+              <ul class="space-y-1 text-sm text-gray-600">
+                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#FF7F11]"></div> Menyelenggarakan pendidikan berkualitas.</li>
+                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#FF7F11]"></div> Mengembangkan penelitian terapan.</li>
+              </ul>
+            </div>
           </div>
 
         </div>
 
-        <div class="pt-2">
-          <button class="px-8 py-3 bg-[#051D47] text-white font-bold rounded-xl hover:bg-[#0a2a61] transition-all shadow-lg hover:shadow-blue-900/20 flex items-center gap-2">
-            Selengkapnya Tentang Kami
-            <i class="fa-solid fa-arrow-right"></i>
+        <div class="pt-6 flex flex-wrap gap-4">
+          <button class="px-8 py-3.5 bg-[#051D47] text-white font-bold rounded-xl hover:bg-[#0A2656] transition-all shadow-lg hover:shadow-blue-900/30 flex items-center justify-center gap-3 group">
+            <span>Selengkapnya</span>
+            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </button>
+          
+          <button class="px-8 py-3.5 bg-transparent text-[#051D47] border-2 border-[#051D47] font-bold rounded-xl hover:bg-[#051D47] hover:text-white transition-all flex items-center justify-center gap-3">
+            <i class="fa-solid fa-download"></i>
+            <span>Unduh Brosur</span>
           </button>
         </div>
 
