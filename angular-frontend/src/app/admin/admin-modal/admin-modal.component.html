@@ -157,6 +157,36 @@
 </div>
 
       </form>
+<div *ngIf="type === 'foto'" class="space-y-6 text-center">
+        
+        <div class="flex justify-center">
+          <div class="w-32 h-32 rounded-full border-4 border-gray-100 shadow-inner bg-gray-50 overflow-hidden relative group">
+            <img [src]="previewImage || (item?.foto ? 'http://localhost:8080/uploads/' + item.foto : 'assets/default-user.png')" 
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <div class="w-full">
+          <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-2xl cursor-pointer bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-all group">
+              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-cloud-arrow-up text-[#051D47]"></i>
+                  </div>
+                  <p class="text-sm text-gray-500 font-medium">
+                    <span class="text-[#051D47] font-bold">Klik untuk upload</span> atau drag and drop
+                  </p>
+                  <p class="text-xs text-gray-400 mt-1">SVG, PNG, JPG (Max. 2MB)</p>
+              </div>
+              <input type="file" (change)="onFileSelected($event)" class="hidden" accept="image/*" />
+          </label>
+          
+          <p *ngIf="selectedFile" class="mt-3 text-sm text-green-600 font-bold bg-green-50 py-1 px-3 rounded-full inline-block animate-fade-in-up">
+            <i class="fa-solid fa-check-circle mr-1"></i> {{ selectedFile.name }}
+          </p>
+        </div>
+
+      </div>
+
 
     </div>
 

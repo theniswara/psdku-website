@@ -87,4 +87,11 @@ export class DosenDetailAdminComponent implements OnInit {
       this.loadFullProfile();
     }
   }
+
+  openPhotoModal() {
+  this.modalType = 'foto';
+  this.editingItem = this.dosen?.dosen;
+  this.showModal = true;
+}
+
 }

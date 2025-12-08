@@ -24,36 +24,74 @@ export class AdminModalComponent implements OnChanges {
 
   @Output() close = new EventEmitter<boolean>();
 
-  selectedFile: File | null = null;
-
-  onFileSelected(event: Event) {
-  const input = event.target as HTMLInputElement;
-  if (input.files && input.files.length > 0) {
-    this.selectedFile = input.files[0];
-    // Optional: kalau mau lihat di console
-    // console.log('File selected:', this.selectedFile);
-  }
-}
-
-
   formData: any = {};
   loading = false;
+  
+  selectedFile: File | null = null;
+  previewImage: string | null = null;
+
+  // Change this if your backend URL changes
+  private readonly IMAGE_BASE_URL = 'http://localhost:8080/uploads/';
 
   constructor(private dosenService: DosenService) {}
 
+  // ==========================================
+  // LIFECYCLE: SETUP DATA ON OPEN
+  // ==========================================
   ngOnChanges(changes: SimpleChanges) {
     if (changes['item'] || changes['type']) {
+      // 1. Reset File & Preview
+      this.selectedFile = null;
+      this.previewImage = null;
+
+      // 2. Setup Form Data
       if (this.item) {
         this.formData = { ...this.item };
+
+        // Setup existing image preview if available
+        if (this.item.foto) {
+          this.previewImage = this.IMAGE_BASE_URL + this.item.foto;
+        }
       } else {
         this.formData = {};
       }
     }
   }
 
+  // ==========================================
+  // HELPER: FILE SELECTION
+  // ==========================================
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+
+      // Optional: Validation (Max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        alert('Ukuran file terlalu besar! Maksimal 2MB.');
+        input.value = ''; // Reset input
+        return;
+      }
+
+      this.selectedFile = file;
+
+      // Preview image immediately
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewImage = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  // ==========================================
+  // HELPER: MODAL TITLE
+  // ==========================================
   getTitle(): string {
     switch (this.type) {
       case 'biodata': return 'Edit Biodata Diri';
+      case 'foto': return 'Ubah Foto Profil';
       
       case 'pendidikan': return 'Tambah Pendidikan';
       case 'edit-pendidikan': return 'Edit Pendidikan';
@@ -75,7 +113,7 @@ export class AdminModalComponent implements OnChanges {
       case 'edit-link': return 'Edit Link Eksternal';
       case 'delete-link': return 'Hapus Data Link';
 
-      default: return 'Modal';
+      default: return 'Form Data';
     }
   }
 
@@ -83,204 +121,184 @@ export class AdminModalComponent implements OnChanges {
     this.close.emit(reload);
   }
 
+  // ==========================================
+  // MAIN LOGIC: SUBMIT ROUTER
+  // ==========================================
   submit() {
-    if (this.type === 'biodata') return this.updateBiodata();
+    console.log('✅ Submitting:', this.type);
 
-    if (this.type === 'pendidikan') return this.createPendidikan();
-    if (this.type === 'edit-pendidikan') return this.updatePendidikan();
-    if (this.type === 'delete-pendidikan') return this.deletePendidikan();
+    switch (this.type) {
+      // Special Cases
+      case 'biodata': return this.updateBiodata();
+      case 'foto': return this.uploadFotoOnly();
 
-    if (this.type === 'keahlian') return this.createKeahlian();
-    if (this.type === 'edit-keahlian') return this.updateKeahlian();
-    if (this.type === 'delete-keahlian') return this.deleteKeahlian();
+      // Pendidikan
+      case 'pendidikan': return this.createPendidikan();
+      case 'edit-pendidikan': return this.updatePendidikan();
+      case 'delete-pendidikan': return this.deletePendidikan();
 
-    if (this.type === 'sertifikasi') return this.createSertifikasi();
-    if (this.type === 'edit-sertifikasi') return this.updateSertifikasi();
-    if (this.type === 'delete-sertifikasi') return this.deleteSertifikasi();
+      // Keahlian
+      case 'keahlian': return this.createKeahlian();
+      case 'edit-keahlian': return this.updateKeahlian();
+      case 'delete-keahlian': return this.deleteKeahlian();
 
-    if (this.type === 'matkul') return this.createMatkul();
-    if (this.type === 'edit-matkul') return this.updateMatkul();
-    if (this.type === 'delete-matkul') return this.deleteMatkul();
+      // Sertifikasi
+      case 'sertifikasi': return this.createSertifikasi();
+      case 'edit-sertifikasi': return this.updateSertifikasi();
+      case 'delete-sertifikasi': return this.deleteSertifikasi();
 
-    if (this.type === 'link') return this.createLink();
-    if (this.type === 'edit-link') return this.updateLink();
-    if (this.type === 'delete-link') return this.deleteLink();
+      // Mata Kuliah
+      case 'matkul': return this.createMatkul();
+      case 'edit-matkul': return this.updateMatkul();
+      case 'delete-matkul': return this.deleteMatkul();
+
+      // Link
+      case 'link': return this.createLink();
+      case 'edit-link': return this.updateLink();
+      case 'delete-link': return this.deleteLink();
+
+      default: 
+        console.warn('Unknown type:', this.type);
+        return;
+    }
   }
 
-
-  // --- CRUD METHODS (Identical to your original code) ---
-  
-  // updateBiodata() {
-  //   this.loading = true;
-  //   this.dosenService.updateDosen(this.idDosen, this.formData).subscribe({
-  //     next: () => this.closeModal(true),
-  //     error: () => { alert('Gagal mengubah biodata'); this.loading = false; },
-  //   });
-  // }
-
+  // ==========================================
+  // LOGIC 1: BIODATA + OPTIONAL PHOTO
+  // ==========================================
   updateBiodata() {
-  this.loading = true;
+    this.loading = true;
 
-  // 1. Update biodata dulu (JSON)
-  this.dosenService.updateDosen(this.idDosen, this.formData).subscribe({
-    next: () => {
-      // 2. Kalau TIDAK ada file baru → selesai di sini
-      if (!this.selectedFile) {
-        this.loading = false;
-        this.closeModal(true);
-        return;
-      }
-
-      // 3. Kalau ADA file → lanjut upload foto
-      this.dosenService.uploadFoto(this.idDosen, this.selectedFile).subscribe({
-        next: (res: any) => {
-          // res = nama file dari backend
-          // Optional: update di UI kalau perlu
-          // this.formData.foto = res;
-
+    // 1. Update JSON Data first
+    this.dosenService.updateDosen(this.idDosen, this.formData).subscribe({
+      next: () => {
+        // 2. If NO file selected, we are done
+        if (!this.selectedFile) {
           this.loading = false;
           this.closeModal(true);
-        },
-        error: (err) => {
-          console.error(err);
-          alert('Biodata tersimpan, tapi upload foto gagal.');
-          this.loading = false;
-          // bisa tetap close / tetap buka, terserah UX-mu
-          // this.closeModal(true);
+          return;
         }
-      });
-    },
-    error: (err) => {
-      console.error(err);
-      alert('Gagal mengubah biodata');
-      this.loading = false;
+
+        // 3. If file exists, Upload Photo
+        this.dosenService.uploadFoto(this.idDosen, this.selectedFile).subscribe({
+          next: () => {
+            this.loading = false;
+            this.closeModal(true);
+          },
+          error: (err) => {
+            console.error(err);
+            alert('Biodata tersimpan, namun upload foto gagal.');
+            this.loading = false;
+            this.closeModal(true); // Close anyway because data is saved
+          }
+        });
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Gagal mengubah biodata');
+        this.loading = false;
+      }
+    });
+  }
+
+  // ==========================================
+  // LOGIC 2: PHOTO ONLY UPLOAD
+  // ==========================================
+  uploadFotoOnly() {
+    if (!this.selectedFile) {
+      alert("Pilih foto terlebih dahulu");
+      return;
     }
-  });
-}
 
+    this.loading = true;
 
+    this.dosenService.uploadFoto(this.idDosen, this.selectedFile).subscribe({
+      next: () => {
+        this.loading = false;
+        this.closeModal(true);
+      },
+      error: () => {
+        alert('Upload foto gagal');
+        this.loading = false;
+      }
+    });
+  }
+
+  // ==========================================
+  // LOGIC 3: STANDARD CRUD OPERATIONS
+  // ==========================================
+
+  // --- Pendidikan ---
   createPendidikan() {
-    this.loading = true;
-    const payload = { ...this.formData, dosen: { idDosen: this.idDosen } };
-    this.dosenService.createPendidikan(payload).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menambah pendidikan'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.createPendidikan({ ...this.formData, dosen: { idDosen: this.idDosen } }));
   }
-
   updatePendidikan() {
-    this.loading = true;
-    this.dosenService.updatePendidikan(this.item.idPendidikan, this.formData).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal mengubah pendidikan'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.updatePendidikan(this.item.idPendidikan, this.formData));
   }
-
   deletePendidikan() {
-    this.loading = true;
-    this.dosenService.deletePendidikan(this.item.idPendidikan).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menghapus pendidikan'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.deletePendidikan(this.item.idPendidikan));
   }
 
+  // --- Keahlian ---
   createKeahlian() {
-    this.loading = true;
-    const payload = { namaKeahlian: this.formData.namaKeahlian, dosen: { idDosen: this.idDosen } };
-    this.dosenService.createKeahlian(payload).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menambah keahlian'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.createKeahlian({ namaKeahlian: this.formData.namaKeahlian, dosen: { idDosen: this.idDosen } }));
   }
-
   updateKeahlian() {
-    this.loading = true;
-    this.dosenService.updateKeahlian(this.item.idKeahlian, this.formData).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal mengubah keahlian'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.updateKeahlian(this.item.idKeahlian, this.formData));
   }
-
   deleteKeahlian() {
-    this.loading = true;
-    this.dosenService.deleteKeahlian(this.item.idKeahlian).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menghapus keahlian'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.deleteKeahlian(this.item.idKeahlian));
   }
 
+  // --- Sertifikasi ---
   createSertifikasi() {
-    this.loading = true;
-    const payload = { ...this.formData, dosen: { idDosen: this.idDosen } };
-    this.dosenService.createSertifikasi(payload).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menambah sertifikasi'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.createSertifikasi({ ...this.formData, dosen: { idDosen: this.idDosen } }));
   }
-
   updateSertifikasi() {
-    this.loading = true;
-    this.dosenService.updateSertifikasi(this.item.idSertifikasi, this.formData).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal mengubah sertifikasi'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.updateSertifikasi(this.item.idSertifikasi, this.formData));
   }
-
   deleteSertifikasi() {
-    this.loading = true;
-    this.dosenService.deleteSertifikasi(this.item.idSertifikasi).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menghapus sertifikasi'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.deleteSertifikasi(this.item.idSertifikasi));
   }
 
+  // --- Matkul ---
   createMatkul() {
-    this.loading = true;
-    const payload = { ...this.formData, dosen: { idDosen: this.idDosen } };
-    this.dosenService.createMatkul(payload).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menambah mata kuliah'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.createMatkul({ ...this.formData, dosen: { idDosen: this.idDosen } }));
   }
-
   updateMatkul() {
-    this.loading = true;
-    this.dosenService.updateMatkul(this.item.idMk, this.formData).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal mengubah mata kuliah'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.updateMatkul(this.item.idMk, this.formData));
   }
-
   deleteMatkul() {
-    this.loading = true;
-    this.dosenService.deleteMatkul(this.item.idMk).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menghapus mata kuliah'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.deleteMatkul(this.item.idMk));
   }
 
+  // --- Link ---
   createLink() {
-    this.loading = true;
-    const payload = { ...this.formData, dosen: { idDosen: this.idDosen } };
-    this.dosenService.createLink(payload).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menambah link'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.createLink({ ...this.formData, dosen: { idDosen: this.idDosen } }));
   }
-
   updateLink() {
-    this.loading = true;
-    this.dosenService.updateLink(this.item.idLink, this.formData).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal mengubah link'); this.loading = false; },
-    });
+    this.handleRequest(this.dosenService.updateLink(this.item.idLink, this.formData));
+  }
+  deleteLink() {
+    this.handleRequest(this.dosenService.deleteLink(this.item.idLink));
   }
 
-  deleteLink() {
+  // ==========================================
+  // HELPER: GENERIC REQUEST HANDLER
+  // ==========================================
+  // Reduces code duplication for simple CRUD calls
+  private handleRequest(observable: any) {
     this.loading = true;
-    this.dosenService.deleteLink(this.item.idLink).subscribe({
-      next: () => this.closeModal(true),
-      error: () => { alert('Gagal menghapus link'); this.loading = false; },
+    observable.subscribe({
+      next: () => {
+        this.loading = false;
+        this.closeModal(true);
+      },
+      error: (err: any) => {
+        console.error(err);
+        alert('Gagal memproses data');
+        this.loading = false;
+      }
     });
   }
 }

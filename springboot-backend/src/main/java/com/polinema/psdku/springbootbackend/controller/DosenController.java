@@ -1,20 +1,13 @@
 package com.polinema.psdku.springbootbackend.controller;
 
 import com.polinema.psdku.springbootbackend.model.Dosen;
-import com.polinema.psdku.springbootbackend.repository.BidangKeahlianRepository;
-import com.polinema.psdku.springbootbackend.repository.DosenRepository;
-import com.polinema.psdku.springbootbackend.repository.LinkEksternalRepository;
-import com.polinema.psdku.springbootbackend.repository.PendidikanRepository;
-import com.polinema.psdku.springbootbackend.repository.MataKuliahRepository;
+import com.polinema.psdku.springbootbackend.repository.*;
+import com.polinema.psdku.springbootbackend.model.Presensi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.polinema.psdku.springbootbackend.model.Presensi;
-import com.polinema.psdku.springbootbackend.repository.PresensiRepository;
-import com.polinema.psdku.springbootbackend.repository.SertifikasiRepository;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -27,32 +20,6 @@ public class DosenController {
 
   @Autowired
   private DosenRepository dosenRepository;
-
-  // GET all dosne
-  @GetMapping
-  public List<Dosen> getAllDosen() {
-    return dosenRepository.findAll();
-  }
-
-  // POST new dosen
-  @PostMapping
-  public Dosen addDosen(@RequestBody Dosen dosen) {
-    return dosenRepository.save(dosen);
-  }
-
-  // GET dosen by ID
-  @GetMapping("/{id}")
-  public ResponseEntity<Dosen> getDosenById(@PathVariable int id) {
-    Optional<Dosen> dosen = dosenRepository.findById(id);
-    return dosen.map(ResponseEntity::ok)
-        .orElseGet(() -> ResponseEntity.notFound().build());
-  }
-
-  // DELETE dosen by id
-  @DeleteMapping("/{id}")
-  public void deleteDosen(@PathVariable int id) {
-    dosenRepository.deleteById(id);
-  }
 
   @Autowired
   private PresensiRepository presensiRepository;
@@ -72,6 +39,73 @@ public class DosenController {
   @Autowired
   private MataKuliahRepository mataKuliahRepository;
 
+  // =======================
+  // GET ALL DOSEN
+  // =======================
+  @GetMapping
+  public List<Dosen> getAllDosen() {
+    return dosenRepository.findAll();
+  }
+
+  // =======================
+  // POST NEW DOSEN
+  // =======================
+  @PostMapping
+  public Dosen addDosen(@RequestBody Dosen dosen) {
+    return dosenRepository.save(dosen);
+  }
+
+  // =======================
+  // ✅✅✅ FIX 1: UPDATE DOSEN (PUT)
+  // =======================
+  @PutMapping("/{id}")
+  public ResponseEntity<?> updateDosen(
+          @PathVariable int id,
+          @RequestBody Dosen updated
+  ) {
+      Optional<Dosen> dosenOpt = dosenRepository.findById(id);
+      if (dosenOpt.isEmpty()) {
+          return ResponseEntity.notFound().build();
+      }
+
+      Dosen dosen = dosenOpt.get();
+
+      dosen.setNamaDosen(updated.getNamaDosen());
+      dosen.setNip(updated.getNip());
+      dosen.setNidn(updated.getNidn());
+      dosen.setJabatan(updated.getJabatan());
+      dosen.setProdi(updated.getProdi());
+      dosen.setEmail(updated.getEmail());
+      dosen.setAlamatKantor(updated.getAlamatKantor());
+      dosen.setWebsite(updated.getWebsite());
+
+      // ⚠️ Foto TIDAK disentuh di sini
+      dosenRepository.save(dosen);
+
+      return ResponseEntity.ok(dosen);
+  }
+
+  // =======================
+  // GET DOSEN BY ID
+  // =======================
+  @GetMapping("/{id}")
+  public ResponseEntity<Dosen> getDosenById(@PathVariable int id) {
+    Optional<Dosen> dosen = dosenRepository.findById(id);
+    return dosen.map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  // =======================
+  // DELETE DOSEN
+  // =======================
+  @DeleteMapping("/{id}")
+  public void deleteDosen(@PathVariable int id) {
+    dosenRepository.deleteById(id);
+  }
+
+  // =======================
+  // PRESENSI STATUS
+  // =======================
   @GetMapping("/status-today")
   public List<Map<String, Object>> getDosenWithStatusToday() {
     List<Dosen> all = dosenRepository.findAll();
@@ -101,68 +135,12 @@ public class DosenController {
 
       output.add(item);
     }
-
     return output;
   }
 
   // =======================
-  // PRESENSI: ABSEN MASUK
+  // FULL PROFILE
   // =======================
-  @PostMapping("/presensi/masuk")
-  public ResponseEntity<?> presensiMasuk(@RequestBody Map<String, Integer> req) {
-    int idDosen = req.get("idDosen");
-    LocalDate today = LocalDate.now();
-
-    Optional<Presensi> existing = presensiRepository.findByIdDosenAndTanggal(idDosen, today);
-    if (existing.isPresent()) {
-      return ResponseEntity.status(400).body("Sudah absen masuk hari ini");
-    }
-
-    Presensi p = new Presensi();
-    p.setIdDosen(idDosen);
-    p.setTanggal(today);
-    p.setWaktuMasuk(java.time.LocalDateTime.now());
-    p.setStatusPresensi("Hadir");
-
-    return ResponseEntity.ok(presensiRepository.save(p));
-  }
-
-  // =======================
-  // PRESENSI: ABSEN KELUAR
-  // =======================
-  @PostMapping("/presensi/keluar")
-  public ResponseEntity<?> presensiKeluar(@RequestBody Map<String, Integer> req) {
-    int idDosen = req.get("idDosen");
-    LocalDate today = LocalDate.now();
-
-    Optional<Presensi> existing = presensiRepository.findByIdDosenAndTanggal(idDosen, today);
-    if (existing.isEmpty()) {
-      return ResponseEntity.status(400).body("Belum absen masuk");
-    }
-
-    Presensi p = existing.get();
-    p.setWaktuKeluar(java.time.LocalDateTime.now());
-    p.setStatusPresensi("Pulang");
-
-    return ResponseEntity.ok(presensiRepository.save(p));
-  }
-
-  // =======================
-  // PRESENSI: GET STATUS HARI INI
-  // =======================
-  @GetMapping("/presensi/status/{id}")
-  public ResponseEntity<?> getStatusHariIni(@PathVariable int id) {
-    LocalDate today = LocalDate.now();
-
-    Optional<Presensi> existing = presensiRepository.findByIdDosenAndTanggal(id, today);
-    if (existing.isEmpty()) {
-      return ResponseEntity.ok("Belum Hadir");
-    }
-
-    return ResponseEntity.ok(existing.get());
-  }
-
-  // NEW: get full nested profile for a dosen (safe, assembled server-side)
   @GetMapping("/{id}/full")
   public ResponseEntity<?> getDosenFullProfile(@PathVariable int id) {
     Optional<Dosen> dOpt = dosenRepository.findById(id);
@@ -173,51 +151,46 @@ public class DosenController {
 
     Map<String, Object> out = new LinkedHashMap<>();
     out.put("dosen", d);
-
-    // load child lists via repositories to avoid lazy-loading problems
     out.put("pendidikan", pendidikanRepository.findByDosenIdDosen(id));
     out.put("mataKuliah", mataKuliahRepository.findByDosenIdDosen(id));
     out.put("sertifikasi", sertifikasiRepository.findByDosenIdDosen(id));
     out.put("bidangKeahlian", bidangKeahlianRepository.findByDosenIdDosen(id));
     out.put("linkEksternal", linkEksternalRepository.findByDosenIdDosen(id));
 
-    // optional: latest presensi entries (e.g. today)
-    LocalDate today = LocalDate.now();
-    presensiRepository.findByIdDosenAndTanggal(id, today).ifPresent(p -> out.put("presensiToday", p));
-
     return ResponseEntity.ok(out);
   }
 
+  // =======================
+  // ✅✅✅ UPLOAD FOTO
+  // =======================
   @PostMapping("/{id}/upload-foto")
-public ResponseEntity<?> uploadFoto(
-        @PathVariable int id,
-        @RequestParam("file") MultipartFile file
-) {
-    try {
-        Optional<Dosen> dosenOpt = dosenRepository.findById(id);
-        if (dosenOpt.isEmpty()) {
-            return ResponseEntity.badRequest().body("Dosen tidak ditemukan");
-        }
+  public ResponseEntity<?> uploadFoto(
+          @PathVariable int id,
+          @RequestParam("file") MultipartFile file
+  ) {
+      try {
+          Optional<Dosen> dosenOpt = dosenRepository.findById(id);
+          if (dosenOpt.isEmpty()) {
+              return ResponseEntity.badRequest().body("Dosen tidak ditemukan");
+          }
 
-        Dosen dosen = dosenOpt.get();
+          Dosen dosen = dosenOpt.get();
 
-        String uploadDir = System.getProperty("user.dir") + "/uploads/";
-        File dir = new File(uploadDir);
-        if (!dir.exists()) dir.mkdirs();
+          String uploadDir = System.getProperty("user.dir") + "/uploads/";
+          File dir = new File(uploadDir);
+          if (!dir.exists()) dir.mkdirs();
 
-        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
-        File destination = new File(uploadDir + filename);
-        file.transferTo(destination);
+          String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+          File destination = new File(uploadDir + filename);
+          file.transferTo(destination);
 
-        dosen.setFoto(filename);
-        dosenRepository.save(dosen);
+          dosen.setFoto(filename);
+          dosenRepository.save(dosen);
 
-        return ResponseEntity.ok(filename);
+          return ResponseEntity.ok(filename);
 
-    } catch (Exception e) {
-        return ResponseEntity.internalServerError().body("Upload gagal");
-    }
-}
-
-
+      } catch (Exception e) {
+          return ResponseEntity.internalServerError().body("Upload gagal");
+      }
+  }
 }

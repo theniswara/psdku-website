@@ -181,12 +181,15 @@ export class DosenService {
     return this.http.delete<any>(`${this.baseLinkUrl}/${id}`);
   }
 
-  uploadFoto(id: number, file: File) {
+uploadFoto(id: number, file: File) {
   const formData = new FormData();
   formData.append('file', file);
 
-  return this.http.post(`$http://localhost:8080/api/dosen/{id}/upload-foto`, formData);
+  return this.http.post(
+    `http://localhost:8080/api/dosen/${id}/upload-foto`,
+    formData,
+    { responseType: 'text' }   // ✅ THIS IS THE KEY FIX
+  );
 }
-
 
 }

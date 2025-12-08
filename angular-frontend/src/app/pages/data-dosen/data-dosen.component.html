@@ -80,7 +80,12 @@
              </div>
 
              <div class="relative mb-4">
-               <img [src]="d.foto || 'assets/default-user.png'" class="relative h-28 w-28 rounded-full object-cover border-[4px] border-white shadow-md bg-gray-100" alt="{{ d.namaDosen }}" />
+               <img
+                 [src]="d.foto 
+                   ? 'http://localhost:8080/uploads/' + d.foto 
+                   : 'assets/default-user.png'"
+                 class="relative h-28 w-28 rounded-full object-cover border-[4px] border-white shadow-md bg-gray-100"
+                 alt="{{ d.namaDosen }}" />
              </div>
 
              <h2 class="font-['Biryani'] font-bold text-xl text-[#051D47] leading-tight mb-1">

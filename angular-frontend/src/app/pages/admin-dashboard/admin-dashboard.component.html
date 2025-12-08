@@ -30,20 +30,15 @@
         <i class="fa-solid fa-users w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> 
         <span>Data Dosen</span>
       </a>
-      
-      <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all font-medium group">
-        <i class="fa-solid fa-user-graduate w-5 text-center group-hover:text-[#FF7F11] transition-colors"></i> 
-        <span>Data Mahasiswa</span>
-      </a>
     </nav>
 
     <div class="p-4 border-t border-white/10 bg-[#04183d]">
       <div class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer">
         <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-[#FF7F11] to-orange-600 flex items-center justify-center text-white font-bold shadow-lg border-2 border-[#051D47]">
-          AD
+          {{ admin?.username?.charAt(0).toUpperCase() }}
         </div>
         <div class="overflow-hidden">
-          <p class="text-sm font-bold text-white truncate">Administrator</p>
+          <p class="text-sm font-bold text-white truncate">{{ admin?.username }}</p>
           <p class="text-[10px] text-green-400 flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> System Online
           </p>
@@ -54,7 +49,7 @@
 
   <main class="flex-1 lg:ml-72 p-6 md:p-10 relative">
     
-   <header class="flex justify-between items-center mb-8">
+    <header class="flex justify-between items-center mb-8">
       <div>
         <h2 class="text-2xl font-['Biryani'] font-bold text-[#051D47]">Overview</h2>
         <p class="text-gray-500 text-sm">Pemantauan aktivitas akademik real-time.</p>
@@ -66,9 +61,7 @@
           <span class="absolute top-2.5 right-3 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
         </button>
         
-        <button 
-          (click)="logout()" 
-          class="flex items-center gap-2 px-4 py-2 bg-white border border-red-100 text-red-600 rounded-lg text-xs font-bold hover:bg-red-50 transition-all shadow-sm">
+        <button (click)="logout()" class="flex items-center gap-2 px-4 py-2 bg-white border border-red-100 text-red-600 rounded-lg text-xs font-bold hover:bg-red-50 transition-all shadow-sm">
           <i class="fa-solid fa-power-off"></i> <span>Keluar</span>
         </button>
       </div>
@@ -77,9 +70,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       
       <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-gray-200 flex items-center gap-5 relative overflow-hidden group">
-        <div class="absolute right-0 top-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-          <i class="fa-solid fa-users text-6xl text-[#051D47]"></i>
-        </div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-[#051D47]"></div>
         <div class="h-14 w-14 rounded-xl bg-[#051D47] text-white flex items-center justify-center text-2xl shadow-lg shadow-blue-900/20">
           <i class="fa-solid fa-chalkboard-user"></i>
         </div>
@@ -90,7 +81,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-gray-200 flex items-center gap-5 relative overflow-hidden group">
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-green-600"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-green-500"></div>
         <div class="h-14 w-14 rounded-xl bg-green-50 text-green-600 flex items-center justify-center text-2xl">
           <i class="fa-solid fa-check-double"></i>
         </div>
@@ -101,7 +92,7 @@
       </div>
 
       <div class="bg-white p-6 rounded-2xl shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-gray-200 flex items-center gap-5 relative overflow-hidden group">
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-[#FF7F11]"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-[#FF7F11]"></div>
         <div class="h-14 w-14 rounded-xl bg-orange-50 text-[#FF7F11] flex items-center justify-center text-2xl">
           <i class="fa-solid fa-user-clock"></i>
         </div>
@@ -113,33 +104,42 @@
 
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col overflow-hidden">
       
-      <div class="p-5 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h3 class="text-lg font-['Biryani'] font-bold text-[#051D47]">Log Kehadiran</h3>
-          <p class="text-xs text-gray-400">Data presensi realtime hari ini.</p>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <div class="relative group">
+      <div class="p-5 border-b border-gray-100 flex flex-col xl:flex-row xl:items-center justify-between gap-4 bg-gray-50/50">
+        
+        <div class="flex flex-col md:flex-row gap-3 w-full xl:w-auto">
+          
+          <div class="relative group w-full md:w-64">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs group-focus-within:text-[#FF7F11] transition-colors"></i>
             <input 
               type="text" 
               [(ngModel)]="searchKeyword"
-              placeholder="Cari Dosen..." 
-              class="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#FF7F11] focus:ring-1 focus:ring-orange-100 transition-all w-full md:w-64"
+              placeholder="Cari Nama / NIDN..." 
+              class="pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#FF7F11] focus:ring-1 focus:ring-orange-100 transition-all w-full shadow-sm"
             >
           </div>
 
-          <a [routerLink]="['/admin/dosen/add']" 
-             class="flex items-center gap-2 bg-[#051D47] hover:bg-[#0A2656] text-white px-4 py-2 rounded-lg text-sm font-bold transition-all shadow-md hover:shadow-lg active:scale-95">
-            <i class="fa-solid fa-plus"></i> <span class="hidden sm:inline">Tambah Dosen</span>
-          </a>
+          <select [(ngModel)]="selectedProdi" class="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-600 focus:outline-none focus:border-[#FF7F11] cursor-pointer shadow-sm w-full md:w-auto">
+            <option value="">Semua Program Studi</option>
+            <option *ngFor="let p of prodiList" [value]="p">{{ p }}</option>
+          </select>
+
+          <select [(ngModel)]="selectedStatus" class="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-600 focus:outline-none focus:border-[#FF7F11] cursor-pointer shadow-sm w-full md:w-auto">
+            <option value="">Semua Status</option>
+            <option value="Hadir">Hadir</option>
+            <option value="Offline">Belum Hadir</option>
+          </select>
+
         </div>
+
+        <a [routerLink]="['/admin/dosen/add']" 
+           class="flex items-center justify-center gap-2 bg-[#051D47] hover:bg-[#0A2656] text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg active:scale-95 shrink-0">
+          <i class="fa-solid fa-plus"></i> <span>Tambah Dosen</span>
+        </a>
       </div>
 
-      <ng-container *ngIf="dosenList | filterDosen:searchKeyword:'' as filteredList">
+      <ng-container *ngIf="dosenList | filterDosen:searchKeyword:selectedProdi:selectedStatus as filteredList">
         
         <div *ngIf="loading" class="p-12 text-center">
           <div class="inline-block w-8 h-8 border-4 border-[#FF7F11] border-t-transparent rounded-full animate-spin"></div>
@@ -148,22 +148,26 @@
 
         <div *ngIf="!loading" class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
-            <thead class="bg-[#F8FAFC] text-gray-500 text-[11px] font-bold uppercase tracking-wider border-b border-gray-100">
+            
+            <thead class="bg-[#051D47] text-white text-[11px] font-bold uppercase tracking-wider">
               <tr>
-                <th class="px-6 py-4">Dosen & Prodi</th>
+                <th class="px-6 py-4 rounded-tl-lg">Dosen & Prodi</th>
                 <th class="px-6 py-4">Status Kehadiran</th>
                 <th class="px-6 py-4 text-center">Jam Masuk</th>
                 <th class="px-6 py-4 text-center">Jam Keluar</th>
-                <th class="px-6 py-4 text-right">Aksi</th>
+                <th class="px-6 py-4 text-right rounded-tr-lg">Aksi</th>
               </tr>
             </thead>
+            
             <tbody class="text-sm divide-y divide-gray-50">
               
               <tr *ngFor="let d of filteredList" class="group hover:bg-blue-50/20 transition-colors">
                 
                 <td class="px-6 py-4">
                   <div class="flex items-center gap-3">
-                    <img [src]="d.foto || 'assets/default-user.png'" class="h-9 w-9 rounded-full object-cover border border-gray-200">
+                    <img 
+                      [src]="d.foto ? 'http://localhost:8080/uploads/' + d.foto : 'assets/default-user.png'"
+                      class="h-10 w-10 rounded-full object-cover border-2 border-gray-100 shadow-sm">
                     <div>
                       <p class="font-bold text-[#051D47] text-sm">{{ d.namaDosen }}</p>
                       <p class="text-[11px] text-gray-400 uppercase tracking-wide">{{ d.prodi }}</p>
@@ -172,12 +176,12 @@
                 </td>
 
                 <td class="px-6 py-4">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold border"
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-sm"
                     [ngClass]="{
                       'bg-green-50 text-green-700 border-green-200': d.statusPresensi === 'Hadir',
                       'bg-gray-50 text-gray-500 border-gray-200': !d.statusPresensi
                     }">
-                    <span class="h-1.5 w-1.5 rounded-full" 
+                    <span class="h-2 w-2 rounded-full" 
                           [ngClass]="d.statusPresensi === 'Hadir' ? 'bg-green-500 animate-pulse' : 'bg-gray-400'"></span>
                     {{ d.statusPresensi || 'Offline' }}
                   </span>
@@ -191,15 +195,15 @@
                 </td>
 
                 <td class="px-6 py-4 text-right">
-                  <div class="inline-flex gap-1">
+                  <div class="inline-flex gap-2">
                     <a [routerLink]="['/admin/dosen', d.idDosen]" 
-                       class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" 
+                       class="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors border border-blue-100" 
                        title="Edit Profil">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                     <button (click)="deleteDosen(d.idDosen)" 
                             [disabled]="deletingId === d.idDosen" 
-                            class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
+                            class="w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-colors border border-red-100 disabled:opacity-50"
                             title="Hapus">
                       <i class="fa-solid" [ngClass]="deletingId === d.idDosen ? 'fa-spinner fa-spin' : 'fa-trash'"></i>
                     </button>
@@ -209,10 +213,17 @@
 
               <tr *ngIf="filteredList.length === 0">
                 <td colspan="5" class="p-12 text-center">
-                  <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gray-100 text-gray-400 mb-3">
-                    <i class="fa-solid fa-filter-circle-xmark text-xl"></i>
+                  <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-gray-400 mb-4 bg-opacity-50">
+                    <i class="fa-solid fa-filter-circle-xmark text-2xl"></i>
                   </div>
-                  <p class="text-gray-500 font-medium text-sm">Tidak ada dosen yang cocok dengan pencarian.</p>
+                  <h3 class="text-gray-900 font-bold mb-1">Data Tidak Ditemukan</h3>
+                  <p class="text-gray-500 text-sm mb-4">Coba ubah kata kunci atau filter pencarian Anda.</p>
+                  
+                  <button *ngIf="searchKeyword || selectedProdi || selectedStatus" 
+                          (click)="searchKeyword=''; selectedProdi=''; selectedStatus=''" 
+                          class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-bold text-gray-600 hover:border-[#FF7F11] hover:text-[#FF7F11] transition-colors">
+                    Reset Filter
+                  </button>
                 </td>
               </tr>
 
@@ -220,10 +231,14 @@
           </table>
         </div>
 
-        <div class="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end rounded-b-2xl">
+        <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center rounded-b-2xl">
           <p class="text-xs text-gray-400 font-medium">
-            Menampilkan <span class="text-[#051D47] font-bold">{{ filteredList.length }}</span> data
+            Total Data: <span class="text-[#051D47] font-bold">{{ filteredList.length }}</span>
           </p>
+          <div class="flex gap-2">
+             <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-400 hover:text-[#051D47] disabled:opacity-50"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+             <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-400 hover:text-[#051D47] disabled:opacity-50"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+          </div>
         </div>
 
       </ng-container>

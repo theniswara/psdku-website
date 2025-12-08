@@ -1,107 +1,175 @@
-<div class="max-w-3xl mx-auto p-6">
-  <h2 class="text-2xl font-bold mb-6">Tambah Dosen Baru</h2>
+<div class="min-h-screen bg-[#F8FAFC] font-['Inter'] p-6 md:p-10 flex justify-center items-start">
 
-  <form (ngSubmit)="submit()" class="space-y-4">
-
-    <div>
-      <label>Nama Dosen</label>
-      <input class="w-full border p-2 rounded"
-             [(ngModel)]="dosen.namaDosen"
-             name="namaDosen"
-             required />
+  <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative">
+    
+    <div class="bg-[#051D47] px-8 py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-['Biryani'] font-bold text-white flex items-center gap-3">
+          <i class="fa-solid fa-user-plus text-[#FF7F11]"></i> Tambah Dosen Baru
+        </h2>
+        <p class="text-blue-200 text-sm mt-1">Lengkapi formulir di bawah ini untuk mendaftarkan dosen.</p>
+      </div>
+      
+      <a routerLink="/admin-dashboard" class="px-4 py-2 bg-white/10 text-white hover:bg-white/20 rounded-xl text-sm font-bold transition-all flex items-center gap-2 backdrop-blur-sm">
+        <i class="fa-solid fa-arrow-left"></i> Kembali
+      </a>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <form (ngSubmit)="submit()" class="p-8 md:p-10 space-y-10">
+
       <div>
-        <label>NIP</label>
-        <input class="w-full border p-2 rounded"
-               [(ngModel)]="dosen.nip"
-               name="nip" />
+        <h3 class="text-lg font-bold text-[#051D47] border-b border-gray-100 pb-3 mb-6 flex items-center gap-2">
+          <span class="w-1.5 h-6 bg-[#FF7F11] rounded-full"></span> Data Pribadi
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nama Lengkap & Gelar</label>
+            <div class="relative group">
+              <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <input class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all font-medium"
+                     [(ngModel)]="dosen.namaDosen" name="namaDosen" placeholder="Contoh: Dr. Budi Santoso, M.Kom." required />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">NIP (Nomor Induk Pegawai)</label>
+            <input class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all font-mono text-sm"
+                   [(ngModel)]="dosen.nip" name="nip" placeholder="198xxxxxx..." />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">NIDN (Nomor Induk Dosen Nasional)</label>
+            <input class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all font-mono text-sm"
+                   [(ngModel)]="dosen.nidn" name="nidn" placeholder="001xxxxxx..." />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Jabatan Fungsional</label>
+            <div class="relative group">
+              <i class="fa-solid fa-briefcase absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <input class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all"
+                     [(ngModel)]="dosen.jabatan" name="jabatan" placeholder="Lektor / Asisten Ahli" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Program Studi</label>
+            <div class="relative group">
+              <i class="fa-solid fa-graduation-cap absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <select class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all appearance-none cursor-pointer"
+                      [(ngModel)]="dosen.prodi" name="prodi" required>
+                <option value="" disabled selected>Pilih Prodi</option>
+                <option value="Teknologi Informasi">Teknologi Informasi</option>
+                <option value="Teknik Sipil">Teknik Sipil</option>
+                <option value="Akuntansi">Akuntansi</option>
+                <option value="Teknologi Rekayasa Otomotif">Teknologi Rekayasa Otomotif</option>
+              </select>
+              <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none"></i>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Email Institusi</label>
+            <div class="relative group">
+              <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <input class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all"
+                     type="email" [(ngModel)]="dosen.email" name="email" placeholder="nama@polinema.ac.id" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Website (Opsional)</label>
+            <div class="relative group">
+              <i class="fa-solid fa-globe absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <input class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all"
+                     [(ngModel)]="dosen.website" name="website" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Alamat Kantor / Ruangan</label>
+            <div class="relative group">
+              <i class="fa-solid fa-map-location-dot absolute left-4 top-3.5 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <textarea rows="2" class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all resize-none"
+                     [(ngModel)]="dosen.alamatKantor" name="alamatKantor" placeholder="Gedung AA Lt. 2, Ruang Dosen..."></textarea>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <div>
-        <label>NIDN</label>
-        <input class="w-full border p-2 rounded"
-               [(ngModel)]="dosen.nidn"
-               name="nidn" />
+        <h3 class="text-lg font-bold text-[#051D47] border-b border-gray-100 pb-3 mb-6 flex items-center gap-2">
+          <span class="w-1.5 h-6 bg-[#FF7F11] rounded-full"></span> Foto Profil
+        </h3>
+        
+        <div class="flex items-start gap-6">
+          <div class="w-24 h-24 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center shrink-0 overflow-hidden">
+             <i class="fa-solid fa-user text-3xl text-gray-300"></i>
+          </div>
+
+          <div class="flex-1">
+            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-2xl cursor-pointer bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-all group">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform">
+                      <i class="fa-solid fa-cloud-arrow-up text-[#051D47]"></i>
+                    </div>
+                    <p class="text-sm text-gray-500"><span class="font-bold text-[#051D47]">Klik untuk upload</span> atau drag and drop</p>
+                    <p class="text-xs text-gray-400">SVG, PNG, JPG (Max. 2MB)</p>
+                </div>
+                <input type="file" (change)="onFileSelected($event)" class="hidden" />
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label>Jabatan</label>
-        <input class="w-full border p-2 rounded"
-               [(ngModel)]="dosen.jabatan"
-               name="jabatan" />
+      <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
+        <h3 class="text-lg font-bold text-[#051D47] mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-[#FF7F11]"></i> Pengaturan Akun
+        </h3>
+        <p class="text-sm text-gray-500 mb-6">Buat username dan password default untuk dosen ini agar dapat login ke sistem.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Username</label>
+            <div class="relative group">
+              <i class="fa-solid fa-at absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <input class="w-full pl-11 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all"
+                     [(ngModel)]="dosen.username" name="username" placeholder="nidn_dosen" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Password Default</label>
+            <div class="relative group">
+              <i class="fa-solid fa-key absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#051D47] transition-colors"></i>
+              <input type="password" class="w-full pl-11 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:border-[#051D47] focus:ring-1 focus:ring-[#051D47] outline-none transition-all"
+                     [(ngModel)]="dosen.password" name="password" placeholder="••••••••" required />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <label>Prodi</label>
-        <input class="w-full border p-2 rounded"
-               [(ngModel)]="dosen.prodi"
-               name="prodi"
-               required />
+      <div *ngIf="errorMsg" class="p-4 bg-red-50 text-red-600 rounded-xl flex items-center gap-3 border border-red-100 animate-pulse">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span class="font-medium text-sm">{{ errorMsg }}</span>
       </div>
-    </div>
 
-    <div>
-      <label>Email</label>
-      <input class="w-full border p-2 rounded"
-             type="email"
-             [(ngModel)]="dosen.email"
-             name="email" />
-    </div>
+      <div class="pt-6 border-t border-gray-100 flex items-center justify-end gap-4">
+        <a routerLink="/admin-dashboard" class="px-6 py-3 rounded-xl border border-gray-300 text-gray-600 font-bold hover:bg-gray-50 transition-all text-sm">
+          Batal
+        </a>
+        <button type="submit"
+                [disabled]="loading"
+                class="px-8 py-3 bg-[#051D47] hover:bg-[#0A2656] text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-900/20 transition-all flex items-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed">
+          <i class="fa-solid fa-spinner fa-spin" *ngIf="loading"></i>
+          <span>{{ loading ? 'Menyimpan Data...' : 'Simpan Dosen' }}</span>
+        </button>
+      </div>
 
-    <div>
-      <label>Alamat Kantor</label>
-      <input class="w-full border p-2 rounded"
-             [(ngModel)]="dosen.alamatKantor"
-             name="alamatKantor" />
-    </div>
+    </form>
+  </div>
 
-<div>
-  <label>Foto (Upload)</label>
-  <input type="file"
-         (change)="onFileSelected($event)"
-         class="w-full border p-2 rounded bg-white">
-</div>
-
-    <div>
-      <label>Website (optional)</label>
-      <input class="w-full border p-2 rounded"
-             [(ngModel)]="dosen.website"
-             name="website" />
-    </div>
-
-    <hr />
-
-    <h3 class="text-lg font-semibold">Akun Login Dosen</h3>
-
-    <div>
-      <label>Username</label>
-      <input class="w-full border p-2 rounded"
-             [(ngModel)]="dosen.username"
-             name="username"
-             required />
-    </div>
-
-    <div>
-      <label>Password</label>
-      <input class="w-full border p-2 rounded"
-             type="password"
-             [(ngModel)]="dosen.password"
-             name="password"
-             required />
-    </div>
-
-    <div *ngIf="errorMsg" class="text-red-600 font-semibold">
-      {{ errorMsg }}
-    </div>
-
-    <button type="submit"
-            [disabled]="loading"
-            class="bg-blue-600 text-white px-4 py-2 rounded">
-      {{ loading ? 'Menyimpan...' : 'Simpan Dosen' }}
-    </button>
-  </form>
 </div>

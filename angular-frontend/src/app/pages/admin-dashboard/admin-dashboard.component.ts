@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; // Ensure Router is imported
 import { FormsModule } from '@angular/forms';
-import { forkJoin } from 'rxjs'; // Import forkJoin
+import { forkJoin } from 'rxjs';
 
-// Services
 import { AuthService } from '../../services/auth.service';
 import { DosenService } from '../../services/dosen.service';
-
-// Pipe (IMPORTANT: Import the same pipe you used in DataDosen)
 import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
 
 @Component({
@@ -18,58 +15,51 @@ import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
     CommonModule, 
     RouterLink, 
     FormsModule, 
-    FilterDosenPipe // Register the Pipe here
+    FilterDosenPipe
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
-logout() {
-throw new Error('Method not implemented.');
-}
 
   admin: any;
-  dosenList: any[] = []; // Will hold merged data
+  dosenList: any[] = [];
   loading = true;
   deletingId: number | null = null;
 
-  // Search Variable (Matches your reference)
+  // Filter Variables
   searchKeyword: string = ''; 
+  selectedProdi: string = ''; // New filter for Prodi
+  selectedStatus: string = ''; // New filter for Status (e.g., 'Hadir', 'Offline')
 
   constructor(
     private auth: AuthService,
     private dosenService: DosenService,
+    private router: Router // Inject Router for logout
   ) {}
 
   ngOnInit(): void {
     this.admin = this.auth.getLoggedInUser();
-    this.loadData(); // Changed name to match the logic of loading ALL data
+    this.loadData();
   }
 
-  // LOGIC COPIED & ADAPTED FROM YOUR REFERENCE
   loadData() {
     this.loading = true;
-
-
-
-    // Use forkJoin to get BOTH the profile data and the status data
     forkJoin({
       dosenAll: this.dosenService.getAllDosen(),
       statusAll: this.dosenService.getStatusToday()
     }).subscribe({
       next: ({ dosenAll, statusAll }) => {
-        // 1. Create a Map for fast status lookup
         const statusMap = new Map<any, any>();
         (statusAll || []).forEach((s: any) => {
           const key = s.idDosen ?? s.id;
           if (key != null) statusMap.set(key, s);
         });
 
-        // 2. Merge status into the main list
         this.dosenList = (dosenAll || []).map((d: any) => {
           const key = d.idDosen ?? d.id;
           const status = statusMap.get(key) || {};
-          return { ...d, ...status }; // Merged Object
+          return { ...d, ...status };
         });
 
         this.loading = false;
@@ -81,7 +71,11 @@ throw new Error('Method not implemented.');
     });
   }
 
-  // Your delete logic remains the same
+logout() {
+  this.auth.logoutFrontend();
+  this.router.navigate(['/login']);
+}
+
   deleteDosen(id: number) {
     const ok = confirm('Yakin ingin menghapus dosen ini? Data tidak bisa dikembalikan.');
     if (!ok) return;
@@ -99,8 +93,14 @@ throw new Error('Method not implemented.');
     });
   }
   
-  // Helpers for the stats cards based on the NOW MERGED list
   get totalDosen() { return this.dosenList.length; }
   get totalHadir() { return this.dosenList.filter(d => d.statusPresensi === 'Hadir').length; }
   get totalOffline() { return this.dosenList.filter(d => !d.statusPresensi).length; }
+  
+  // Helper to get unique Prodis for dropdown
+  get prodiList() {
+    // Get unique prodi names from the list
+    const prodis = this.dosenList.map(d => d.prodi).filter(p => p); // filter out null/undefined
+    return [...new Set(prodis)]; // Returns unique array
+  }
 }
