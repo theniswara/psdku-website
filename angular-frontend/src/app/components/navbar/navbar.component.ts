@@ -10,6 +10,9 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+
+  openSection: string = ''; // Tracks which mobile menu section is expanded
+
   isMenuOpen = false;
   isSubMenuOpen = false;
   constructor(private router: Router) {}

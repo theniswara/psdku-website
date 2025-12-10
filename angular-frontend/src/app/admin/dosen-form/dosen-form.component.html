@@ -106,9 +106,19 @@
         </h3>
         
         <div class="flex items-start gap-6">
-          <div class="w-24 h-24 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center shrink-0 overflow-hidden">
-             <i class="fa-solid fa-user text-3xl text-gray-300"></i>
-          </div>
+<div class="w-24 h-24 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center shrink-0 overflow-hidden">
+
+  <!-- PREVIEW -->
+  <img *ngIf="previewImage"
+       [src]="previewImage"
+       class="w-full h-full object-cover" />
+
+  <!-- DEFAULT ICON -->
+  <i *ngIf="!previewImage"
+     class="fa-solid fa-user text-3xl text-gray-300"></i>
+
+</div>
+
 
           <div class="flex-1">
             <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-2xl cursor-pointer bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-all group">
