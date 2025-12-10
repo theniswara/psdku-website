@@ -201,7 +201,7 @@
                 <td class="px-6 py-4">
                   <div class="flex items-center gap-3">
                     <div class="relative">
-                      <img [src]="d.foto ? 'http://localhost:8080/uploads/' + d.foto : 'assets/default-user.png'"
+                      <img [src]="d.foto ? '/uploads/' + d.foto : 'assets/default-user.png'"
                            class="h-10 w-10 rounded-full object-cover border-2 border-gray-100 bg-white">
                       <span *ngIf="d.statusPresensi === 'Hadir'" class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
                     </div>

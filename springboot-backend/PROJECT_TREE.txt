@@ -34,12 +34,28 @@
 |   |       `-- testCompile
 |   |-- springboot-backend-0.0.1-SNAPSHOT.jar
 |   |-- springboot-backend-0.0.1-SNAPSHOT.jar.original
-|   |-- surefire-reports
-|   |   |-- com.polinema.psdku.springboot_backend.SpringbootBackendApplicationTests.txt
-|   |   `-- TEST-com.polinema.psdku.springboot_backend.SpringbootBackendApplicationTests.xml
 |   `-- test-classes
 |       `-- com
 |           `-- polinema
 `-- uploads
+    |-- 05a13f24-8165-4628-945d-0077a4d7f8e5-penguin.png
+    |-- 099956fa-b50e-4301-906e-c0e219cc424e-Screenshot from 2025-11-16 21-20-59.png
+    |-- 1c258229-5318-4430-847e-71132529a98c-Inggrid.jpg
+    |-- 22b404a2-1746-4570-b07e-832534868b26-Inggrid.jpg
+    |-- 23dda60d-6134-4253-8682-e8a2e7ff9a59-Siswanto.png
+    |-- 2f24a261-8335-4c50-8238-f7bb01d17a66-C0192T01.JPG
+    |-- 499c0b8c-e1c0-4c52-956b-ad380903bc94-Screenshot from 2025-09-16 21-02-40.png
+    |-- 60519ac8-58c7-44c5-b5ce-d2ec32df8381-penguin.png
+    |-- 7c433380-5972-4167-94bb-1ca684c85bd6-Very.png
+    |-- 84081b3c-1892-4331-976c-74a1fb07840d-Inggrid.jpg
+    |-- 8d3cecf6-ac76-4b19-902f-f814be9dd964-Joice.jpg
+    |-- b2538561-ab8f-4318-9dbb-12fec4c787fb-Inggrid.jpg
+    |-- b2ed8395-024c-4f43-beda-2bae2149a48b-C0199T01.JPG
+    |-- c3c75699-72b6-45b4-8251-faeb8332da4c-fotoberwarna_windya-p5RbB.png
+    |-- c5ba845e-9020-4455-aba1-c278a235c0d2-Batman-Wallpaper-HD.jpg
+    |-- ce2870ec-feb3-445a-825f-3160a60e10f2-Very.png
+    |-- d8d0c48c-a400-4905-bb5b-39bef90c63d4-Blank diagram.png
+    |-- d9008a00-034d-4c42-a353-7039f4e2ea61-Alvionitha-Sari-Agstriningtyas.jpg
+    `-- e0549e94-5a08-4b71-9862-ac6fda353a84-Gunawan-Budiprasetyo_197704242008121001.jpeg
 
-28 directories, 14 files
+27 directories, 31 files

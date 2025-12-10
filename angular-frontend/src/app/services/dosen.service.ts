@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DosenService {
-  private baseDosenUrl = 'http://localhost:8080/api/dosen';
-  private basePendidikanUrl = 'http://localhost:8080/api/pendidikan';
-  private baseKeahlianUrl = 'http://localhost:8080/api/bidang';
-  private baseSertifikasiUrl = 'http://localhost:8080/api/sertifikasi';
-  private baseMatkulUrl = 'http://localhost:8080/api/matakuliah';
-  private baseLinkUrl = 'http://localhost:8080/api/link';
+  private baseDosenUrl = '/api/dosen';
+  private basePendidikanUrl = '/api/pendidikan';
+  private baseKeahlianUrl = '/api/bidang';
+  private baseSertifikasiUrl = '/api/sertifikasi';
+  private baseMatkulUrl = '/api/matakuliah';
+  private baseLinkUrl = '/api/link';
 
 
 
@@ -186,7 +186,7 @@ uploadFoto(id: number, file: File) {
   formData.append('file', file);
 
   return this.http.post(
-    `http://localhost:8080/api/dosen/${id}/upload-foto`,
+    `/api/dosen/${id}/upload-foto`,
     formData,
     { responseType: 'text' }   // ✅ THIS IS THE KEY FIX
   );

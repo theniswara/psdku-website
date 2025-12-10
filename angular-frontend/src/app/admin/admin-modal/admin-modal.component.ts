@@ -31,7 +31,7 @@ export class AdminModalComponent implements OnChanges {
   previewImage: string | null = null;
 
   // Change this if your backend URL changes
-  private readonly IMAGE_BASE_URL = 'http://localhost:8080/uploads/';
+  private readonly IMAGE_BASE_URL = '/uploads/';
 
   constructor(private dosenService: DosenService) {}
 

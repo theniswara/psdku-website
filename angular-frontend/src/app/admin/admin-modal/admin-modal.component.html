@@ -161,7 +161,7 @@
         
         <div class="flex justify-center">
           <div class="w-32 h-32 rounded-full border-4 border-gray-100 shadow-inner bg-gray-50 overflow-hidden relative group">
-            <img [src]="previewImage || (item?.foto ? 'http://localhost:8080/uploads/' + item.foto : 'assets/default-user.png')" 
+            <img [src]="previewImage || (item?.foto ? '/uploads/' + item.foto : 'assets/default-user.png')" 
                  class="w-full h-full object-cover">
           </div>
         </div>
