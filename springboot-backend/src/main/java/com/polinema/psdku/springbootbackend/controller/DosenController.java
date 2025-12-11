@@ -13,7 +13,6 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/dosen")
 public class DosenController {
@@ -163,34 +162,37 @@ public class DosenController {
   // =======================
   // ✅✅✅ UPLOAD FOTO
   // =======================
-  @PostMapping("/{id}/upload-foto")
-  public ResponseEntity<?> uploadFoto(
-          @PathVariable int id,
-          @RequestParam("file") MultipartFile file
-  ) {
-      try {
-          Optional<Dosen> dosenOpt = dosenRepository.findById(id);
-          if (dosenOpt.isEmpty()) {
-              return ResponseEntity.badRequest().body("Dosen tidak ditemukan");
-          }
+@PostMapping("/{id}/upload-foto")
+public ResponseEntity<?> uploadFoto(
+        @PathVariable int id,
+        @RequestParam("file") MultipartFile file
+) {
+    try {
+        Optional<Dosen> dosenOpt = dosenRepository.findById(id);
+        if (dosenOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Dosen tidak ditemukan");
+        }
 
-          Dosen dosen = dosenOpt.get();
+        Dosen dosen = dosenOpt.get();
 
-          String uploadDir = System.getProperty("user.dir") + "/uploads/";
-          File dir = new File(uploadDir);
-          if (!dir.exists()) dir.mkdirs();
+        // FIX: Save all uploads to this exact folder on VPS
+        String uploadDir = "/root/uploads/";
+        File dir = new File(uploadDir);
+        if (!dir.exists()) dir.mkdirs();
 
-          String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
-          File destination = new File(uploadDir + filename);
-          file.transferTo(destination);
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File destination = new File(uploadDir + filename);
+        file.transferTo(destination);
 
-          dosen.setFoto(filename);
-          dosenRepository.save(dosen);
+        dosen.setFoto(filename);
+        dosenRepository.save(dosen);
 
-          return ResponseEntity.ok(filename);
+        return ResponseEntity.ok(filename);
 
-      } catch (Exception e) {
-          return ResponseEntity.internalServerError().body("Upload gagal");
-      }
-  }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.internalServerError().body("Upload gagal");
+    }
+}
+
 }

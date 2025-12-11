@@ -87,7 +87,7 @@ export class DosenDetailComponent implements OnInit {
 
   setTab(tab: string) {
     this.activeTab = tab;
-  }
+  } 
 
   isOnline(d: any): boolean {
     return d &&
