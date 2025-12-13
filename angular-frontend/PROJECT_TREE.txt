@@ -44,8 +44,9 @@
 |   |       |-- dosen.service.spec.ts
 |   |       `-- dosen.service.ts
 |   |-- assets
-|   |   |-- default-foto.png
+|   |   |-- default-user.png
 |   |   |-- hero-bg.png
+|   |   |-- images.png
 |   |   |-- Inggrid.jpg
 |   |   `-- logo.png
 |   |-- index.html
@@ -57,4 +58,4 @@
 |-- tsconfig.json
 `-- tsconfig.spec.json
 
-26 directories, 31 files
+26 directories, 32 files

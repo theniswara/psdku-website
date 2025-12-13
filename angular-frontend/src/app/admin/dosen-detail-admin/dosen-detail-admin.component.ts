@@ -73,11 +73,18 @@ export class DosenDetailAdminComponent implements OnInit {
   }
 
   // ✅ YOUR EXISTING MODAL LOGIC KEPT INTACT
-  openModal(type: string, item: any = null) {
-    this.modalType = type;
-    this.editingItem = item;
-    this.showModal = true;
+openModal(type: string, item: any = null) {
+
+  // Always attach idDosen to child items
+  if (item) {
+    item = { ...item, idDosen: this.id };
   }
+
+  this.modalType = type;
+  this.editingItem = item;
+  this.showModal = true;
+}
+
 
   closeModal(reload = false) {
     this.showModal = false;

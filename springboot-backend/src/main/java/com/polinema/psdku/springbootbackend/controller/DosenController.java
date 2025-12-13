@@ -87,12 +87,44 @@ public class DosenController {
   // =======================
   // GET DOSEN BY ID
   // =======================
-  @GetMapping("/{id}")
-  public ResponseEntity<Dosen> getDosenById(@PathVariable int id) {
-    Optional<Dosen> dosen = dosenRepository.findById(id);
-    return dosen.map(ResponseEntity::ok)
-        .orElseGet(() -> ResponseEntity.notFound().build());
-  }
+@GetMapping("/{id}")
+public ResponseEntity<?> getDosenById(@PathVariable int id) {
+
+    Optional<Dosen> dOpt = dosenRepository.findById(id);
+    if (dOpt.isEmpty())
+        return ResponseEntity.notFound().build();
+
+    Dosen d = dOpt.get();
+
+    LocalDate today = LocalDate.now();
+    Optional<Presensi> pOpt = presensiRepository.findByIdDosenAndTanggal(id, today);
+
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("idDosen", d.getIdDosen());
+    out.put("namaDosen", d.getNamaDosen());
+    out.put("nip", d.getNip());
+    out.put("nidn", d.getNidn());
+    out.put("jabatan", d.getJabatan());
+    out.put("prodi", d.getProdi());
+    out.put("foto", d.getFoto());
+    out.put("email", d.getEmail());
+    out.put("alamatKantor", d.getAlamatKantor());
+    out.put("website", d.getWebsite());
+
+    if (pOpt.isPresent()) {
+        Presensi p = pOpt.get();
+        out.put("statusPresensi", p.getStatusPresensi());
+        out.put("waktuMasuk", p.getWaktuMasuk());
+        out.put("waktuKeluar", p.getWaktuKeluar());
+    } else {
+        out.put("statusPresensi", null);
+        out.put("waktuMasuk", null);
+        out.put("waktuKeluar", null);
+    }
+
+    return ResponseEntity.ok(out);
+}
+
 
   // =======================
   // DELETE DOSEN
@@ -137,19 +169,66 @@ public class DosenController {
     return output;
   }
 
+  @GetMapping("/presensi/status/{idDosen}")
+public ResponseEntity<?> getPresensiStatusById(@PathVariable int idDosen) {
+
+    LocalDate today = LocalDate.now();
+
+    Optional<Presensi> pOpt =
+        presensiRepository.findByIdDosenAndTanggal(idDosen, today);
+
+    if (pOpt.isEmpty()) {
+        return ResponseEntity.ok(new HashMap<String, Object>() {{
+            put("statusPresensi", null);
+            put("waktuMasuk", null);
+            put("waktuKeluar", null);
+        }});
+    }
+
+    Presensi p = pOpt.get();
+
+    Map<String, Object> out = new HashMap<>();
+    out.put("statusPresensi", p.getStatusPresensi());
+    out.put("waktuMasuk", p.getWaktuMasuk());
+    out.put("waktuKeluar", p.getWaktuKeluar());
+
+    return ResponseEntity.ok(out);
+}
+
+
   // =======================
   // FULL PROFILE
   // =======================
-  @GetMapping("/{id}/full")
-  public ResponseEntity<?> getDosenFullProfile(@PathVariable int id) {
+@GetMapping("/{id}/full")
+public ResponseEntity<?> getDosenFullProfile(@PathVariable int id) {
+
     Optional<Dosen> dOpt = dosenRepository.findById(id);
     if (dOpt.isEmpty())
-      return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
 
     Dosen d = dOpt.get();
 
     Map<String, Object> out = new LinkedHashMap<>();
+
+    // ====== DOSEN MAIN DATA ======
     out.put("dosen", d);
+
+    // ====== PRESENSI TODAY ======
+    LocalDate today = LocalDate.now();
+    Optional<Presensi> pOpt = presensiRepository.findByIdDosenAndTanggal(id, today);
+
+    if (pOpt.isPresent()) {
+        Presensi p = pOpt.get();
+        out.put("statusPresensi", p.getStatusPresensi());
+        out.put("waktuMasuk", p.getWaktuMasuk());
+        out.put("waktuKeluar", p.getWaktuKeluar());
+    } else {
+        out.put("statusPresensi", null);
+        out.put("waktuMasuk", null);
+        out.put("waktuKeluar", null);
+    }
+
+    // ====== RELATIONS ======
     out.put("pendidikan", pendidikanRepository.findByDosenIdDosen(id));
     out.put("mataKuliah", mataKuliahRepository.findByDosenIdDosen(id));
     out.put("sertifikasi", sertifikasiRepository.findByDosenIdDosen(id));
@@ -157,7 +236,8 @@ public class DosenController {
     out.put("linkEksternal", linkEksternalRepository.findByDosenIdDosen(id));
 
     return ResponseEntity.ok(out);
-  }
+}
+
 
   // =======================
   // ✅✅✅ UPLOAD FOTO

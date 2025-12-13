@@ -38,22 +38,32 @@ export class DosenDetailComponent implements OnInit {
   /* ========================================================
      LOAD DOSEN + STATUS PRESENSI
      ======================================================== */
-  loadDosen() {
-    this.loading = true;
+loadDosen() {
+  this.loading = true;
 
-    this.dosenService.getDosenById(this.id).subscribe({
-      next: (data) => {
-        this.dosen = data;
+  this.dosenService.getFullProfile(this.id).subscribe({
+    next: (data) => {
 
-        // Load presensi status separately
-        this.loadPresensi(this.id);
-      },
-      error: (err) => {
-        console.error("Error load dosen:", err);
-        this.loading = false;
-      }
-    });
-  }
+      // Main biodata
+      this.dosen = data.dosen || {};
+
+      // Attach all child data
+      this.dosen.pendidikan = data.pendidikan || [];
+      this.dosen.mataKuliah = data.mataKuliah || [];
+      this.dosen.sertifikasi = data.sertifikasi || [];
+      this.dosen.bidangKeahlian = data.bidangKeahlian || [];
+      this.dosen.linkEksternal = data.linkEksternal || [];
+
+      // Load online/offline
+      this.loadPresensi(this.id);
+    },
+    error: (err) => {
+      console.error("Failed to load FULL PROFILE:", err);
+      this.loading = false;
+    }
+  });
+}
+
 
   loadPresensi(idDosen: number) {
     this.dosenService.getStatusById(idDosen).subscribe({

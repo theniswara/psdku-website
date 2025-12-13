@@ -96,9 +96,12 @@ export class DosenService {
     return this.http.post<any>(this.baseKeahlianUrl, data);
   }
 
-  updateKeahlian(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.baseKeahlianUrl}/${id}`, data);
-  }
+updateKeahlian(id: number, data: any): Observable<any> {
+  return this.http.put<any>(`${this.baseKeahlianUrl}/${id}`, {
+    namaKeahlian: data.namaKeahlian
+  });
+}
+
 
   deleteKeahlian(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseKeahlianUrl}/${id}`);
@@ -122,9 +125,14 @@ export class DosenService {
   }
 
   // UPDATE sertifikasi
-  updateSertifikasi(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.baseSertifikasiUrl}/${id}`, data);
-  }
+updateSertifikasi(id: number, data: any): Observable<any> {
+  return this.http.put<any>(`${this.baseSertifikasiUrl}/${id}`, {
+    namaSertifikasi: data.namaSertifikasi,
+    penerbit: data.penerbit,
+    tanggalTerbit: data.tanggalTerbit
+  });
+}
+
 
   // DELETE sertifikasi
   deleteSertifikasi(id: number): Observable<any> {
@@ -147,9 +155,13 @@ export class DosenService {
   }
 
   // UPDATE matkul
-  updateMatkul(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.baseMatkulUrl}/${id}`, data);
-  }
+updateMatkul(id: number, data: any): Observable<any> {
+  return this.http.put<any>(`${this.baseMatkulUrl}/${id}`, {
+    namaMk: data.namaMk,
+    semester: data.semester,
+    sks: data.sks
+  });
+}
 
   // DELETE matkul
   deleteMatkul(id: number): Observable<any> {
@@ -172,9 +184,12 @@ export class DosenService {
   }
 
   // UPDATE link
-  updateLink(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.baseLinkUrl}/${id}`, data);
-  }
+updateLink(id: number, data: any): Observable<any> {
+  return this.http.put<any>(`${this.baseLinkUrl}/${id}`, {
+    namaPlatform: data.namaPlatform,
+    url: data.url
+  });
+}
 
   // DELETE link
   deleteLink(id: number): Observable<any> {
