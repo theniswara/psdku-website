@@ -17,7 +17,7 @@ export class HomeBeritaComponent {
     desc: 'Politeknik Negeri Malang PSDKU Lumajang membuka pendaftaran mahasiswa baru untuk berbagai program studi unggulan. Segera daftarkan diri Anda dan jadilah bagian dari generasi vokasi yang kompeten.',
     date: '12 Mei 2024',
     category: 'Akademik',
-    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=3500&auto=format&fit=crop', // Replace with your asset
+    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&auto=format&fit=crop',
     link: '/berita/pmb-2024'
   };
 
