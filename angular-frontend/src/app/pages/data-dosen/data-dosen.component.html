@@ -3,11 +3,14 @@
 <div class="min-h-screen bg-[#F8FAFC] font-['Inter']">
 
   <div class="bg-[#051D47] relative pt-24 pb-48 px-4 md:px-8 overflow-hidden">
-    <div class="absolute inset-0 opacity-[0.07]" 
-         style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
+    <div class="absolute inset-0 opacity-[0.07]"
+      style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
     </div>
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#FF7F11]/10 rounded-full blur-[100px] pointer-events-none"></div>
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] pointer-events-none">
+    </div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#FF7F11]/10 rounded-full blur-[100px] pointer-events-none">
+    </div>
 
     <div class="relative z-10 max-w-4xl mx-auto text-center">
       <h1 class="text-4xl md:text-6xl font-['Biryani'] font-bold text-white leading-tight mb-4 drop-shadow-lg">
@@ -23,21 +26,31 @@
 
     <div class="px-4 md:px-8 -mt-24 relative z-30 mb-16">
       <div class="max-w-5xl mx-auto">
-        <div class="bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] p-2 md:p-3 flex flex-col md:flex-row gap-2 border border-white/20 backdrop-blur-xl">
-          <div class="flex-[2] relative group bg-gray-50/50 hover:bg-gray-50 rounded-xl transition-colors border border-transparent focus-within:border-gray-200 focus-within:bg-white">
+        <div
+          class="bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] p-2 md:p-3 flex flex-col md:flex-row gap-2 border border-white/20 backdrop-blur-xl">
+          <div
+            class="flex-[2] relative group bg-gray-50/50 hover:bg-gray-50 rounded-xl transition-colors border border-transparent focus-within:border-gray-200 focus-within:bg-white">
             <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-              <i class="fa-solid fa-magnifying-glass text-gray-400 text-lg group-focus-within:text-[#FF7F11] transition-colors"></i>
+              <i
+                class="fa-solid fa-magnifying-glass text-gray-400 text-lg group-focus-within:text-[#FF7F11] transition-colors"></i>
             </div>
-            <div class="absolute top-2.5 left-14 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Kata Kunci</div>
-            <input type="text" [(ngModel)]="searchKeyword" class="w-full pl-14 pr-4 pt-6 pb-2 bg-transparent border-none text-[#051D47] focus:ring-0 placeholder-gray-300 font-bold text-base h-full" placeholder="Nama, NIP, atau Keahlian..." />
+            <div class="absolute top-2.5 left-14 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Kata
+              Kunci</div>
+            <input type="text" [(ngModel)]="searchKeyword"
+              class="w-full pl-14 pr-4 pt-6 pb-2 bg-transparent border-none text-[#051D47] focus:ring-0 placeholder-gray-300 font-bold text-base h-full"
+              placeholder="Nama, NIP, atau Keahlian..." />
           </div>
           <div class="hidden md:block w-px bg-gray-200 my-2"></div>
-          <div class="flex-1 relative group bg-gray-50/50 hover:bg-gray-50 rounded-xl transition-colors border border-transparent focus-within:border-gray-200 focus-within:bg-white">
+          <div
+            class="flex-1 relative group bg-gray-50/50 hover:bg-gray-50 rounded-xl transition-colors border border-transparent focus-within:border-gray-200 focus-within:bg-white">
             <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-              <i class="fa-solid fa-graduation-cap text-gray-400 text-lg group-focus-within:text-[#FF7F11] transition-colors"></i>
+              <i
+                class="fa-solid fa-graduation-cap text-gray-400 text-lg group-focus-within:text-[#FF7F11] transition-colors"></i>
             </div>
-            <div class="absolute top-2.5 left-14 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Program Studi</div>
-            <select [(ngModel)]="selectedProdi" class="w-full pl-14 pr-10 pt-6 pb-2 bg-transparent border-none text-[#051D47] focus:ring-0 cursor-pointer font-bold text-base h-full appearance-none">
+            <div class="absolute top-2.5 left-14 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Program
+              Studi</div>
+            <select [(ngModel)]="selectedProdi"
+              class="w-full pl-14 pr-10 pt-6 pb-2 bg-transparent border-none text-[#051D47] focus:ring-0 cursor-pointer font-bold text-base h-full appearance-none">
               <option value="">Semua Prodi</option>
               <option value="Teknologi Informasi">Teknologi Informasi</option>
               <option value="Teknik Sipil">Teknik Sipil</option>
@@ -48,7 +61,8 @@
               <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
             </div>
           </div>
-          <button class="bg-[#051D47] hover:bg-[#FF7F11] text-white px-8 py-4 md:py-0 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-orange-500/20 active:scale-95 flex items-center justify-center gap-3 md:flex-col md:gap-0 md:justify-center min-w-[100px]">
+          <button
+            class="bg-[#051D47] hover:bg-[#FF7F11] text-white px-8 py-4 md:py-0 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-orange-500/20 active:scale-95 flex items-center justify-center gap-3 md:flex-col md:gap-0 md:justify-center min-w-[100px]">
             <i class="fa-solid fa-arrow-right text-lg mb-0.5"></i>
             <span class="text-[10px] uppercase tracking-widest hidden md:block">Cari</span>
             <span class="md:hidden">Cari Dosen</span>
@@ -56,62 +70,70 @@
         </div>
         <div class="mt-6 flex items-center justify-between px-2">
           <p class="text-sm text-gray-400 font-medium">
-             Menampilkan <span class="font-bold text-[#051D47] text-lg">{{ filteredList.length }}</span> Profil Dosen
+            Menampilkan <span class="font-bold text-[#051D47] text-lg">{{ filteredList.length }}</span> Profil Dosen
           </p>
-          <button *ngIf="searchKeyword || selectedProdi" (click)="searchKeyword=''; selectedProdi=''" class="text-xs font-bold text-red-500 hover:text-red-700 underline decoration-red-200 transition-colors">
-             Reset Filter
-           </button>
+          <button *ngIf="searchKeyword || selectedProdi" (click)="searchKeyword=''; selectedProdi=''"
+            class="text-xs font-bold text-red-500 hover:text-red-700 underline decoration-red-200 transition-colors">
+            Reset Filter
+          </button>
         </div>
       </div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 md:px-8 pb-24">
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <div *ngFor="let d of filteredList" class="flex flex-col h-full rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border border-gray-100">
-           
-          <div class="p-6 pb-6 flex flex-col items-center text-center relative z-10 bg-white flex-1">
-             <div class="absolute top-4 right-4">
-                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-colors duration-300"
-                     [ngClass]="isOnline(d) ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-400'">
-                  <div class="h-1.5 w-1.5 rounded-full" [ngClass]="isOnline(d) ? 'bg-green-500 animate-pulse' : 'bg-gray-400'"></div>
-                  <span class="text-[10px] font-bold uppercase tracking-wider">{{ isOnline(d) ? 'Online' : 'Offline' }}</span>
-                </div>
-             </div>
 
-             <div class="relative mb-4">
-               <img
-                 [src]="d.foto 
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div *ngFor="let d of filteredList"
+          class="flex flex-col h-full rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border border-gray-100">
+
+          <div class="p-6 pb-6 flex flex-col items-center text-center relative z-10 bg-white flex-1">
+            <div class="absolute top-4 right-4">
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-colors duration-300"
+                [ngClass]="isOnline(d) ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-400'">
+                <div class="h-1.5 w-1.5 rounded-full"
+                  [ngClass]="isOnline(d) ? 'bg-green-500 animate-pulse' : 'bg-gray-400'"></div>
+                <span class="text-[10px] font-bold uppercase tracking-wider">{{ isOnline(d) ? 'Online' : 'Offline'
+                  }}</span>
+              </div>
+            </div>
+
+            <div class="relative mb-4">
+              <img [src]="d.foto 
                    ? '/uploads/' + d.foto 
                    : 'assets/default-user.png'"
-                 class="relative h-28 w-28 rounded-full object-cover border-[4px] border-white shadow-md bg-gray-100"
-                 alt="{{ d.namaDosen }}" />
-             </div>
+                class="relative h-28 w-28 rounded-full object-cover border-[4px] border-white shadow-md bg-gray-100"
+                alt="{{ d.namaDosen }}" />
+            </div>
 
-             <h2 class="font-['Biryani'] font-bold text-xl text-[#051D47] leading-tight mb-1 h-[3.5rem] flex items-center justify-center line-clamp-2 overflow-hidden w-full px-2">
-               {{ d.namaDosen }}
-             </h2>
-             
-             <p class="text-sm font-['Inter'] text-[#FF7F11] font-bold uppercase tracking-wide mb-3 h-5 overflow-hidden">
-               {{ d.prodi }}
-             </p>
+            <h2
+              class="font-['Biryani'] font-bold text-xl text-[#051D47] leading-tight mb-1 h-[3.5rem] flex items-center justify-center line-clamp-2 overflow-hidden w-full px-2">
+              {{ d.namaDosen }}
+            </h2>
 
-             <div class="mt-1">
-               <span class="inline-block px-3 py-1 bg-gray-50 text-gray-500 text-xs font-semibold rounded-full border border-gray-100">
-                 {{ d.jabatan || 'Dosen Pengajar' }}
-               </span>
-             </div>
+            <p class="text-sm font-['Inter'] text-[#FF7F11] font-bold uppercase tracking-wide mb-3 h-5 overflow-hidden">
+              {{ d.prodi }}
+            </p>
+
+            <div class="mt-1">
+              <span
+                class="inline-block px-3 py-1 bg-gray-50 text-gray-500 text-xs font-semibold rounded-full border border-gray-100">
+                {{ d.jabatan || 'Dosen Pengajar' }}
+              </span>
+            </div>
 
           </div>
 
           <div class="h-1 w-full bg-[#FF7F11] relative z-20"></div>
 
           <div class="mt-auto bg-[#0F2C56] text-white p-6 relative overflow-hidden flex flex-col gap-4">
-            <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"></div>
-            
+            <div class="absolute inset-0 opacity-10 pointer-events-none"
+              style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;">
+            </div>
+
             <div class="space-y-3 relative z-10">
-              <div class="flex items-center gap-3 text-sm text-gray-300 group-hover:text-white transition-colors" title="{{ d.email }}">
+              <div class="flex items-center gap-3 text-sm text-gray-300 group-hover:text-white transition-colors"
+                title="{{ d.email }}">
                 <div class="w-5 flex justify-center shrink-0"><i class="fa-solid fa-envelope text-[#FF7F11]"></i></div>
                 <span class="truncate font-medium text-gray-100 tracking-wide">{{ d.email || '-' }}</span>
               </div>
@@ -121,7 +143,8 @@
               </div>
             </div>
 
-            <button [routerLink]="['/dosen', d.idDosen]" class="w-full mt-2 py-2.5 border border-white/20 hover:bg-[#FF7F11] hover:border-[#FF7F11] hover:text-white text-white rounded-lg text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 group/btn relative z-10">
+            <button [routerLink]="['/dosen', d.idDosen]"
+              class="w-full mt-2 py-2.5 border border-white/20 hover:bg-[#FF7F11] hover:border-[#FF7F11] hover:text-white text-white rounded-lg text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 group/btn relative z-10">
               Detail Profil
               <i class="fa-solid fa-arrow-right transition-transform group-hover/btn:translate-x-1"></i>
             </button>
@@ -131,12 +154,14 @@
 
       </div>
 
-      <div *ngIf="filteredList.length === 0" class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center max-w-lg mx-auto mt-8">
+      <div *ngIf="filteredList.length === 0"
+        class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center max-w-lg mx-auto mt-8">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 text-gray-400 mb-4">
           <i class="fa-solid fa-magnifying-glass text-2xl"></i>
         </div>
         <h3 class="text-lg font-['Biryani'] font-bold text-[#051D47] mb-2">Data Tidak Ditemukan</h3>
-        <button (click)="searchKeyword = ''; selectedProdi = ''" class="text-[#FF7F11] text-sm font-bold hover:underline">
+        <button (click)="searchKeyword = ''; selectedProdi = ''"
+          class="text-[#FF7F11] text-sm font-bold hover:underline">
           Reset Filter
         </button>
       </div>

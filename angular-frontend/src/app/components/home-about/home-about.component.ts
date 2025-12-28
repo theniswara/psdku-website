@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -56,7 +56,7 @@ export class HomeAboutComponent implements AfterViewInit {
   isVisible = false;
   private isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) platformId: Object, private cdr: ChangeDetectorRef) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -64,6 +64,7 @@ export class HomeAboutComponent implements AfterViewInit {
     if (!this.isBrowser) {
       // On server, just show content immediately
       this.isVisible = true;
+      this.cdr.detectChanges();
       return;
     }
 
@@ -72,6 +73,7 @@ export class HomeAboutComponent implements AfterViewInit {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             this.isVisible = true;
+            this.cdr.detectChanges();
             observer.disconnect();
           }
         });

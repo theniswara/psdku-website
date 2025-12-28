@@ -15,7 +15,15 @@ export class NavbarComponent {
 
   isMenuOpen = false;
   isSubMenuOpen = false;
-  constructor(private router: Router) {}
+  constructor(public router: Router) { }
+
+  toggleSection(section: string) {
+    if (this.openSection === section) {
+      this.openSection = '';
+    } else {
+      this.openSection = section;
+    }
+  }
 
   scrollToFooter(event: Event) {
     event.preventDefault();

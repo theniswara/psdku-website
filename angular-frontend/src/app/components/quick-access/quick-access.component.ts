@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { trigger, state, style, animate, transition, stagger, query } from '@angular/animations';
@@ -63,7 +63,7 @@ export class QuickAccessComponent implements AfterViewInit {
     }
   ];
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) platformId: Object, private cdr: ChangeDetectorRef) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -72,6 +72,7 @@ export class QuickAccessComponent implements AfterViewInit {
       // On server, just show content immediately
       this.isVisible = true;
       this.cardsState = 'visible';
+      this.cdr.detectChanges();
       return;
     }
 
@@ -81,6 +82,7 @@ export class QuickAccessComponent implements AfterViewInit {
           if (entry.isIntersecting) {
             this.isVisible = true;
             this.cardsState = 'visible';
+            this.cdr.detectChanges();
             observer.disconnect();
           }
         });

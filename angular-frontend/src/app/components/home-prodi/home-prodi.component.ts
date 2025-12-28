@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, QueryList, ViewChildren, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, QueryList, ViewChildren, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -85,7 +85,7 @@ export class HomeProdiComponent implements AfterViewInit {
     }
   ];
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) platformId: Object, private cdr: ChangeDetectorRef) {
     this.isBrowser = isPlatformBrowser(platformId);
     // Initialize states array
     this.itemStates = this.prodiList.map(() => false);
@@ -96,6 +96,7 @@ export class HomeProdiComponent implements AfterViewInit {
       // On server, just show content immediately
       this.headerVisible = true;
       this.itemStates = this.prodiList.map(() => true);
+      this.cdr.detectChanges();
       return;
     }
 
@@ -105,6 +106,7 @@ export class HomeProdiComponent implements AfterViewInit {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             this.headerVisible = true;
+            this.cdr.detectChanges();
             headerObserver.disconnect();
           }
         });
@@ -124,6 +126,7 @@ export class HomeProdiComponent implements AfterViewInit {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               this.itemStates[index] = true;
+              this.cdr.detectChanges();
               observer.disconnect();
             }
           });
