@@ -1,59 +1,74 @@
-<section class="py-24 bg-white font-['Inter'] overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 md:px-8">
-    
+<section class="py-24 bg-white font-['Inter'] overflow-hidden relative">
+
+  <div class="absolute inset-0 opacity-[0.02]"
+    style="background-image: radial-gradient(#051D47 1px, transparent 1px); background-size: 32px 32px;">
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 relative z-10">
+
     <div class="text-center mb-20">
       <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47] mb-4 relative inline-block">
         Program Studi
-        <span class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-16 h-1.5 bg-[#FF7F11] rounded-full"></span>
+        <span class="absolute left-1/2 -translate-x-1/2 -bottom-4 w-16 h-1.5 bg-[#FF7F11] rounded-full"></span>
       </h2>
       <p class="text-gray-500 mt-4 max-w-2xl mx-auto">
         Pilihan program studi vokasi unggulan yang dirancang sesuai kebutuhan industri masa depan.
       </p>
     </div>
 
-    <div class="space-y-24">
-      
-      <div *ngFor="let item of prodiList; let i = index; let isEven = even" 
-           class="group grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        
-        <div class="relative w-full h-[300px] md:h-[400px]"
-             [ngClass]="isEven ? 'lg:order-1' : 'lg:order-2'">
-          
-          <div class="absolute top-4 bottom-4 w-1/2 bg-[#051D47] -z-10 rounded-2xl"
-               [ngClass]="isEven ? '-left-4' : '-right-4'">
+    <div class="flex flex-col gap-20 md:gap-32">
+
+      <div *ngFor="let item of prodiList; let i = index; let isEven = even"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center group">
+
+        <div class="relative w-full min-h-[300px] md:h-[400px] order-1"
+          [ngClass]="isEven ? 'lg:order-1' : 'lg:order-2'">
+
+          <div
+            class="absolute top-0 bottom-0 w-[150%] bg-[#051D47] -z-10 rounded-3xl transition-transform duration-500 group-hover:scale-[1.02]"
+            [ngClass]="isEven ? '-left-[50%]' : '-right-[50%]'">
           </div>
 
-          <div class="w-full h-full rounded-2xl overflow-hidden shadow-xl border border-gray-100">
-            <img [src]="item.img" [alt]="item.name" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+          <div class="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white relative">
+            <img [src]="item.img" [alt]="item.name"
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+
+            <div class="absolute inset-0 bg-[#051D47]/10 group-hover:bg-transparent transition-colors duration-300">
+            </div>
           </div>
         </div>
 
-        <div class="space-y-6"
-             [ngClass]="isEven ? 'lg:order-2 lg:pl-10' : 'lg:order-1 lg:pr-10'">
-          
-          <h3 class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#051D47] leading-tight">
-            {{ item.name }}
-          </h3>
-          
-          <div class="w-20 h-1 bg-[#FF7F11] rounded-full"></div>
-          
-          <p class="text-gray-500 text-lg leading-relaxed text-justify">
+        <div class="space-y-6 order-2" [ngClass]="isEven ? 'lg:order-2' : 'lg:order-1'">
+
+          <div class="flex flex-col gap-4">
+            <span class="w-12 h-1 bg-[#FF7F11] rounded-full"></span>
+
+            <h3 class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#051D47] leading-tight">
+              {{ item.name }}
+            </h3>
+          </div>
+
+          <p class="text-gray-600 text-base md:text-lg leading-relaxed">
             {{ item.desc }}
           </p>
 
-          <a [routerLink]="item.link" 
-             class="inline-flex items-center gap-2 text-[#051D47] font-bold uppercase tracking-wider text-sm hover:text-[#FF7F11] transition-colors mt-2">
-             Info Selengkapnya <i class="fa-solid fa-arrow-right"></i>
-          </a>
+          <div class="pt-2">
+            <a [routerLink]="item.link"
+              class="inline-flex items-center gap-3 text-[#051D47] font-bold uppercase tracking-wider text-sm border-b-2 border-transparent hover:border-[#FF7F11] hover:text-[#FF7F11] transition-all pb-1 group/link">
+              Info Selengkapnya
+              <i class="fa-solid fa-arrow-right transform group-hover/link:translate-x-2 transition-transform"></i>
+            </a>
+          </div>
         </div>
 
       </div>
 
     </div>
 
-    <div class="text-center mt-20">
-      <button class="px-8 py-3 bg-[#FF7F11] text-white font-bold rounded-lg hover:bg-orange-600 transition-all shadow-lg hover:shadow-orange-500/30 transform hover:-translate-y-1">
-        Selengkapnya
+    <div class="text-center mt-24">
+      <button
+        class="px-10 py-3.5 bg-[#FF7F11] text-white font-bold rounded-xl hover:bg-[#e57310] transition-all shadow-xl hover:shadow-orange-500/20 transform hover:-translate-y-1 active:scale-95">
+        Lihat Selengkapnya
       </button>
     </div>
 

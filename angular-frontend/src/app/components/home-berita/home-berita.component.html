@@ -1,0 +1,104 @@
+<section class="py-24 bg-[#F8FAFC] font-['Inter'] relative overflow-hidden">
+
+  <div class="absolute inset-0 opacity-[0.02]"
+    style="background-image: radial-gradient(#051D47 1px, transparent 1px); background-size: 32px 32px;">
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 relative z-10">
+
+    <div class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47] relative inline-block">
+        Berita & Pengumuman Terbaru
+        <span class="absolute left-0 -bottom-4 w-16 h-1.5 bg-[#FF7F11] rounded-full"></span>
+      </h2>
+    </div>
+
+    <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl group cursor-pointer mb-12">
+      <div class="flex flex-col md:flex-row min-h-[400px]">
+
+        <div class="md:w-5/12 relative overflow-hidden">
+          <img [src]="featuredNews.image" alt="Featured News"
+            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute top-4 left-4 bg-[#FF7F11] text-white text-xs font-bold px-3 py-1 rounded md:hidden">
+            {{ featuredNews.date }}
+          </div>
+        </div>
+
+        <div class="md:w-7/12 bg-[#051D47] p-8 md:p-12 flex flex-col justify-center relative">
+          <div class="absolute top-0 left-0 w-2 h-full bg-[#FF7F11] hidden md:block"></div>
+
+          <div class="flex items-center gap-3 mb-4 text-blue-200 text-sm font-semibold uppercase tracking-wider">
+            <span class="text-[#FF7F11]"><i class="fa-solid fa-calendar-days"></i></span>
+            {{ featuredNews.date }}
+            <span class="w-1 h-1 rounded-full bg-blue-500"></span>
+            <span>{{ featuredNews.category }}</span>
+          </div>
+
+          <h3
+            class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#FF7F11] mb-4 leading-tight group-hover:text-white transition-colors">
+            {{ featuredNews.title }}
+          </h3>
+
+          <p class="text-white/80 text-base md:text-lg leading-relaxed mb-8">
+            {{ featuredNews.desc }}
+          </p>
+
+          <a [routerLink]="featuredNews.link"
+            class="inline-flex items-center gap-2 text-white font-bold uppercase text-sm tracking-widest hover:text-[#FF7F11] transition-colors w-fit">
+            Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div *ngFor="let news of newsList"
+        class="group relative rounded-2xl overflow-hidden shadow-lg h-[400px] cursor-pointer">
+
+        <img [src]="news.image" [alt]="news.title"
+          class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-[#051D47] via-[#051D47]/80 to-transparent opacity-90 lg:opacity-80 lg:group-hover:opacity-90 transition-opacity">
+        </div>
+
+        <div class="absolute top-4 right-4 z-20">
+          <span class="bg-[#FF7F11] text-white text-xs font-bold px-3 py-1 rounded shadow-lg uppercase tracking-wider">
+            {{ news.category }}
+          </span>
+        </div>
+
+        <div
+          class="absolute bottom-0 left-0 w-full p-6 z-20 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+
+          <div class="flex items-center gap-2 mb-2 text-xs text-blue-200 font-semibold">
+            <i class="fa-regular fa-calendar"></i> {{ news.date }}
+          </div>
+
+          <h4
+            class="text-lg font-['Biryani'] font-bold text-white mb-2 leading-tight group-hover:text-[#FF7F11] transition-colors line-clamp-2">
+            {{ news.title }}
+          </h4>
+
+          <p class="text-gray-300 text-sm line-clamp-2 mb-4 leading-relaxed">
+            {{ news.desc }}
+          </p>
+
+          <div class="w-full h-1 bg-[#FF7F11]/50 group-hover:bg-[#FF7F11] transition-colors rounded-full"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="text-center mt-16">
+      <button
+        class="px-10 py-3.5 bg-[#FF7F11] text-white font-bold rounded-xl hover:bg-[#e57310] transition-all shadow-xl hover:shadow-orange-500/20 transform hover:-translate-y-1 active:scale-95">
+        Lihat Semua Berita
+      </button>
+    </div>
+
+  </div>
+</section>
