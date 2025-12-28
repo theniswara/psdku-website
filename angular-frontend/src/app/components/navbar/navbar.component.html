@@ -34,7 +34,7 @@
           <div
             class="absolute top-full left-0 pt-4 w-64 invisible group-hover/dropdown:visible opacity-0 group-hover/dropdown:opacity-100 transition-all duration-200 transform translate-y-2 group-hover/dropdown:translate-y-0 z-50">
             <div
-              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2">
+              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2 font-inter">
               <a routerLink="/tentang-kami"
                 class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-orange-50 hover:text-[#FF7F11] hover:pl-6 transition-all border-b border-gray-50">Tentang
                 Kami</a>
@@ -59,7 +59,7 @@
           <div
             class="absolute top-full left-0 pt-4 w-64 invisible group-hover/dropdown:visible opacity-0 group-hover/dropdown:opacity-100 transition-all duration-200 transform translate-y-2 group-hover/dropdown:translate-y-0 z-50">
             <div
-              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2">
+              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2 font-inter">
               <a routerLink="/prodi"
                 class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-orange-50 hover:text-[#FF7F11] hover:pl-6 transition-all border-b border-gray-50">Program
                 Studi</a>
@@ -83,7 +83,7 @@
           <div
             class="absolute top-full left-0 pt-4 w-64 invisible group-hover/dropdown:visible opacity-0 group-hover/dropdown:opacity-100 transition-all duration-200 transform translate-y-2 group-hover/dropdown:translate-y-0 z-50">
             <div
-              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2">
+              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2 font-inter">
               <a routerLink="/mahasiswa"
                 class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-orange-50 hover:text-[#FF7F11] hover:pl-6 transition-all border-b border-gray-50">Mahasiswa
                 Aktif</a>
@@ -106,7 +106,7 @@
           <div
             class="absolute top-full right-0 lg:left-0 pt-4 w-64 invisible group-hover/dropdown:visible opacity-0 group-hover/dropdown:opacity-100 transition-all duration-200 transform translate-y-2 group-hover/dropdown:translate-y-0 z-50">
             <div
-              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2">
+              class="bg-white text-[#0F2C56] rounded-lg shadow-xl border-t-4 border-[#FF7F11] overflow-hidden ring-1 ring-black/5 py-2 font-inter">
               <a routerLink="/berita"
                 class="block px-5 py-3 text-sm text-gray-600 border-l-4 border-transparent hover:bg-orange-50 hover:text-[#FF7F11] hover:pl-6 transition-all border-b border-gray-50">Pengumuman
                 & Berita</a>
@@ -140,178 +140,163 @@
 
 <!-- Mobile Sidebar -->
 <div
-  class="fixed top-0 right-0 h-full w-[300px] bg-[#051D47]/95 backdrop-blur-2xl z-[70] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.2, 0.8, 0.2, 1) lg:hidden flex flex-col font-biryani border-l border-white/10"
+  class="fixed top-0 right-0 h-full w-[300px] bg-[#0F2C56] z-[70] shadow-2xl transform transition-transform duration-500 ease-out lg:hidden flex flex-col border-l border-white/10"
   [ngClass]="isMenuOpen ? 'translate-x-0' : 'translate-x-full'">
 
   <!-- Sidebar Header -->
-  <div class="flex items-center justify-between p-6 pb-8 border-b border-white/10 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent pointer-events-none"></div>
-    <div class="relative z-10">
-      <h2 class="text-white font-bold text-xl leading-none tracking-wide">Menu</h2>
-      <p class="text-xs text-[#FF7F11] font-bold uppercase tracking-widest mt-1">Navigasi Utama</p>
-    </div>
+  <div class="flex items-center justify-between p-5 border-b border-white/10">
+    <a routerLink="/" (click)="isMenuOpen = false" class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" />
+      <div class="flex flex-col">
+        <span class="text-white font-biryani font-bold text-sm leading-tight">Politeknik Negeri Malang</span>
+        <span class="text-[#FF7F11] font-biryani font-bold text-[10px] uppercase tracking-wider">PSDKU Lumajang</span>
+      </div>
+    </a>
     <button (click)="isMenuOpen = false"
-      class="relative z-10 h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#FF7F11] hover:border-[#FF7F11] hover:rotate-90 transition-all duration-300 group shadow-lg">
-      <i class="fa-solid fa-xmark text-lg group-hover:scale-110 transition-transform"></i>
+      class="h-9 w-9 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-[#FF7F11] hover:border-[#FF7F11] transition-all duration-300">
+      <i class="fa-solid fa-xmark text-base"></i>
     </button>
   </div>
 
   <!-- Sidebar Content -->
-  <div class="flex-1 overflow-y-auto py-6 px-4 space-y-2 scrollbar-hide">
+  <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
 
     <!-- Beranda -->
-    <a routerLink="/" (click)="isMenuOpen = false"
-      routerLinkActive="bg-white/10 text-white shadow-lg border-l-[#FF7F11]" [routerLinkActiveOptions]="{exact: true}"
-      class="flex items-center gap-4 px-5 py-4 rounded-xl text-gray-300 border-l-4 border-transparent hover:bg-white/5 hover:text-white transition-all duration-300 group">
-      <i class="fa-solid fa-house text-sm w-6 text-center group-hover:text-[#FF7F11] transition-colors"
-        [class.text-[#FF7F11]]="router.url === '/'"></i>
-      <span class="font-bold tracking-wide">Beranda</span>
+    <a routerLink="/" (click)="isMenuOpen = false" routerLinkActive="bg-white/10 text-white border-l-[#FF7F11]"
+      [routerLinkActiveOptions]="{exact: true}"
+      class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 border-l-2 border-transparent hover:bg-white/5 hover:text-white transition-all duration-200 font-inter">
+      <i class="fa-solid fa-house text-sm w-5 text-center" [class.text-[#FF7F11]]="router.url === '/'"></i>
+      <span class="font-semibold text-sm">Beranda</span>
     </a>
 
     <!-- Profil Kampus Accordion -->
-    <div class="rounded-xl overflow-hidden transition-all duration-300"
-      [ngClass]="openSection === 'profil' ? 'bg-white/5 shadow-inner' : 'hover:bg-white/5'">
+    <div class="rounded-lg overflow-hidden" [ngClass]="openSection === 'profil' ? 'bg-white/5' : ''">
       <button (click)="toggleSection('profil')"
-        class="w-full flex items-center justify-between px-5 py-4 text-left transition-colors group">
-        <div class="flex items-center gap-4 text-gray-300 group-hover:text-white">
-          <i class="fa-solid fa-university text-sm w-6 text-center group-hover:text-[#FF7F11] transition-colors"></i>
-          <span class="font-bold tracking-wide">Profil Kampus</span>
+        class="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors rounded-lg font-inter">
+        <div class="flex items-center gap-3 text-gray-300">
+          <i class="fa-solid fa-university text-sm w-5 text-center"></i>
+          <span class="font-semibold text-sm">Profil Kampus</span>
         </div>
-        <i class="fa-solid fa-chevron-down text-xs text-gray-500 transition-transform duration-300"
+        <i class="fa-solid fa-chevron-down text-[10px] text-gray-500 transition-transform duration-300"
           [class.rotate-180]="openSection === 'profil'"></i>
       </button>
-      <div class="overflow-hidden transition-all duration-500 ease-in-out"
-        [style.max-height]="openSection === 'profil' ? '400px' : '0'">
-        <div class="pb-2 space-y-1">
-          <a routerLink="/tentang-kami" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Tentang
+      <div class="overflow-hidden transition-all duration-300 ease-in-out"
+        [style.max-height]="openSection === 'profil' ? '300px' : '0'">
+        <div class="py-1 space-y-0.5">
+          <a routerLink="/tentang-kami" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Tentang
             Kami</a>
-          <a routerLink="/visi-misi" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Visi
+          <a routerLink="/visi-misi" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Visi
             Misi</a>
-          <a routerLink="/sarana" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Sarana
-            & Prasarana</a>
+          <a routerLink="/sarana" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Sarana &
+            Prasarana</a>
           <a routerLink="/struktur-organisasi" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Struktur
+            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Struktur
             Organisasi</a>
         </div>
       </div>
     </div>
 
     <!-- Akademik Accordion -->
-    <div class="rounded-xl overflow-hidden transition-all duration-300"
-      [ngClass]="openSection === 'akademik' ? 'bg-white/5 shadow-inner' : 'hover:bg-white/5'">
+    <div class="rounded-lg overflow-hidden" [ngClass]="openSection === 'akademik' ? 'bg-white/5' : ''">
       <button (click)="toggleSection('akademik')"
-        class="w-full flex items-center justify-between px-5 py-4 text-left transition-colors group">
-        <div class="flex items-center gap-4 text-gray-300 group-hover:text-white">
-          <i
-            class="fa-solid fa-graduation-cap text-sm w-6 text-center group-hover:text-[#FF7F11] transition-colors"></i>
-          <span class="font-bold tracking-wide">Akademik</span>
+        class="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors rounded-lg font-inter">
+        <div class="flex items-center gap-3 text-gray-300">
+          <i class="fa-solid fa-graduation-cap text-sm w-5 text-center"></i>
+          <span class="font-semibold text-sm">Akademik</span>
         </div>
-        <i class="fa-solid fa-chevron-down text-xs text-gray-500 transition-transform duration-300"
+        <i class="fa-solid fa-chevron-down text-[10px] text-gray-500 transition-transform duration-300"
           [class.rotate-180]="openSection === 'akademik'"></i>
       </button>
-      <div class="overflow-hidden transition-all duration-500 ease-in-out"
-        [style.max-height]="openSection === 'akademik' ? '400px' : '0'">
-        <div class="pb-2 space-y-1">
-          <a routerLink="/prodi" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Program
+      <div class="overflow-hidden transition-all duration-300 ease-in-out"
+        [style.max-height]="openSection === 'akademik' ? '300px' : '0'">
+        <div class="py-1 space-y-0.5">
+          <a routerLink="/prodi" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Program
             Studi</a>
-          <a routerLink="/kurikulum" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Kurikulum</a>
-          <a routerLink="/jadwal" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Jadwal
+          <a routerLink="/kurikulum" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Kurikulum</a>
+          <a routerLink="/jadwal" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Jadwal
             Kuliah</a>
-          <a routerLink="/dosen" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Data
+          <a routerLink="/dosen" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Data
             Dosen</a>
         </div>
       </div>
     </div>
 
     <!-- Kemahasiswaan Accordion -->
-    <div class="rounded-xl overflow-hidden transition-all duration-300"
-      [ngClass]="openSection === 'kemahasiswaan' ? 'bg-white/5 shadow-inner' : 'hover:bg-white/5'">
+    <div class="rounded-lg overflow-hidden" [ngClass]="openSection === 'kemahasiswaan' ? 'bg-white/5' : ''">
       <button (click)="toggleSection('kemahasiswaan')"
-        class="w-full flex items-center justify-between px-5 py-4 text-left transition-colors group">
-        <div class="flex items-center gap-4 text-gray-300 group-hover:text-white">
-          <i class="fa-solid fa-users text-sm w-6 text-center group-hover:text-[#FF7F11] transition-colors"></i>
-          <span class="font-bold tracking-wide">Kemahasiswaan</span>
+        class="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors rounded-lg font-inter">
+        <div class="flex items-center gap-3 text-gray-300">
+          <i class="fa-solid fa-users text-sm w-5 text-center"></i>
+          <span class="font-semibold text-sm">Kemahasiswaan</span>
         </div>
-        <i class="fa-solid fa-chevron-down text-xs text-gray-500 transition-transform duration-300"
+        <i class="fa-solid fa-chevron-down text-[10px] text-gray-500 transition-transform duration-300"
           [class.rotate-180]="openSection === 'kemahasiswaan'"></i>
       </button>
-      <div class="overflow-hidden transition-all duration-500 ease-in-out"
-        [style.max-height]="openSection === 'kemahasiswaan' ? '400px' : '0'">
-        <div class="pb-2 space-y-1">
-          <a routerLink="/mahasiswa" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Mahasiswa
+      <div class="overflow-hidden transition-all duration-300 ease-in-out"
+        [style.max-height]="openSection === 'kemahasiswaan' ? '300px' : '0'">
+        <div class="py-1 space-y-0.5">
+          <a routerLink="/mahasiswa" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Mahasiswa
             Aktif</a>
-          <a routerLink="/alumni" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Alumni</a>
-          <a routerLink="/ukm" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Organisasi
+          <a routerLink="/alumni" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Alumni</a>
+          <a routerLink="/ukm" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Organisasi
             & UKM</a>
-          <a routerLink="/job-portal" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Job
+          <a routerLink="/job-portal" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Job
             Portal</a>
         </div>
       </div>
     </div>
 
     <!-- Informasi Accordion -->
-    <div class="rounded-xl overflow-hidden transition-all duration-300"
-      [ngClass]="openSection === 'informasi' ? 'bg-white/5 shadow-inner' : 'hover:bg-white/5'">
+    <div class="rounded-lg overflow-hidden" [ngClass]="openSection === 'informasi' ? 'bg-white/5' : ''">
       <button (click)="toggleSection('informasi')"
-        class="w-full flex items-center justify-between px-5 py-4 text-left transition-colors group">
-        <div class="flex items-center gap-4 text-gray-300 group-hover:text-white">
-          <i class="fa-solid fa-bullhorn text-sm w-6 text-center group-hover:text-[#FF7F11] transition-colors"></i>
-          <span class="font-bold tracking-wide">Informasi</span>
+        class="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors rounded-lg font-inter">
+        <div class="flex items-center gap-3 text-gray-300">
+          <i class="fa-solid fa-bullhorn text-sm w-5 text-center"></i>
+          <span class="font-semibold text-sm">Informasi</span>
         </div>
-        <i class="fa-solid fa-chevron-down text-xs text-gray-500 transition-transform duration-300"
+        <i class="fa-solid fa-chevron-down text-[10px] text-gray-500 transition-transform duration-300"
           [class.rotate-180]="openSection === 'informasi'"></i>
       </button>
-      <div class="overflow-hidden transition-all duration-500 ease-in-out"
-        [style.max-height]="openSection === 'informasi' ? '400px' : '0'">
-        <div class="pb-2 space-y-1">
-          <a routerLink="/berita" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Pengumuman
+      <div class="overflow-hidden transition-all duration-300 ease-in-out"
+        [style.max-height]="openSection === 'informasi' ? '200px' : '0'">
+        <div class="py-1 space-y-0.5">
+          <a routerLink="/berita" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Pengumuman
             & Berita</a>
-          <a routerLink="/kalender" (click)="isMenuOpen = false"
-            routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
-            class="block pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:pl-18 transition-all duration-300 border-r-2 border-transparent">Kalender
+          <a routerLink="/kalender" (click)="isMenuOpen = false" routerLinkActive="text-[#FF7F11] bg-[#FF7F11]/10"
+            class="block pl-12 pr-4 py-2 text-sm text-gray-400 hover:text-white transition-colors font-inter">Kalender
             Akademik</a>
         </div>
       </div>
     </div>
 
-    <!-- Contact Button -->
-    <a href="#hubungi" (click)="scrollToFooter($event); isMenuOpen = false"
-      class="flex items-center justify-center gap-3 px-5 py-4 mt-6 rounded-xl bg-gradient-to-r from-[#FF7F11] to-[#ff9539] text-white font-bold shadow-lg shadow-orange-500/20 active:scale-95 transition-all duration-300">
-      <i class="fa-solid fa-phone text-sm"></i>
-      <span class="tracking-widest uppercase text-xs">Hubungi Kami</span>
-    </a>
+  </div>
 
+  <!-- Contact Button -->
+  <div class="p-4 border-t border-white/10">
+    <a href="#hubungi" (click)="scrollToFooter($event); isMenuOpen = false"
+      class="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#FF7F11] text-white font-inter font-semibold text-sm hover:bg-[#e57310] active:scale-[0.98] transition-all duration-200">
+      <i class="fa-solid fa-phone text-xs"></i>
+      <span>Hubungi Kami</span>
+    </a>
   </div>
 
   <!-- Sidebar Footer -->
-  <div class="p-6 border-t border-white/5 bg-black/20 text-center">
-    <p class="text-[10px] text-gray-500 leading-relaxed font-inter">
-      &copy; 2025 Politeknik Negeri Malang<br>PSDKU Lumajang
+  <div class="px-4 pb-4 text-center">
+    <p class="text-[10px] text-gray-500 font-inter">
+      &copy; 2025 Politeknik Negeri Malang PSDKU Lumajang
     </p>
   </div>
 </div>

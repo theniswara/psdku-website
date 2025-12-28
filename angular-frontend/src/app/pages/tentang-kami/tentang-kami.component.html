@@ -1,0 +1,107 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<section class="bg-[#051D47] relative pt-24 pb-32 px-4 md:px-8 overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 opacity-[0.07]"
+        style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
+    </div>
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] pointer-events-none">
+    </div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#FF7F11]/10 rounded-full blur-[100px] pointer-events-none">
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-['Biryani'] font-bold text-white leading-tight mb-4 drop-shadow-lg">
+            Tentang <span class="text-[#FF7F11]">Kami</span>
+        </h1>
+        <p class="text-blue-100 text-lg font-light leading-relaxed max-w-2xl mx-auto opacity-90">
+            Mengenal lebih dekat Politeknik Negeri Malang PSDKU Lumajang
+        </p>
+    </div>
+</section>
+
+<!-- Profil Section -->
+<section class="bg-white py-16 md:py-24 px-4 md:px-8 lg:px-16">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <!-- Text Content -->
+            <div>
+                <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47] mb-8">
+                    Profil
+                </h2>
+                <div class="space-y-6 text-gray-600 font-inter text-base md:text-lg leading-relaxed">
+                    <p *ngFor="let paragraph of profilParagraphs">
+                        {{ paragraph }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Campus Image -->
+            <div class="lg:pl-8">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="assets/campus-building.jpg" alt="Gedung Kampus PSDKU Lumajang"
+                        class="w-full h-auto object-cover" />
+                    <!-- Image overlay gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0F2C56]/20 to-transparent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sambutan Direktur Section -->
+<section class="bg-gray-50 py-16 md:py-24 px-4 md:px-8 lg:px-16">
+    <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47]">
+                Sambutan Direktur
+            </h2>
+            <div class="mt-4 flex justify-center">
+                <div class="w-16 h-1 bg-[#FF7F11] rounded-full"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+            <!-- Message Content -->
+            <div class="lg:col-span-2 order-2 lg:order-1">
+                <div class="space-y-4 text-gray-600 font-inter text-base md:text-lg leading-relaxed">
+                    <p *ngFor="let paragraph of sambutanParagraphs"
+                        [class.font-semibold]="paragraph.includes('Assalamualaikum') || paragraph.includes('Wassalamualaikum')">
+                        {{ paragraph }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Director Photo & Info -->
+            <div class="order-1 lg:order-2 flex flex-col items-center lg:items-start">
+                <div class="relative">
+                    <!-- Photo frame -->
+                    <div
+                        class="w-56 h-72 md:w-64 md:h-80 rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-gradient-to-br from-[#0F2C56] to-[#1a4a8a]">
+                        <img [src]="direktur.foto" [alt]="direktur.nama" class="w-full h-full object-cover object-top"
+                            onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face'" />
+                    </div>
+                    <!-- Decorative element -->
+                    <div
+                        class="absolute -bottom-3 -right-3 w-full h-full border-4 border-[#FF7F11]/30 rounded-2xl -z-10">
+                    </div>
+                </div>
+
+                <!-- Director Info -->
+                <div class="mt-6 text-center lg:text-left">
+                    <h3 class="font-['Biryani'] font-bold text-[#051D47] text-lg">
+                        {{ direktur.nama }}
+                    </h3>
+                    <p class="text-gray-500 font-inter text-sm mt-1">
+                        {{ direktur.nip }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

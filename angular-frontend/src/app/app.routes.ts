@@ -4,33 +4,42 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
 
   // Home (public)
-  { 
-    path: '', 
+  {
+    path: '',
     loadComponent: () => import('./pages/home/home.component')
-      .then(m => m.HomeComponent) 
+      .then(m => m.HomeComponent)
+  },
+
+  // Tentang Kami (About Us)
+  {
+    path: 'tentang-kami',
+    loadComponent: () => import('./pages/tentang-kami/tentang-kami.component')
+      .then(m => m.TentangKamiComponent)
   },
 
   // Public Dosen Directory
-  { path: 'dosen', loadComponent: () =>
+  {
+    path: 'dosen', loadComponent: () =>
       import('./pages/data-dosen/data-dosen.component')
         .then(m => m.DataDosenComponent)
   },
 
   // Public Dosen Detail (read-only)
-  { path: 'dosen/:id', loadComponent: () =>
+  {
+    path: 'dosen/:id', loadComponent: () =>
       import('./pages/dosen-detail/dosen-detail.component')
         .then(m => m.DosenDetailComponent)
   },
 
   // Login
-  { 
+  {
     path: 'login',
     loadComponent: () => import('./pages/login/login.component')
       .then(m => m.LoginComponent)
   },
 
   // DASHBOARD — Admin
-  { 
+  {
     path: 'admin-dashboard',
     loadComponent: () => import('./pages/admin-dashboard/admin-dashboard.component')
       .then(m => m.AdminDashboardComponent),
@@ -38,7 +47,7 @@ export const routes: Routes = [
   },
 
   // DASHBOARD — Dosen
-  { 
+  {
     path: 'dosen-dashboard',
     loadComponent: () => import('./pages/dosen-dashboard/dosen-dashboard.component')
       .then(m => m.DosenDashboardComponent),
@@ -64,12 +73,12 @@ export const routes: Routes = [
   // },
 
   {
-  path: 'admin/dosen/:id',
-  loadComponent: () =>
-    import('./admin/dosen-detail-admin/dosen-detail-admin.component')
-      .then(m => m.DosenDetailAdminComponent),
-  canActivate: [AuthGuard]
-},
+    path: 'admin/dosen/:id',
+    loadComponent: () =>
+      import('./admin/dosen-detail-admin/dosen-detail-admin.component')
+        .then(m => m.DosenDetailAdminComponent),
+    canActivate: [AuthGuard]
+  },
 
 
 
