@@ -1,4 +1,4 @@
-<section class="py-24 bg-white font-['Inter'] relative overflow-hidden">
+<section #sectionRef class="py-24 bg-white font-['Inter'] relative overflow-hidden">
 
   <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
   <div class="absolute -left-20 top-40 w-72 h-72 bg-blue-50 rounded-full blur-[100px] opacity-60 pointer-events-none">
@@ -9,7 +9,7 @@
 
   <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 relative z-10">
 
-    <div class="text-center mb-16 max-w-2xl mx-auto">
+    <div [@fadeSlideUp]="isVisible ? 'visible' : 'hidden'" class="text-center mb-16 max-w-2xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47] mb-4 relative inline-block">
         Akses Cepat
         <span class="absolute left-1/2 -translate-x-1/2 -bottom-4 w-16 h-1.5 bg-[#FF7F11] rounded-full"></span>
@@ -19,10 +19,10 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div [@staggerCards]="cardsState" class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
       <a *ngFor="let item of accessItems" [routerLink]="item.link"
-        class="group relative overflow-hidden rounded-2xl p-8 h-full bg-[#051D47] text-white flex flex-col items-center text-center justify-between shadow-lg hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-2 transition-all duration-300">
+        class="card-item group relative overflow-hidden rounded-2xl p-8 h-full bg-[#051D47] text-white flex flex-col items-center text-center justify-between shadow-lg hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-2 transition-all duration-300">
 
         <div class="absolute inset-0 opacity-10 pointer-events-none"
           style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.4) 1px, transparent 0); background-size: 20px 20px;">

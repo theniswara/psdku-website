@@ -1,4 +1,4 @@
-<section class="py-24 bg-white font-['Inter'] relative overflow-hidden">
+<section #sectionRef class="py-24 bg-white font-['Inter'] relative overflow-hidden">
 
   <div class="absolute inset-0 opacity-[0.03]"
     style="background-image: radial-gradient(#051D47 1px, transparent 1px); background-size: 32px 32px;">
@@ -6,7 +6,7 @@
 
   <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 relative z-10">
 
-    <div class="text-center mb-20 max-w-3xl mx-auto">
+    <div [@fadeSlideUp]="isVisible ? 'visible' : 'hidden'" class="text-center mb-20 max-w-3xl mx-auto">
 
       <h2 class="text-3xl md:text-4xl font-['Biryani'] font-bold text-[#051D47] mb-6 relative inline-block">
         Tentang Kami
@@ -16,7 +16,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-      <div class="relative group pl-4 pb-4">
+      <div [@fadeSlideLeft]="isVisible ? 'visible' : 'hidden'" class="relative group pl-4 pb-4">
 
         <div
           class="absolute top-0 left-0 w-full h-full bg-[#051D47] rounded-3xl -z-10 transform -translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500">
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="space-y-8">
+      <div [@fadeSlideRight]="isVisible ? 'visible' : 'hidden'" class="space-y-8">
 
         <p class="text-xl text-[#051D47] leading-relaxed font-medium">
           Politeknik Negeri Malang PSDKU Lumajang hadir sebagai inisiatif strategis untuk memeratakan akses pendidikan
