@@ -24,6 +24,13 @@ export const routes: Routes = [
       .then(m => m.VisiMisiComponent)
   },
 
+  // Sarana Prasarana
+  {
+    path: 'sarana',
+    loadComponent: () => import('./pages/sarana-prasarana/sarana-prasarana.component')
+      .then(m => m.SaranaPrasaranaComponent)
+  },
+
   // Public Dosen Directory
   {
     path: 'dosen', loadComponent: () =>
