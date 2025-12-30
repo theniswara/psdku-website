@@ -1,0 +1,171 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<section class="bg-[#051D47] relative pt-24 pb-32 px-4 md:px-8 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.07]"
+        style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
+    </div>
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] pointer-events-none">
+    </div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#FF7F11]/10 rounded-full blur-[100px] pointer-events-none">
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-['Biryani'] font-bold text-[#EBF3F4] leading-tight mb-4 drop-shadow-lg">
+            Struktur <span class="text-[#FF7F11]">Organisasi</span>
+        </h1>
+        <p class="text-white/75 text-lg font-light leading-relaxed max-w-2xl mx-auto opacity-100">
+            Tata kelola dan kepemimpinan Politeknik Negeri Malang PSDKU Lumajang
+        </p>
+    </div>
+</section>
+
+<!-- Main Content with Tabs -->
+<div class="bg-white min-h-screen py-12 md:py-16">
+    <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-7xl">
+
+        <!-- Tab Navigation -->
+        <div class="flex justify-center mb-16">
+            <div class="flex gap-8 border-b border-gray-200">
+                <button (click)="setActiveTab('struktur')"
+                    class="pb-4 text-lg md:text-xl font-['Biryani'] font-bold transition-all duration-300 relative"
+                    [ngClass]="activeTab === 'struktur' ? 'text-[#FF7F11]' : 'text-gray-400 hover:text-gray-600'">
+                    Struktur Organisasi
+                    <span *ngIf="activeTab === 'struktur'"
+                        class="absolute bottom-0 left-0 w-full h-1 bg-[#FF7F11] rounded-t-full"></span>
+                </button>
+
+                <button (click)="setActiveTab('pimpinan')"
+                    class="pb-4 text-lg md:text-xl font-['Biryani'] font-bold transition-all duration-300 relative"
+                    [ngClass]="activeTab === 'pimpinan' ? 'text-[#FF7F11]' : 'text-gray-400 hover:text-gray-600'">
+                    Pimpinan
+                    <span *ngIf="activeTab === 'pimpinan'"
+                        class="absolute bottom-0 left-0 w-full h-1 bg-[#FF7F11] rounded-t-full"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Views -->
+        <div class="relative min-h-[500px]">
+
+            <!-- Struktur View -->
+            <div *ngIf="activeTab === 'struktur'" @fadeAnimation class="flex flex-col items-center">
+                <!-- Placeholder for Interactive/Static Chart -->
+                <div
+                    class="w-full bg-slate-50 border border-slate-100 rounded-3xl p-4 md:p-8 shadow-sm overflow-hidden">
+                    <!-- Using a placeholder image or the actual one if user provides url later. 
+                  For now using a generic placeholder styled to look like a chart area -->
+                    <div
+                        class="aspect-[16/9] w-full flex items-center justify-center bg-white rounded-xl border border-dashed border-gray-300 relative overflow-hidden group">
+                        <!-- If real image exists use this: <img src="assets/struktur-organisasi.png" class="w-full h-auto" /> -->
+
+                        <div class="text-center p-12">
+                            <div
+                                class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-[#051D47] text-3xl">
+                                <i class="fa-solid fa-sitemap"></i>
+                            </div>
+                            <h3 class="text-xl font-['Biryani'] font-bold text-[#051D47] mb-2">Bagan Struktur Organisasi
+                            </h3>
+                            <p class="text-gray-500">Gambar struktur organisasi akan ditampilkan di sini.</p>
+                        </div>
+
+                        <!-- Overlay for zoom/download indication -->
+                        <div
+                            class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button
+                                class="bg-white text-[#051D47] px-6 py-2 rounded-full font-bold shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all">
+                                <i class="fa-solid fa-magnifying-glass-plus mr-2"></i> Perbesar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pimpinan View -->
+            <div *ngIf="activeTab === 'pimpinan'" @fadeAnimation class="space-y-12">
+
+                <!-- Team Photo Banner -->
+                <div class="w-full h-64 md:h-80 rounded-3xl overflow-hidden relative shadow-lg group">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-[#051D47] to-[#0F2C56] flex items-center justify-center">
+                        <!-- Placeholder for group photo -->
+                        <div class="text-center">
+                            <i class="fa-solid fa-users-rectangle text-6xl text-white/20 mb-4"></i>
+                            <p class="text-white/40 font-['Biryani'] text-xl">Foto Bersama Pimpinan</p>
+                        </div>
+                    </div>
+                    <!-- <img src="assets/pimpinan-banner.jpg" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" /> -->
+                </div>
+
+                <!-- Leader Cards -->
+                <div class="grid gap-8">
+                    <div *ngFor="let leader of leaders"
+                        class="bg-white rounded-2xl p-6 md:p-8 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.1)] border border-gray-100 flex flex-col md:flex-row gap-8 hover:shadow-lg transition-shadow duration-300 relative overflow-hidden">
+
+                        <!-- Left Border Accent -->
+                        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#FF7F11]"></div>
+
+                        <!-- Leader Photo -->
+                        <div
+                            class="w-32 h-32 md:w-40 md:h-40 shrink-0 rounded-2xl bg-gray-100 overflow-hidden mx-auto md:mx-0 shadow-inner">
+                            <div *ngIf="!leader.photo.includes('http')"
+                                class="w-full h-full flex items-center justify-center bg-[#051D47]/5 text-[#051D47]">
+                                <i class="fa-solid fa-user text-4xl opacity-50"></i>
+                            </div>
+                            <!-- <img [src]="leader.photo" [alt]="leader.name" class="w-full h-full object-cover" /> -->
+                        </div>
+
+                        <!-- Info -->
+                        <div class="flex-grow text-center md:text-left">
+                            <span
+                                class="inline-block px-3 py-1 bg-blue-50 text-[#051D47] text-xs font-bold uppercase tracking-wider rounded-md mb-3 border border-blue-100">
+                                {{ leader.position }}
+                            </span>
+                            <h3 class="text-2xl font-['Biryani'] font-bold text-[#051D47] mb-1">
+                                {{ leader.name }}
+                            </h3>
+                            <p
+                                class="text-gray-500 font-mono text-sm mb-6 flex items-center justify-center md:justify-start gap-2">
+                                <i class="fa-solid fa-id-badge text-[#FF7F11]"></i> NIP. {{ leader.nip }}
+                            </p>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4
+                                        class="text-sm font-bold text-gray-800 uppercase tracking-wide mb-3 flex items-center gap-2">
+                                        <i class="fa-solid fa-graduation-cap text-[#FF7F11]"></i> Pendidikan
+                                    </h4>
+                                    <ul class="text-sm text-gray-600 space-y-1.5">
+                                        <li *ngFor="let edu of leader.education"
+                                            class="pl-3 border-l-2 border-slate-200">
+                                            {{ edu }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4
+                                        class="text-sm font-bold text-gray-800 uppercase tracking-wide mb-3 flex items-center gap-2">
+                                        <i class="fa-solid fa-briefcase text-[#FF7F11]"></i> Riwayat Jabatan
+                                    </h4>
+                                    <ul class="text-sm text-gray-600 space-y-1.5">
+                                        <li *ngFor="let car of leader.career" class="pl-3 border-l-2 border-slate-200">
+                                            {{ car }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<app-footer></app-footer>

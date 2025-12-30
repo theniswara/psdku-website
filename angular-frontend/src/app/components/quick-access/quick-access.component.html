@@ -22,7 +22,7 @@
     <div [@staggerCards]="cardsState" class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
       <a *ngFor="let item of accessItems" [routerLink]="item.link"
-        class="card-item group relative overflow-hidden rounded-2xl p-8 h-full bg-[#051D47] text-white flex flex-col items-center text-center justify-between shadow-lg hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-2 transition-all duration-300">
+        class="card-item group relative overflow-hidden rounded-2xl p-8 h-full bg-[#051D47] text-[#EBF3F4] flex flex-col items-center text-center justify-between shadow-lg hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-2 transition-all duration-300">
 
         <div class="absolute inset-0 opacity-10 pointer-events-none"
           style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.4) 1px, transparent 0); background-size: 20px 20px;">
@@ -37,11 +37,11 @@
             <i class="fa-solid {{ item.icon }}"></i>
           </div>
 
-          <h3 class="text-xl font-['Biryani'] font-bold mb-3 leading-tight">
+          <h3 class="text-xl font-['Biryani'] font-bold mb-3 leading-tight text-[#EBF3F4]">
             {{ item.title }}
           </h3>
 
-          <p class="text-sm leading-relaxed mb-8 text-blue-100/80">
+          <p class="text-sm leading-relaxed mb-8 text-white/75">
             {{ item.desc }}
           </p>
         </div>

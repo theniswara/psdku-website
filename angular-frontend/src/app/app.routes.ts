@@ -31,6 +31,13 @@ export const routes: Routes = [
       .then(m => m.SaranaPrasaranaComponent)
   },
 
+  // Struktur Organisasi
+  {
+    path: 'struktur-organisasi',
+    loadComponent: () => import('./pages/struktur-organisasi/struktur-organisasi.component')
+      .then(m => m.StrukturOrganisasiComponent)
+  },
+
   // Public Dosen Directory
   {
     path: 'dosen', loadComponent: () =>
