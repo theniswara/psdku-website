@@ -13,9 +13,5 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
+  @apply bg-[#F8FAFC];
 }
-
-
-
-
-
