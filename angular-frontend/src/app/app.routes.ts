@@ -17,6 +17,13 @@ export const routes: Routes = [
       .then(m => m.TentangKamiComponent)
   },
 
+  // Visi Misi
+  {
+    path: 'visi-misi',
+    loadComponent: () => import('./pages/visi-misi/visi-misi.component')
+      .then(m => m.VisiMisiComponent)
+  },
+
   // Public Dosen Directory
   {
     path: 'dosen', loadComponent: () =>
