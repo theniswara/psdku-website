@@ -1,0 +1,128 @@
+/* Professional News Article Styling - Clean & Modern (NYT/Guardian inspired) */
+
+:host ::ng-deep .prose {
+    max-width: 100%;
+    font-family: 'Inter', Georgia, 'Times New Roman', serif;
+}
+
+/* Lead Paragraph - Slightly larger, not decorative */
+:host ::ng-deep .prose>p:first-of-type {
+    font-size: 1.25rem !important;
+    line-height: 1.85 !important;
+    color: #1a1a1a !important;
+    margin-bottom: 1.75rem !important;
+}
+
+/* Regular Paragraphs */
+:host ::ng-deep .prose p {
+    font-size: 1.125rem !important;
+    line-height: 1.85 !important;
+    color: #333333 !important;
+    margin-bottom: 1.5rem !important;
+    letter-spacing: -0.003em !important;
+}
+
+/* Headings - Clean, no decorative underlines */
+:host ::ng-deep .prose h2 {
+    font-size: 1.625rem !important;
+    font-weight: 700 !important;
+    color: #121212 !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    font-family: 'Biryani', -apple-system, sans-serif !important;
+    letter-spacing: -0.02em !important;
+}
+
+:host ::ng-deep .prose h3 {
+    font-size: 1.375rem !important;
+    font-weight: 600 !important;
+    color: #121212 !important;
+    margin-top: 2rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* Lists - Clean bullets */
+:host ::ng-deep .prose ul {
+    margin: 1.5rem 0 !important;
+    padding-left: 1.25rem !important;
+    list-style: disc !important;
+}
+
+:host ::ng-deep .prose ul li {
+    font-size: 1.125rem !important;
+    line-height: 1.8 !important;
+    color: #333333 !important;
+    margin-bottom: 0.75rem !important;
+    padding-left: 0.5rem !important;
+}
+
+:host ::ng-deep .prose ul li::marker {
+    color: #666666 !important;
+}
+
+:host ::ng-deep .prose ul li strong {
+    color: #121212 !important;
+    font-weight: 600 !important;
+}
+
+/* Blockquotes - Minimal, elegant */
+:host ::ng-deep .prose blockquote {
+    margin: 2rem 0 !important;
+    padding: 0 0 0 1.5rem !important;
+    border-left: 3px solid #121212 !important;
+    background: transparent !important;
+}
+
+:host ::ng-deep .prose blockquote p {
+    font-size: 1.25rem !important;
+    line-height: 1.7 !important;
+    color: #1a1a1a !important;
+    font-style: italic !important;
+    margin-bottom: 0.5rem !important;
+}
+
+:host ::ng-deep .prose blockquote cite {
+    display: block !important;
+    font-size: 0.9375rem !important;
+    color: #666666 !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    margin-top: 0.5rem !important;
+}
+
+/* Figures - Clean presentation */
+:host ::ng-deep .prose figure {
+    margin: 2rem 0 !important;
+}
+
+:host ::ng-deep .prose figure img {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 0 !important;
+}
+
+:host ::ng-deep .prose figure figcaption {
+    padding: 0.75rem 0 !important;
+    font-size: 0.875rem !important;
+    color: #666666 !important;
+    font-style: normal !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+
+/* Links */
+:host ::ng-deep .prose a {
+    color: #121212 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 2px !important;
+}
+
+:host ::ng-deep .prose a:hover {
+    color: #666666 !important;
+}
+
+/* Horizontal Rule */
+:host ::ng-deep .prose hr {
+    margin: 2.5rem 0 !important;
+    border: none !important;
+    border-top: 1px solid #e5e5e5 !important;
+}

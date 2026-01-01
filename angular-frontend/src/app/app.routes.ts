@@ -66,6 +66,27 @@ export const routes: Routes = [
       .then(m => m.JadwalDetailComponent)
   },
 
+  // Berita & Pengumuman Landing
+  {
+    path: 'berita',
+    loadComponent: () => import('./pages/berita-page/berita-page.component')
+      .then(m => m.BeritaPageComponent)
+  },
+
+  // Berita Grid List
+  {
+    path: 'berita/list',
+    loadComponent: () => import('./pages/berita-list/berita-list.component')
+      .then(m => m.BeritaListComponent)
+  },
+
+  // Berita Detail
+  {
+    path: 'berita/:id',
+    loadComponent: () => import('./pages/berita-detail/berita-detail.component')
+      .then(m => m.BeritaDetailComponent)
+  },
+
   // Public Dosen Directory
   {
     path: 'dosen', loadComponent: () =>

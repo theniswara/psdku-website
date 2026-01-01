@@ -1,0 +1,179 @@
+<app-navbar></app-navbar>
+
+<ng-container *ngIf="berita">
+    <!-- Hero Image -->
+    <section class="relative h-[60vh] min-h-[500px] overflow-hidden">
+        <img [src]="berita.image" [alt]="berita.title" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#051D47] via-[#051D47]/60 to-transparent"></div>
+    </section>
+
+    <!-- Article Container -->
+    <section class="relative z-10 -mt-48 pb-16 md:pb-24">
+        <div class="container mx-auto px-4 md:px-8 max-w-4xl">
+
+            <!-- Main Article Card -->
+            <article class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+                <!-- Header -->
+                <header class="p-8 md:p-12 pb-0">
+                    <!-- Category & Meta -->
+                    <div class="flex flex-wrap items-center gap-4 mb-6">
+                        <span
+                            class="px-4 py-1.5 bg-[#FF7F11] text-white text-xs font-bold rounded-full uppercase tracking-wider">
+                            {{ berita.category }}
+                        </span>
+                        <span class="text-gray-400 text-sm flex items-center gap-2">
+                            <i class="fa-regular fa-clock"></i>
+                            {{ berita.readTime }}
+                        </span>
+                    </div>
+
+                    <!-- Title -->
+                    <h1
+                        class="text-3xl md:text-4xl lg:text-5xl font-['Biryani'] font-bold text-[#051D47] leading-tight mb-4">
+                        {{ berita.title }}
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="text-xl text-gray-500 leading-relaxed mb-8">
+                        {{ berita.subtitle }}
+                    </p>
+
+                    <!-- Author & Date -->
+                    <div class="flex flex-wrap items-center justify-between gap-6 pb-8 border-b border-gray-100">
+                        <div class="flex items-center gap-4">
+                            <img [src]="berita.author.avatar" [alt]="berita.author.name"
+                                class="w-14 h-14 rounded-full object-cover border-2 border-gray-100">
+                            <div>
+                                <p class="font-bold text-[#051D47]">{{ berita.author.name }}</p>
+                                <p class="text-sm text-gray-500">{{ berita.author.role }}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-400">Diterbitkan</p>
+                            <p class="font-semibold text-[#051D47]">{{ berita.date }}</p>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Featured Image Caption -->
+                <div class="px-8 md:px-12 py-4 bg-gray-50 text-center">
+                    <p class="text-sm text-gray-500 italic">{{ berita.imageCaption }}</p>
+                </div>
+
+                <!-- Content -->
+                <div class="p-8 md:p-12 prose" [innerHTML]="berita.content"></div>
+
+                <!-- Tags -->
+                <div class="px-8 md:px-12 pb-8">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-sm text-gray-500 mr-2">Tags:</span>
+                        <a *ngFor="let tag of berita.tags" href="#"
+                            class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-[#051D47] hover:text-white transition-colors">
+                            {{ tag }}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Share & Actions -->
+                <div class="px-8 md:px-12 py-8 bg-gray-50 border-t border-gray-100">
+                    <div class="flex flex-wrap items-center justify-between gap-6">
+                        <!-- Share -->
+                        <div class="flex items-center gap-4">
+                            <span class="text-gray-600 text-sm font-semibold">Bagikan artikel:</span>
+                            <div class="flex gap-2">
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-80 transition-all hover:scale-110">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:opacity-80 transition-all hover:scale-110">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-all hover:scale-110">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:opacity-80 transition-all hover:scale-110">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <button
+                                    class="w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center hover:bg-gray-300 transition-all hover:scale-110">
+                                    <i class="fa-solid fa-link"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex gap-3">
+                            <button (click)="scrollToTop()"
+                                class="px-4 py-2 border border-gray-200 rounded-lg text-gray-600 text-sm font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                Kembali ke atas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- Related Articles -->
+            <section class="mt-16">
+                <h2 class="text-2xl font-['Biryani'] font-bold text-[#051D47] mb-8 relative inline-block">
+                    Artikel Terkait
+                    <span class="absolute left-0 -bottom-2 w-12 h-1 bg-[#FF7F11] rounded-full"></span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <a *ngFor="let article of relatedArticles" [routerLink]="['/berita', article.id]"
+                        class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
+                        <div class="h-40 overflow-hidden">
+                            <img [src]="article.image" [alt]="article.title"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-5">
+                            <p class="text-xs text-gray-400 mb-2">{{ article.date }}</p>
+                            <h3
+                                class="font-bold text-[#051D47] line-clamp-2 group-hover:text-[#FF7F11] transition-colors">
+                                {{ article.title }}
+                            </h3>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Back Button -->
+            <div class="mt-12 text-center">
+                <a routerLink="/berita"
+                    class="inline-flex items-center gap-3 px-8 py-4 bg-[#051D47] text-white font-bold rounded-xl hover:bg-[#0A2656] transition-all shadow-lg hover:-translate-y-1">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Kembali ke Semua Berita
+                </a>
+            </div>
+
+        </div>
+    </section>
+</ng-container>
+
+<!-- Not Found State -->
+<ng-container *ngIf="!berita">
+    <section class="min-h-[80vh] flex items-center justify-center bg-gray-50">
+        <div class="text-center px-4">
+            <div
+                class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-8 text-gray-300 text-6xl">
+                <i class="fa-solid fa-newspaper"></i>
+            </div>
+            <h2 class="text-3xl font-['Biryani'] font-bold text-gray-800 mb-4">Artikel Tidak Ditemukan</h2>
+            <p class="text-gray-500 mb-10 max-w-md mx-auto">Maaf, artikel yang Anda cari tidak tersedia atau mungkin
+                telah dihapus.</p>
+            <a routerLink="/berita"
+                class="inline-flex items-center gap-3 px-8 py-4 bg-[#FF7F11] text-white font-bold rounded-xl hover:bg-[#e57310] transition-all shadow-lg hover:-translate-y-1">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali ke Berita
+            </a>
+        </div>
+    </section>
+</ng-container>
+
+<app-footer></app-footer>
