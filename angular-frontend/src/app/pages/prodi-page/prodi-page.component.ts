@@ -20,22 +20,22 @@ interface ProgramStudi {
 export class ProdiPageComponent {
     programs: ProgramStudi[] = [
         {
-            name: 'Teknologi Informasi',
+            name: 'D-III Teknologi Informasi',
             image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200',
             link: '/prodi/teknologi-informasi'
         },
         {
-            name: 'Teknik Sipil',
+            name: 'D-III Teknik Sipil',
             image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200',
             link: '/prodi/teknik-sipil'
         },
         {
-            name: 'Teknik Rekayasa Otomotif',
+            name: 'D-IV Teknik Rekayasa Otomotif',
             image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200',
             link: '/prodi/teknik-otomotif'
         },
         {
-            name: 'Akuntansi',
+            name: 'D-III Akuntansi',
             image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200',
             link: '/prodi/akuntansi'
         }
