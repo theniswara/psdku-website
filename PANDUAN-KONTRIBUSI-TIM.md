@@ -15,7 +15,9 @@
 
 # LANGKAH 1: Download Project dari GitHub
 
-Buka terminal (Command Prompt / Git Bash), lalu ketik perintah berikut satu per satu:
+Jalankan di: **Terminal biasa** (Command Prompt / Git Bash / Terminal)
+
+Buka terminal di komputermu, lalu ketik perintah berikut satu per satu:
 
 ```bash
 cd Documents
@@ -27,32 +29,99 @@ git clone https://github.com/theniswara/psdku-website.git
 ```
 Perintah ini untuk mendownload project dari GitHub ke komputermu.
 
-```bash
-cd psdku-website/angular-frontend
-```
-Perintah ini untuk masuk ke folder project Angular.
+---
 
-```bash
-npm install
-```
-Perintah ini untuk menginstall semua package yang dibutuhkan. Tunggu sampai selesai.
+# LANGKAH 2: Buka Project di VS Code
+
+Buka VS Code, lalu:
+1. Klik menu **File** > **Open Folder**
+2. Pilih folder `Documents/psdku-website`
+3. Klik **Select Folder**
+
+Sekarang project sudah terbuka di VS Code.
 
 ---
 
-# LANGKAH 2: Buat Branch Baru
+# LANGKAH 3: Install Dependencies
 
-Branch adalah cabang kerja. Setiap orang bekerja di branch masing-masing supaya tidak bentrok.
+Jalankan di: **Terminal VS Code**
 
+Cara buka terminal di VS Code:
+- Tekan `Ctrl + `` (tombol di bawah ESC)
+- Atau klik menu **Terminal** > **New Terminal**
+
+Pastikan terminal menunjukkan folder `angular-frontend`. Jika belum, ketik:
+```bash
+cd angular-frontend
+```
+
+Lalu jalankan:
+```bash
+npm install
+```
+Tunggu sampai selesai (bisa beberapa menit).
+
+---
+
+# LANGKAH 4: Jalankan Project (Lihat Website)
+
+Jalankan di: **Terminal VS Code** (terminal yang sama)
+
+```bash
+ng serve
+```
+
+Tunggu sampai muncul tulisan seperti ini:
+```
+Application bundle generation complete.
+Watch mode enabled. Watching for file changes...
+```
+
+Buka browser (Chrome/Firefox) dan ketik alamat berikut:
+```
+http://localhost:4200
+```
+
+Sekarang kamu bisa melihat website yang sudah ada. Coba klik menu-menu yang ada untuk melihat halaman yang sudah jadi.
+
+Halaman yang sudah jadi:
+- Beranda (halaman utama)
+- Tentang Kami
+- Visi Misi
+- Sarana Prasarana
+- Struktur Organisasi
+- Data Dosen
+
+Halaman yang belum jadi (tugasmu):
+- Kurikulum (Elsa)
+- PMB (Awaliya)
+- Mahasiswa Aktif (Qois)
+
+---
+
+# LANGKAH 5: Buat Branch Baru
+
+Jalankan di: **Terminal VS Code** (buka terminal baru)
+
+Cara buka terminal baru: klik tanda **+** di samping terminal yang sedang berjalan.
+
+Pastikan terminal baru menunjukkan folder `angular-frontend`. Jika belum, ketik:
+```bash
+cd angular-frontend
+```
+
+Lalu jalankan sesuai namamu:
 - Elsa: `git checkout -b fitur/kurikulum`
 - Awaliya: `git checkout -b fitur/pmb`
 - Qois: `git checkout -b fitur/mahasiswa`
 
 ---
 
-# LANGKAH 3: Buat Halaman Baru
+# LANGKAH 6: Buat Halaman Baru
 
-Gunakan perintah Angular CLI untuk membuat halaman baru secara otomatis:
+Jalankan di: **Terminal VS Code** (terminal yang sama dengan langkah 5)
 
+Ketik perintah sesuai namamu:
 - Elsa: `ng generate component pages/kurikulum --standalone`
 - Awaliya: `ng generate component pages/pmb --standalone`
 - Qois: `ng generate component pages/mahasiswa-aktif --standalone`
@@ -65,7 +134,7 @@ Perintah ini akan membuat folder baru dengan 4 file di dalamnya:
 
 ---
 
-# LANGKAH 4: Edit File TypeScript
+# LANGKAH 7: Edit File TypeScript
 
 Buka file `.ts` yang baru dibuat.
 
@@ -97,7 +166,9 @@ Awaliya dan Qois: ganti semua kata `kurikulum` dan `Kurikulum` dengan nama halam
 
 ---
 
-# LANGKAH 5: Edit File HTML
+# LANGKAH 8: Edit File HTML (Desain Tampilan)
+
+Ini adalah tugas utama kamu. Kamu harus mendesain tampilan halaman sesuai dengan tema halaman yang kamu kerjakan.
 
 Buka file `.html` yang baru dibuat.
 
@@ -105,35 +176,53 @@ Buka file `.html` yang baru dibuat.
 - Awaliya buka: `src/app/pages/pmb/pmb.component.html`
 - Qois buka: `src/app/pages/mahasiswa-aktif/mahasiswa-aktif.component.html`
 
-Struktur dasar halaman:
+Struktur dasar yang harus diikuti:
 
 ```html
 <app-navbar></app-navbar>
 
+<!-- Hero Section (bagian atas dengan judul) -->
 <section class="bg-[#051D47] pt-24 pb-32 px-4">
   <div class="max-w-4xl mx-auto text-center">
     <h1 class="text-4xl font-bold text-white">
-      Judul Halaman
+      Judul Halaman Kamu
     </h1>
   </div>
 </section>
 
+<!-- Content Section (isi konten halaman) -->
 <section class="py-16 px-4 bg-[#F8FAFC]">
   <div class="max-w-7xl mx-auto">
-    <!-- Isi konten halaman di sini -->
+    
+    <!-- DESAIN KONTEN HALAMAN DI SINI -->
+    <!-- Tambahkan card, tabel, list, gambar, dll sesuai kebutuhan -->
+    
   </div>
 </section>
 
 <app-footer></app-footer>
 ```
 
-Lihat contoh halaman yang sudah jadi di folder:
-- `src/app/pages/tentang-kami/`
-- `src/app/pages/visi-misi/`
+Yang perlu kamu kerjakan:
+1. Ganti "Judul Halaman Kamu" dengan judul yang sesuai
+2. Desain bagian konten sesuai tema halaman masing-masing
+3. Gunakan HTML dan CSS untuk membuat tampilan yang menarik
+
+Contoh isi konten untuk referensi:
+- Elsa (Kurikulum): buat tabel mata kuliah per semester
+- Awaliya (PMB): buat card jalur pendaftaran dan persyaratan
+- Qois (Mahasiswa Aktif): buat statistik dan daftar angkatan
+
+Lihat contoh halaman yang sudah jadi untuk referensi:
+- `src/app/pages/tentang-kami/tentang-kami.component.html`
+- `src/app/pages/visi-misi/visi-misi.component.html`
+- `src/app/pages/sarana-prasarana/sarana-prasarana.component.html`
+
+Pelajari bagaimana halaman-halaman tersebut dibuat, lalu buat versimu sendiri.
 
 ---
 
-# LANGKAH 6: Daftarkan Route
+# LANGKAH 9: Daftarkan Route
 
 Buka file `src/app/app.routes.ts`
 
@@ -168,7 +257,7 @@ Qois tambahkan:
 
 ---
 
-# LANGKAH 7: Test di Browser
+# LANGKAH 10: Test di Browser
 
 Jalankan server:
 
@@ -185,28 +274,30 @@ Jika halaman muncul tanpa error, berarti sudah berhasil.
 
 ---
 
-# LANGKAH 8: Upload ke GitHub
+# LANGKAH 11: Upload ke GitHub
+
+Jalankan di: **Terminal VS Code** (terminal yang sama dengan langkah 5)
 
 Setelah selesai mengerjakan, upload pekerjaanmu ke GitHub.
 
-Langkah 8.1 - Simpan perubahan:
+Langkah 11.1 - Simpan perubahan:
 ```bash
 git add .
 ```
 
-Langkah 8.2 - Buat commit (pesan perubahan):
+Langkah 11.2 - Buat commit (pesan perubahan):
 - Elsa: `git commit -m "Tambah halaman kurikulum"`
 - Awaliya: `git commit -m "Tambah halaman pmb"`
 - Qois: `git commit -m "Tambah halaman mahasiswa aktif"`
 
-Langkah 8.3 - Upload ke GitHub:
+Langkah 11.3 - Upload ke GitHub:
 - Elsa: `git push origin fitur/kurikulum`
 - Awaliya: `git push origin fitur/pmb`
 - Qois: `git push origin fitur/mahasiswa`
 
 ---
 
-# LANGKAH 9: Buat Pull Request
+# LANGKAH 12: Buat Pull Request
 
 Pull Request adalah permintaan untuk menggabungkan pekerjaanmu ke project utama.
 
