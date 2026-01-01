@@ -101,6 +101,13 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
 
+  {
+  path: 'pmb',
+  loadComponent: () =>
+    import('./pages/pmb/pmb.component')
+      .then(m => m.PmbComponent)
+},
+
 
 
   // fallback
