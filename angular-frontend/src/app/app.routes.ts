@@ -102,6 +102,14 @@ export const routes: Routes = [
   },
 
 
+  {
+  path: 'kurikulum',
+  loadComponent: () => import('./pages/kurikulum/kurikulum.component')
+    .then(m => m.KurikulumComponent)
+},
+
+
+
 
   // fallback
   { path: '**', redirectTo: '' }
