@@ -1,0 +1,141 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<section class="bg-[#051D47] relative pt-24 pb-48 px-4 md:px-8 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1400" alt="Career"
+            class="w-full h-full object-cover opacity-20">
+    </div>
+
+    <!-- Dotted Pattern -->
+    <div class="absolute inset-0 opacity-[0.05]"
+        style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <h1 class="text-3xl md:text-5xl font-['Biryani'] font-bold text-[#EBF3F4] leading-tight mb-4 drop-shadow-lg">
+            <span class="italic">Temukan Kesempatan</span> <span class="text-[#FF7F11] italic">Berkarir</span> Di<br>
+            Politeknik Negeri Malang
+        </h1>
+    </div>
+</section>
+
+<!-- Search Bar - Floating -->
+<section class="relative z-20 -mt-20 px-4 md:px-8 mb-12">
+    <div class="container mx-auto max-w-5xl">
+        <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+            <div class="flex flex-col md:flex-row gap-4">
+                <!-- Keyword Search -->
+                <div class="flex-1 relative">
+                    <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" [(ngModel)]="searchQuery" placeholder="Kata Kunci, Jabatan, Perusahaan"
+                        class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF7F11]/50 focus:border-[#FF7F11] transition-all outline-none">
+                </div>
+
+                <!-- Location -->
+                <div class="relative md:w-48">
+                    <i class="fa-solid fa-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <select [(ngModel)]="selectedLocation"
+                        class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl bg-[#051D47] text-white focus:ring-2 focus:ring-[#FF7F11]/50 transition-all outline-none appearance-none cursor-pointer">
+                        <option value="">Lokasi</option>
+                        <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+                    </select>
+                </div>
+
+                <!-- Specialization -->
+                <div class="relative md:w-56">
+                    <i class="fa-solid fa-users absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <select [(ngModel)]="selectedSpecialization"
+                        class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF7F11]/50 focus:border-[#FF7F11] transition-all outline-none appearance-none cursor-pointer">
+                        <option value="">Semua Spesialisasi</option>
+                        <option *ngFor="let spec of specializations" [value]="spec">{{ spec }}</option>
+                    </select>
+                </div>
+
+                <!-- Search Button -->
+                <button
+                    class="px-8 py-3 bg-[#051D47] text-white font-bold rounded-xl hover:bg-[#0A2656] transition-all shadow-lg">
+                    Cari
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Info Boxes -->
+<section class="pb-12">
+    <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-5xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Lowongan Kerja Box -->
+            <div class="bg-[#051D47] rounded-2xl p-8 text-center">
+                <div class="w-16 h-16 rounded-full bg-[#FF7F11] flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-star text-white text-2xl"></i>
+                </div>
+                <h3 class="text-[#FF7F11] font-bold text-lg mb-3">Lowongan Kerja</h3>
+                <p class="text-white/70 text-sm leading-relaxed">
+                    Anda dapat menemukan lowongan pekerjaan yang sesuai dengan kriteria yang Anda inginkan di menu ini
+                </p>
+            </div>
+
+            <!-- Info Magang Box -->
+            <div class="bg-[#051D47] rounded-2xl p-8 text-center">
+                <div class="w-16 h-16 rounded-full bg-[#FF7F11] flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-star text-white text-2xl"></i>
+                </div>
+                <h3 class="text-[#FF7F11] font-bold text-lg mb-3">Info Magang</h3>
+                <p class="text-white/70 text-sm leading-relaxed">
+                    Bagi mahasiswa yang sedang mencari info magang dan ingin membuat surat pengajuan magang, silakan
+                    klik menu ini
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Job Listings Section -->
+<section class="py-12 md:py-16 bg-gray-50">
+    <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-6xl">
+
+        <h2 class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#051D47] text-center mb-10">
+            Info Lowongan Kerja/Magang
+        </h2>
+
+        <!-- Job Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div *ngFor="let job of jobListings"
+                class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all">
+
+                <div class="flex items-start gap-4 p-6">
+                    <!-- Company Logo -->
+                    <div
+                        class="shrink-0 w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img [src]="job.logo" [alt]="job.company" class="w-full h-full object-contain">
+                    </div>
+
+                    <!-- Job Info -->
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-[#051D47] text-lg mb-1">{{ job.title }}</h3>
+                        <p class="text-[#FF7F11] font-semibold text-sm mb-2">{{ job.company }}</p>
+                        <p class="text-gray-500 text-xs">{{ job.position }} | {{ job.location.split(',')[0] }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center">
+            <a routerLink="/job-portal/list"
+                class="inline-flex items-center gap-2 px-8 py-4 bg-[#FF7F11] text-white font-bold rounded-xl hover:bg-[#e57310] transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-1">
+                Lihat Selengkapnya
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<app-footer></app-footer>

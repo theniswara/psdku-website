@@ -1,0 +1,96 @@
+<app-navbar></app-navbar>
+
+<!-- Breadcrumb -->
+<section class="bg-white pt-24 pb-4 px-4 md:px-8 border-b border-gray-100">
+    <div class="container mx-auto max-w-6xl">
+        <nav class="text-sm text-gray-500">
+            <a routerLink="/job-portal" class="hover:text-[#FF7F11] transition-colors">Job</a>
+            <span class="mx-2">/</span>
+            <span class="text-[#051D47] font-semibold">Info Magang</span>
+        </nav>
+    </div>
+</section>
+
+<!-- Search Bar -->
+<section class="py-8 px-4 md:px-8 bg-white">
+    <div class="container mx-auto max-w-6xl">
+        <div class="flex flex-col md:flex-row gap-4">
+            <!-- Keyword Search -->
+            <div class="flex-1 relative">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="text" [(ngModel)]="searchQuery" placeholder="Kata Kunci, Jabatan, Perusahaan"
+                    class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF7F11]/50 focus:border-[#FF7F11] transition-all outline-none">
+            </div>
+
+            <!-- Location -->
+            <div class="relative md:w-48">
+                <i class="fa-solid fa-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-white"></i>
+                <select [(ngModel)]="selectedLocation"
+                    class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl bg-[#051D47] text-white focus:ring-2 focus:ring-[#FF7F11]/50 transition-all outline-none appearance-none cursor-pointer">
+                    <option value="">Lokasi</option>
+                    <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+                </select>
+            </div>
+
+            <!-- Specialization -->
+            <div class="relative md:w-56">
+                <i class="fa-solid fa-users absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <select [(ngModel)]="selectedSpecialization"
+                    class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF7F11]/50 focus:border-[#FF7F11] transition-all outline-none appearance-none cursor-pointer">
+                    <option value="">Semua Spesialisasi</option>
+                    <option *ngFor="let spec of specializations" [value]="spec">{{ spec }}</option>
+                </select>
+            </div>
+
+            <!-- Search Button -->
+            <button class="px-8 py-3 bg-[#051D47] text-white font-bold rounded-xl hover:bg-[#0A2656] transition-all">
+                Cari
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Job Listings Grid -->
+<section class="py-12 md:py-16">
+    <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-6xl">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div *ngFor="let job of jobListings"
+                class="bg-[#051D47] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
+
+                <div class="p-6">
+                    <!-- Logo -->
+                    <div
+                        class="w-24 h-24 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 overflow-hidden">
+                        <img [src]="job.logo" [alt]="job.company" class="w-full h-full object-contain">
+                    </div>
+
+                    <!-- Job Info -->
+                    <div class="text-center">
+                        <h3 class="font-bold text-white text-lg mb-2">{{ job.title }}</h3>
+                        <p class="text-[#FF7F11] font-semibold text-sm mb-4">{{ job.company }}</p>
+
+                        <div class="space-y-2 text-sm text-white/70">
+                            <p><span class="text-white/50">Posisi:</span> {{ job.position }}</p>
+                            <p><span class="text-white/50">Lokasi:</span> {{ job.location }}</p>
+                            <p><span class="text-white/50">Periode:</span> {{ job.period }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center items-center gap-2 mt-12">
+            <button *ngFor="let page of pages" (click)="goToPage(page)"
+                [ngClass]="{'bg-[#051D47] text-white': currentPage === page, 'bg-white text-[#051D47] border border-gray-200': currentPage !== page}"
+                class="w-10 h-10 rounded-lg font-bold text-sm hover:bg-[#051D47] hover:text-white transition-all">
+                {{ page }}
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<app-footer></app-footer>

@@ -101,6 +101,27 @@ export const routes: Routes = [
         .then(m => m.DosenDetailComponent)
   },
 
+  // Organisasi Mahasiswa & UKM
+  {
+    path: 'ukm',
+    loadComponent: () => import('./pages/ukm-page/ukm-page.component')
+      .then(m => m.UkmPageComponent)
+  },
+
+  // Job Portal Landing
+  {
+    path: 'job-portal',
+    loadComponent: () => import('./pages/job-portal/job-portal.component')
+      .then(m => m.JobPortalComponent)
+  },
+
+  // Job Portal List
+  {
+    path: 'job-portal/list',
+    loadComponent: () => import('./pages/job-list/job-list.component')
+      .then(m => m.JobListComponent)
+  },
+
   // Login
   {
     path: 'login',
