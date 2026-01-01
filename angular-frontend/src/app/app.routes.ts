@@ -52,6 +52,20 @@ export const routes: Routes = [
       .then(m => m.ProdiDetailComponent)
   },
 
+  // Jadwal Kuliah Listing
+  {
+    path: 'jadwal',
+    loadComponent: () => import('./pages/jadwal-page/jadwal-page.component')
+      .then(m => m.JadwalPageComponent)
+  },
+
+  // Jadwal Detail (Per-Prodi)
+  {
+    path: 'jadwal/:prodiId',
+    loadComponent: () => import('./pages/jadwal-detail/jadwal-detail.component')
+      .then(m => m.JadwalDetailComponent)
+  },
+
   // Public Dosen Directory
   {
     path: 'dosen', loadComponent: () =>

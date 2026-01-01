@@ -1,0 +1,166 @@
+<app-navbar></app-navbar>
+
+<ng-container *ngIf="prodi">
+    <!-- Hero Section -->
+    <section class="bg-[#051D47] relative pt-24 pb-32 px-4 md:px-8 overflow-hidden">
+        <!-- Dotted Pattern -->
+        <div class="absolute inset-0 opacity-[0.07]"
+            style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
+        </div>
+
+        <!-- Decorative Blurs -->
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] pointer-events-none">
+        </div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#FF7F11]/10 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <p class="text-[#FF7F11] font-bold uppercase tracking-wider mb-2">Jadwal Perkuliahan</p>
+            <h1
+                class="text-3xl md:text-5xl font-['Biryani'] font-bold text-[#EBF3F4] leading-tight mb-4 drop-shadow-lg">
+                {{ prodi.fullName }}
+            </h1>
+            <p class="text-white/75 text-lg font-light leading-relaxed">
+                {{ prodi.semester }} - TA {{ prodi.tahunAkademik }}
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-7xl">
+
+            <!-- Controls Bar -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center gap-4 justify-between">
+
+                    <!-- Class Tabs -->
+                    <div class="flex flex-wrap gap-2">
+                        <button *ngFor="let ks of prodi.kelasSchedules" (click)="activeKelas = ks.kelas"
+                            [ngClass]="{'bg-blue-900 text-white': activeKelas === ks.kelas, 'bg-gray-100 text-gray-700': activeKelas !== ks.kelas}"
+                            class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-105">
+                            Kelas {{ ks.kelas }}
+                        </button>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="relative md:w-80">
+                        <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" [(ngModel)]="searchQuery" placeholder="Cari mata kuliah / dosen..."
+                            class="w-full pl-11 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#FF7F11]/50 focus:border-[#FF7F11] transition-all outline-none text-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop: Table View -->
+            <div class="hidden lg:block bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-[#051D47] text-white">
+                                <th class="px-4 py-4 text-left text-sm font-bold w-24">Hari/Jam</th>
+                                <th *ngFor="let time of timeSlots"
+                                    class="px-2 py-4 text-center text-xs font-semibold whitespace-nowrap">
+                                    {{ time }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let day of days" class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="px-4 py-4 font-bold text-sm"
+                                    [ngClass]="{'bg-orange-50 text-orange-500': day === currentDay}">
+                                    {{ day }}
+                                    <span *ngIf="day === currentDay"
+                                        class="block text-xs font-normal text-orange-500">Hari Ini</span>
+                                </td>
+                                <td *ngFor="let time of timeSlots" class="px-2 py-2 text-center"
+                                    [ngClass]="{'bg-orange-50/50': day === currentDay}">
+                                    <ng-container *ngIf="getScheduleForDayAndTime(day, time) as item">
+                                        <div
+                                            [class]="item.color + ' text-white rounded-lg p-2 text-xs shadow-md hover:scale-105 transition-transform cursor-pointer'">
+                                            <p class="font-bold truncate">{{ item.mataKuliah }}</p>
+                                            <p class="opacity-80 truncate">{{ item.ruangan }}</p>
+                                        </div>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="lg:hidden space-y-6">
+                <div *ngFor="let day of days"
+                    class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    <div class="px-6 py-4 font-bold text-lg flex items-center justify-between"
+                        [ngClass]="{'bg-orange-500 text-white': day === currentDay, 'bg-gray-50 text-slate-800': day !== currentDay}">
+                        {{ day }}
+                        <span *ngIf="day === currentDay" class="text-sm bg-white/20 px-3 py-1 rounded-full">Hari
+                            Ini</span>
+                    </div>
+
+                    <div class="p-4 space-y-3">
+                        <ng-container *ngIf="getDaySchedule(day).length > 0; else noSchedule">
+                            <div *ngFor="let item of getDaySchedule(day)"
+                                [class]="item.color + ' text-white rounded-xl p-4 shadow-md'">
+                                <div class="flex justify-between items-start mb-2">
+                                    <p class="font-bold">{{ item.mataKuliah }}</p>
+                                    <span class="text-xs bg-white/20 px-2 py-1 rounded">{{ item.kode }}</span>
+                                </div>
+                                <div class="flex flex-wrap gap-3 text-sm opacity-90">
+                                    <span class="flex items-center gap-1">
+                                        <i class="fa-solid fa-clock text-xs"></i>
+                                        {{ item.jamMulai }} - {{ item.jamSelesai }}
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i class="fa-solid fa-door-open text-xs"></i>
+                                        {{ item.ruangan }}
+                                    </span>
+                                </div>
+                                <p class="text-sm mt-2 opacity-80">
+                                    <i class="fa-solid fa-user text-xs mr-1"></i>
+                                    {{ item.dosen }}
+                                </p>
+                            </div>
+                        </ng-container>
+                        <ng-template #noSchedule>
+                            <p class="text-gray-400 text-center py-4">Tidak ada jadwal</p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-12 text-center">
+                <a routerLink="/jadwal"
+                    class="inline-flex items-center gap-3 px-8 py-4 bg-[#FF7F11] text-white font-bold rounded-xl hover:bg-[#e57310] transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-1">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Kembali ke Daftar Jadwal
+                </a>
+            </div>
+
+        </div>
+    </section>
+</ng-container>
+
+<!-- Not Found State -->
+<ng-container *ngIf="!prodi">
+    <section class="min-h-[60vh] flex items-center justify-center">
+        <div class="text-center px-4">
+            <div
+                class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400 text-4xl">
+                <i class="fa-solid fa-calendar-xmark"></i>
+            </div>
+            <h2 class="text-2xl font-['Biryani'] font-bold text-gray-800 mb-2">Jadwal Tidak Ditemukan</h2>
+            <p class="text-gray-500 mb-8">Maaf, jadwal untuk program studi ini tidak tersedia.</p>
+            <a routerLink="/jadwal"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-[#051D47] text-white font-bold rounded-xl hover:bg-[#0A2656] transition-all">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali
+            </a>
+        </div>
+    </section>
+</ng-container>
+
+<app-footer></app-footer>
