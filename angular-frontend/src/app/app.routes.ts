@@ -38,6 +38,13 @@ export const routes: Routes = [
       .then(m => m.StrukturOrganisasiComponent)
   },
 
+  // Program Studi
+  {
+    path: 'prodi',
+    loadComponent: () => import('./pages/prodi-page/prodi-page.component')
+      .then(m => m.ProdiPageComponent)
+  },
+
   // Public Dosen Directory
   {
     path: 'dosen', loadComponent: () =>
@@ -102,18 +109,18 @@ export const routes: Routes = [
   },
 
   {
-  path: 'pmb',
-  loadComponent: () =>
-    import('./pages/pmb/pmb.component')
-      .then(m => m.PmbComponent)
-},
+    path: 'pmb',
+    loadComponent: () =>
+      import('./pages/pmb/pmb.component')
+        .then(m => m.PmbComponent)
+  },
 
 
   {
-  path: 'kurikulum',
-  loadComponent: () => import('./pages/kurikulum/kurikulum.component')
-    .then(m => m.KurikulumComponent)
-},
+    path: 'kurikulum',
+    loadComponent: () => import('./pages/kurikulum/kurikulum.component')
+      .then(m => m.KurikulumComponent)
+  },
 
 
 

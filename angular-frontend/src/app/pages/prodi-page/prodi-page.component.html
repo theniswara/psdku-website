@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<section class="bg-[#051D47] relative pt-24 pb-32 px-4 md:px-8 overflow-hidden">
+    <!-- Dotted Pattern -->
+    <div class="absolute inset-0 opacity-[0.07]"
+        style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
+    </div>
+
+    <!-- Decorative Blurs -->
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] pointer-events-none">
+    </div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#FF7F11]/10 rounded-full blur-[100px] pointer-events-none">
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-['Biryani'] font-bold text-[#EBF3F4] leading-tight mb-4 drop-shadow-lg">
+            Program <span class="text-[#FF7F11]">Studi</span>
+        </h1>
+        <p class="text-white/75 text-lg font-light leading-relaxed max-w-2xl mx-auto">
+            Eksplorasi Ilmu, Kembangkan Bakat, Wujudkan Masa Depan
+        </p>
+    </div>
+</section>
+
+<!-- Program Cards Section -->
+<div class="py-16 md:py-24">
+    <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-5xl space-y-8">
+
+        <!-- Program Card -->
+        <a *ngFor="let prodi of programs" [routerLink]="prodi.link"
+            class="group block relative w-full h-64 md:h-72 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+
+            <!-- Background Image -->
+            <img [src]="prodi.image" [alt]="prodi.name"
+                class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+
+            <!-- Overlay -->
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-[#051D47]/90 via-[#051D47]/70 to-transparent group-hover:from-[#051D47]/95 transition-all duration-500">
+            </div>
+
+            <!-- Content -->
+            <div class="absolute inset-0 flex flex-col items-start justify-center px-8 md:px-12 z-10">
+                <h2 class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#EBF3F4] mb-6 drop-shadow-md">
+                    {{ prodi.name }}
+                </h2>
+
+                <span
+                    class="inline-flex items-center gap-2 bg-[#FF7F11] text-white text-sm font-bold px-6 py-3 rounded-full shadow-lg group-hover:bg-orange-600 group-hover:scale-105 transition-all duration-300">
+                    Lihat Daftar Program Studi
+                    <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                </span>
+            </div>
+
+            <!-- Decorative Element -->
+            <div
+                class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-white/5 to-transparent pointer-events-none">
+            </div>
+        </a>
+
+    </div>
+</div>
+
+<app-footer></app-footer>
