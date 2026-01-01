@@ -1,0 +1,188 @@
+<app-navbar></app-navbar>
+
+<ng-container *ngIf="prodi">
+    <!-- Hero Section -->
+    <section class="relative h-[60vh] min-h-[500px] flex items-center overflow-hidden">
+        <!-- Background Image -->
+        <img [src]="prodi.image" [alt]="prodi.name" class="absolute inset-0 w-full h-full object-cover">
+
+        <!-- Sophisticated Dark Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#051D47] via-[#051D47]/80 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#051D47] via-transparent to-transparent"></div>
+
+        <!-- Dotted Pattern -->
+        <div class="absolute inset-0 opacity-[0.05]"
+            style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 32px 32px;">
+        </div>
+
+        <!-- Content -->
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 relative z-10 pt-20">
+            <div class="max-w-3xl">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-[#FF7F11]/10 backdrop-blur-md border border-[#FF7F11]/30 rounded-full mb-6">
+                    <span class="w-2 h-2 rounded-full bg-[#FF7F11]"></span>
+                    <span class="text-[#FF7F11] text-sm font-bold uppercase tracking-wider">Program Studi
+                        Unggulan</span>
+                </div>
+
+                <h1
+                    class="text-4xl md:text-5xl lg:text-7xl font-['Biryani'] font-bold text-[#EBF3F4] leading-tight drop-shadow-lg mb-6">
+                    {{ prodi.fullName }}
+                </h1>
+
+                <div class="w-20 h-1.5 bg-[#FF7F11] rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Description Section with Floating Effect -->
+    <section class="relative z-20 -mt-24 pb-12 md:pb-16 px-4 md:px-0">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-6xl">
+            <div
+                class="bg-white/95 backdrop-blur-xl rounded-2xl p-8 md:p-12 shadow-2xl border border-white/20 relative overflow-hidden group hover:bg-white transition-colors duration-500">
+                <!-- Decorative Border Line -->
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#FF7F11] via-orange-400 to-transparent">
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="shrink-0 hidden md:block">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-[#051D47]/5 flex items-center justify-center text-[#051D47] text-3xl">
+                            <i class="fa-solid fa-quote-left"></i>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-600 text-lg md:text-xl leading-relaxed text-left font-medium">
+                        {{ prodi.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content: Kompetensi & Profil -->
+    <section class="py-16 md:py-24">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+
+                <!-- Kompetensi Lulusan Card -->
+                <div
+                    class="bg-white rounded-3xl p-8 md:p-10 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-[#051D47] flex items-center justify-center text-white text-xl shadow-lg">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#FF7F11]">
+                            Kompetensi Lulusan
+                        </h2>
+                    </div>
+
+                    <ul class="space-y-4">
+                        <li *ngFor="let item of prodi.kompetensi; let i = index"
+                            class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group">
+                            <span
+                                class="w-8 h-8 shrink-0 rounded-lg bg-[#051D47] text-white flex items-center justify-center font-bold text-sm shadow group-hover:bg-[#FF7F11] transition-colors">
+                                {{ i + 1 }}
+                            </span>
+                            <p class="text-gray-700 leading-relaxed pt-1">{{ item }}</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Profil Lulusan Card -->
+                <div
+                    class="bg-white rounded-3xl p-8 md:p-10 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-[#FF7F11] flex items-center justify-center text-white text-xl shadow-lg">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#051D47]">
+                            Profil Lulusan
+                        </h2>
+                    </div>
+
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Setelah menyelesaikan pendidikan jenjang {{ prodi.fullName }} untuk posisi (Job Roles) yang
+                        dapat ditempati lulusan adalah menjadi:
+                    </p>
+
+                    <ul class="space-y-3">
+                        <li *ngFor="let item of prodi.profil"
+                            class="flex items-center gap-3 p-3 rounded-xl hover:bg-orange-50 transition-colors group">
+                            <span
+                                class="w-2 h-2 rounded-full bg-[#FF7F11] group-hover:scale-150 transition-transform"></span>
+                            <p class="text-gray-700 font-medium">{{ item }}</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Peluang Kerja Section -->
+    <section class="pb-16 md:pb-24">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-6xl">
+            <div class="bg-gradient-to-br from-[#051D47] to-[#0A2656] rounded-3xl p-8 md:p-12 relative overflow-hidden">
+                <!-- Decorative Elements -->
+                <div
+                    class="absolute top-0 right-0 w-96 h-96 bg-[#FF7F11]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl">
+                </div>
+                <div class="absolute inset-0 opacity-[0.03]"
+                    style="background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px); background-size: 24px 24px;">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-[#FF7F11] flex items-center justify-center text-white text-xl shadow-lg">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-['Biryani'] font-bold text-[#FF7F11]">
+                            Peluang Kerja
+                        </h2>
+                    </div>
+
+                    <p class="text-white/90 text-lg leading-relaxed max-w-4xl">
+                        {{ prodi.peluangKerja }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back Button -->
+    <section class="pb-16">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 max-w-6xl text-center">
+            <a routerLink="/prodi"
+                class="inline-flex items-center gap-3 px-8 py-4 bg-[#FF7F11] text-white font-bold rounded-xl hover:bg-[#e57310] transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-1 active:scale-95">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali ke Daftar Program Studi
+            </a>
+        </div>
+    </section>
+</ng-container>
+
+<!-- Not Found State -->
+<ng-container *ngIf="!prodi">
+    <section class="min-h-[60vh] flex items-center justify-center">
+        <div class="text-center px-4">
+            <div
+                class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400 text-4xl">
+                <i class="fa-solid fa-exclamation-circle"></i>
+            </div>
+            <h2 class="text-2xl font-['Biryani'] font-bold text-gray-800 mb-2">Program Studi Tidak Ditemukan</h2>
+            <p class="text-gray-500 mb-8">Maaf, program studi yang Anda cari tidak tersedia.</p>
+            <a routerLink="/prodi"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-[#051D47] text-white font-bold rounded-xl hover:bg-[#0A2656] transition-all">
+                <i class="fa-solid fa-arrow-left"></i>
+                Kembali
+            </a>
+        </div>
+    </section>
+</ng-container>
+
+<app-footer></app-footer>

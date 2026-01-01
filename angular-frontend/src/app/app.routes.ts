@@ -45,6 +45,13 @@ export const routes: Routes = [
       .then(m => m.ProdiPageComponent)
   },
 
+  // Program Studi Detail
+  {
+    path: 'prodi/:id',
+    loadComponent: () => import('./pages/prodi-detail/prodi-detail.component')
+      .then(m => m.ProdiDetailComponent)
+  },
+
   // Public Dosen Directory
   {
     path: 'dosen', loadComponent: () =>
