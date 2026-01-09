@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common'; // Added Location
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DosenService } from '../../services/dosen.service';
-import { AdminModalComponent } from '../shared/admin-modal/admin-modal.component';
+import { DosenService } from '../../../services/dosen.service';
+import { AdminModalComponent } from '../../shared/admin-modal/admin-modal.component';
 
 @Component({
   selector: 'app-dosen-detail-admin',
