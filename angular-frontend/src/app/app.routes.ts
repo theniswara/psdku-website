@@ -132,7 +132,7 @@ export const routes: Routes = [
   // DASHBOARD — Admin
   {
     path: 'admin-dashboard',
-    loadComponent: () => import('./pages/admin-dashboard/admin-dashboard.component')
+    loadComponent: () => import('./admin/dashboard/admin-dashboard.component')
       .then(m => m.AdminDashboardComponent),
     canActivate: [AuthGuard]
   },
@@ -149,7 +149,7 @@ export const routes: Routes = [
   {
     path: 'admin/dosen/add',
     loadComponent: () =>
-      import('./admin/dosen-form/dosen-form.component')
+      import('./admin/dosen/dosen-form/dosen-form.component')
         .then(m => m.DosenFormComponent),
     canActivate: [AuthGuard]
   },

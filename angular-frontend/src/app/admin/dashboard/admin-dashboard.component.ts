@@ -7,15 +7,15 @@ import { forkJoin } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { DosenService } from '../../services/dosen.service';
 import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
-import { AdminModalComponent } from '../../admin/admin-modal/admin-modal.component';
+import { AdminModalComponent } from '../shared/admin-modal/admin-modal.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
   imports: [
-    CommonModule, 
-    RouterLink, 
-    FormsModule, 
+    CommonModule,
+    RouterLink,
+    FormsModule,
     FilterDosenPipe,
     AdminModalComponent
   ],
@@ -29,9 +29,9 @@ export class AdminDashboardComponent implements OnInit {
   admin: any;
   dosenList: any[] = [];
   loading = true;
-  
+
   // Filter Variables
-  searchKeyword: string = ''; 
+  searchKeyword: string = '';
   selectedProdi: string = '';
   selectedStatus: string = '';
 
@@ -44,7 +44,7 @@ export class AdminDashboardComponent implements OnInit {
     private auth: AuthService,
     private dosenService: DosenService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.admin = this.auth.getLoggedInUser();
@@ -99,7 +99,7 @@ export class AdminDashboardComponent implements OnInit {
 
     if (refresh) {
       // If modal returned 'true', it means delete was successful
-      this.loadData(); 
+      this.loadData();
     }
   }
 
@@ -107,7 +107,7 @@ export class AdminDashboardComponent implements OnInit {
   get totalDosen() { return this.dosenList.length; }
   get totalHadir() { return this.dosenList.filter(d => d.statusPresensi === 'Hadir').length; }
   get totalOffline() { return this.dosenList.filter(d => !d.statusPresensi).length; }
-  
+
   get prodiList() {
     const prodis = this.dosenList.map(d => d.prodi).filter(p => p);
     return [...new Set(prodis)];
