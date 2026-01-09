@@ -21,22 +21,22 @@ export class ProdiPageComponent {
     programs: ProgramStudi[] = [
         {
             name: 'D-III Teknologi Informasi',
-            image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200',
+            image: 'assets/TI.png',
             link: '/prodi/teknologi-informasi'
         },
         {
             name: 'D-III Teknik Sipil',
-            image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200',
+            image: 'assets/SIPIL.png',
             link: '/prodi/teknik-sipil'
         },
         {
             name: 'D-IV Teknik Rekayasa Otomotif',
-            image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200',
+            image: 'assets/TRO.png',
             link: '/prodi/teknik-otomotif'
         },
         {
             name: 'D-III Akuntansi',
-            image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200',
+            image: 'assets/AK.png',
             link: '/prodi/akuntansi'
         }
     ];
