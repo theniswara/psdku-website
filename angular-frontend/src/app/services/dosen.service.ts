@@ -16,7 +16,7 @@ export class DosenService {
 
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /* ======================================================
      DOSEN CRUD (MAIN ENTITY)
@@ -96,11 +96,11 @@ export class DosenService {
     return this.http.post<any>(this.baseKeahlianUrl, data);
   }
 
-updateKeahlian(id: number, data: any): Observable<any> {
-  return this.http.put<any>(`${this.baseKeahlianUrl}/${id}`, {
-    namaKeahlian: data.namaKeahlian
-  });
-}
+  updateKeahlian(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.baseKeahlianUrl}/${id}`, {
+      namaKeahlian: data.namaKeahlian
+    });
+  }
 
 
   deleteKeahlian(id: number): Observable<any> {
@@ -125,13 +125,13 @@ updateKeahlian(id: number, data: any): Observable<any> {
   }
 
   // UPDATE sertifikasi
-updateSertifikasi(id: number, data: any): Observable<any> {
-  return this.http.put<any>(`${this.baseSertifikasiUrl}/${id}`, {
-    namaSertifikasi: data.namaSertifikasi,
-    penerbit: data.penerbit,
-    tanggalTerbit: data.tanggalTerbit
-  });
-}
+  updateSertifikasi(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.baseSertifikasiUrl}/${id}`, {
+      namaSertifikasi: data.namaSertifikasi,
+      penerbit: data.penerbit,
+      tanggalTerbit: data.tanggalTerbit
+    });
+  }
 
 
   // DELETE sertifikasi
@@ -155,13 +155,13 @@ updateSertifikasi(id: number, data: any): Observable<any> {
   }
 
   // UPDATE matkul
-updateMatkul(id: number, data: any): Observable<any> {
-  return this.http.put<any>(`${this.baseMatkulUrl}/${id}`, {
-    namaMk: data.namaMk,
-    semester: data.semester,
-    sks: data.sks
-  });
-}
+  updateMatkul(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.baseMatkulUrl}/${id}`, {
+      namaMk: data.namaMk,
+      semester: data.semester,
+      sks: data.sks
+    });
+  }
 
   // DELETE matkul
   deleteMatkul(id: number): Observable<any> {
@@ -184,27 +184,27 @@ updateMatkul(id: number, data: any): Observable<any> {
   }
 
   // UPDATE link
-updateLink(id: number, data: any): Observable<any> {
-  return this.http.put<any>(`${this.baseLinkUrl}/${id}`, {
-    namaPlatform: data.namaPlatform,
-    url: data.url
-  });
-}
+  updateLink(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.baseLinkUrl}/${id}`, {
+      namaPlatform: data.namaPlatform,
+      url: data.url
+    });
+  }
 
   // DELETE link
   deleteLink(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseLinkUrl}/${id}`);
   }
 
-uploadFoto(id: number, file: File) {
-  const formData = new FormData();
-  formData.append('file', file);
+  uploadFoto(id: number, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
 
-  return this.http.post(
-    `/api/dosen/${id}/upload-foto`,
-    formData,
-    { responseType: 'text' }   // ✅ THIS IS THE KEY FIX
-  );
-}
+    return this.http.post(
+      `/api/dosen/${id}/upload-foto`,
+      formData,
+      { responseType: 'text' }   // ✅ THIS IS THE KEY FIX
+    );
+  }
 
 }
