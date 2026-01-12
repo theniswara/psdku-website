@@ -1,54 +1,96 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { forkJoin } from 'rxjs';
-
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DosenService } from '../../services/dosen.service';
-import { FilterDosenPipe } from '../../pipes/filter-dosen.pipe';
-import { AdminModalComponent } from '../shared/admin-modal/admin-modal.component';
+import { forkJoin } from 'rxjs';
+import { StatCardComponent, StatCardConfig } from '../shared/components/stat-card/stat-card.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    FormsModule,
-    FilterDosenPipe,
-    AdminModalComponent
-  ],
+  imports: [CommonModule, RouterLink, StatCardComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
 
-  today = new Date();
-
   admin: any;
-  dosenList: any[] = [];
   loading = true;
 
-  // Filter Variables
-  searchKeyword: string = '';
-  selectedProdi: string = '';
-  selectedStatus: string = '';
+  // Stats
+  totalDosen = 0;
+  totalHadir = 0;
+  totalOffline = 0;
 
-  // ✅ Modal State Variables
-  showModal = false;
-  modalType: string | null = null;
-  selectedDosenId: number = 0;
+  // Dynamic Stat Cards Configuration
+  statCards: StatCardConfig[] = [];
+
+  // Calendar Logic
+  today = new Date();
+  currentMonth = this.today.toLocaleString('default', { month: 'long' });
+  calendarDays: number[] = [];
+
+  // Chart Data (will be dynamic later)
+  attendanceChart = [
+    { day: 'Sen', value: 85 },
+    { day: 'Sel', value: 92 },
+    { day: 'Rab', value: 78 },
+    { day: 'Kam', value: 95 },
+    { day: 'Jum', value: 88 },
+    { day: 'Sab', value: 60 },
+  ];
 
   constructor(
     private auth: AuthService,
-    private dosenService: DosenService,
-    private router: Router
+    private dosenService: DosenService
   ) { }
 
   ngOnInit(): void {
     this.admin = this.auth.getLoggedInUser();
+    this.generateCalendar();
+    this.initializeStatCards();
     this.loadData();
+  }
+
+  initializeStatCards() {
+    // Initialize with placeholder values - will be updated when data loads
+    this.statCards = [
+      {
+        title: 'Total Mahasiswa',
+        value: '-',
+        icon: 'fa-solid fa-graduation-cap',
+        iconBgClass: 'bg-blue-50',
+        iconTextClass: 'text-blue-600',
+        progress: 0,
+        progressLabel: 'Active this semester'
+      },
+      {
+        title: 'Total Dosen',
+        value: '-',
+        icon: 'fa-solid fa-chalkboard-user',
+        iconBgClass: 'bg-orange-50',
+        iconTextClass: 'text-orange-500',
+        progress: 0,
+        progressLabel: 'Present today'
+      },
+      {
+        title: 'Kehadiran',
+        value: '-',
+        icon: 'fa-solid fa-chart-line',
+        iconBgClass: 'bg-green-50',
+        iconTextClass: 'text-green-500',
+        trend: { value: '+0%', direction: 'neutral', label: 'vs last month' }
+      },
+      {
+        title: 'Berita Terbaru',
+        value: '-',
+        icon: 'fa-solid fa-newspaper',
+        iconBgClass: 'bg-purple-50',
+        iconTextClass: 'text-purple-500',
+        subtitle: 'Total artikel'
+      }
+    ];
   }
 
   loadData() {
@@ -58,58 +100,72 @@ export class AdminDashboardComponent implements OnInit {
       statusAll: this.dosenService.getStatusToday()
     }).subscribe({
       next: ({ dosenAll, statusAll }) => {
-        const statusMap = new Map<any, any>();
-        (statusAll || []).forEach((s: any) => {
-          const key = s.idDosen ?? s.id;
-          if (key != null) statusMap.set(key, s);
-        });
+        this.totalDosen = dosenAll?.length || 0;
+        this.totalHadir = statusAll?.length || 0;
+        this.totalOffline = this.totalDosen - this.totalHadir;
 
-        this.dosenList = (dosenAll || []).map((d: any) => {
-          const key = d.idDosen ?? d.id;
-          const status = statusMap.get(key) || {};
-          return { ...d, ...status };
-        });
-
+        // Update stat cards with real data
+        this.updateStatCards();
         this.loading = false;
       },
-      error: (err) => {
-        console.error('Gagal memuat data dashboard', err);
+      error: () => {
         this.loading = false;
       }
     });
   }
 
-  logout() {
-    this.auth.logoutFrontend();
-    this.router.navigate(['/login']);
+  updateStatCards() {
+    const attendancePercent = this.totalDosen > 0
+      ? Math.round((this.totalHadir / this.totalDosen) * 100)
+      : 0;
+
+    this.statCards = [
+      {
+        title: 'Total Mahasiswa',
+        value: '1,245', // Will be dynamic when API ready
+        icon: 'fa-solid fa-graduation-cap',
+        iconBgClass: 'bg-blue-50',
+        iconTextClass: 'text-blue-600',
+        progress: 75,
+        progressLabel: 'Active this semester'
+      },
+      {
+        title: 'Total Dosen',
+        value: this.totalDosen,
+        icon: 'fa-solid fa-chalkboard-user',
+        iconBgClass: 'bg-orange-50',
+        iconTextClass: 'text-orange-500',
+        progress: attendancePercent,
+        progressLabel: `${this.totalHadir} Present today`
+      },
+      {
+        title: 'Kehadiran',
+        value: `${attendancePercent}%`,
+        icon: 'fa-solid fa-chart-line',
+        iconBgClass: 'bg-green-50',
+        iconTextClass: 'text-green-500',
+        trend: {
+          value: attendancePercent > 80 ? '+2.4%' : '-1.2%',
+          direction: attendancePercent > 80 ? 'up' : 'down',
+          label: 'vs last month'
+        }
+      },
+      {
+        title: 'Berita Terbaru',
+        value: '12', // Will be dynamic when news API ready
+        icon: 'fa-solid fa-newspaper',
+        iconBgClass: 'bg-purple-50',
+        iconTextClass: 'text-purple-500',
+        subtitle: 'Total artikel'
+      }
+    ];
   }
 
-  // ✅ 1. NEW: Open the Modal instead of confirm()
-  openDeleteModal(id: number) {
-    this.selectedDosenId = id;
-    this.modalType = 'delete-dosen'; // Matches the type in AdminModalComponent
-    this.showModal = true;
-  }
-
-  // ✅ 2. NEW: Handle closing (and refreshing if deleted)
-  closeModal(refresh: boolean) {
-    this.showModal = false;
-    this.selectedDosenId = 0;
-    this.modalType = null;
-
-    if (refresh) {
-      // If modal returned 'true', it means delete was successful
-      this.loadData();
+  generateCalendar() {
+    const daysInMonth = new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0).getDate();
+    this.calendarDays = [];
+    for (let i = 1; i <= daysInMonth; i++) {
+      this.calendarDays.push(i);
     }
-  }
-
-  // Helper Getters
-  get totalDosen() { return this.dosenList.length; }
-  get totalHadir() { return this.dosenList.filter(d => d.statusPresensi === 'Hadir').length; }
-  get totalOffline() { return this.dosenList.filter(d => !d.statusPresensi).length; }
-
-  get prodiList() {
-    const prodis = this.dosenList.map(d => d.prodi).filter(p => p);
-    return [...new Set(prodis)];
   }
 }
