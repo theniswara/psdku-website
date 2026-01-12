@@ -149,10 +149,11 @@ export const routes: Routes = [
         loadComponent: () => import('./admin/presensi/rekap-presensi/admin-rekap-presensi.component').then(m => m.AdminRekapPresensiComponent)
       },
 
-      // Dosen List or Dosen Sub-module could go here
-      // For now, redirecting /admin/dosen to /admin/dosen/add based on old routes, but usually there's a list.
-      // Based on sidebar (Data Dosen -> /admin/dosen), let's assume we might need a list component later.
-      // For now, I will keep 'add' and 'detail' as requested.
+      // Dosen List
+      {
+        path: 'dosen',
+        loadComponent: () => import('./admin/dosen/dosen-list/dosen-list.component').then(m => m.DosenListComponent)
+      },
 
       // Add New Dosen
       {
