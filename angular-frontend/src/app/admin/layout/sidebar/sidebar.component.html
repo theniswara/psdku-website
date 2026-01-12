@@ -1,0 +1,142 @@
+<aside class="flex flex-col bg-[#051D47] text-white h-full font-['Inter'] shadow-2xl z-50 transition-all duration-300"
+    [class.w-72]="!isCollapsed" [class.w-20]="isCollapsed">
+
+    <!-- LOGO HEADER -->
+    <div class="h-20 flex items-center gap-3 border-b border-white/10 bg-[#04183d] shrink-0" [class.px-8]="!isCollapsed"
+        [class.px-4]="isCollapsed" [class.justify-center]="isCollapsed">
+        <img src="assets/logo.png" alt="Logo" class="brightness-110 drop-shadow-md transition-all duration-300"
+            [class.h-9]="!isCollapsed" [class.h-8]="isCollapsed">
+        <div *ngIf="!isCollapsed" class="overflow-hidden">
+            <h1 class="font-['Biryani'] font-bold text-lg leading-none tracking-wide text-white whitespace-nowrap">Admin
+                Portal</h1>
+            <span class="text-[10px] text-blue-300 font-bold tracking-widest uppercase">PSDKU Lumajang</span>
+        </div>
+    </div>
+
+    <!-- COLLAPSE TOGGLE BUTTON -->
+    <button (click)="toggleCollapse()"
+        class="absolute -right-3 top-24 w-6 h-6 bg-[#FF7F11] rounded-full flex items-center justify-center text-white shadow-lg hover:bg-[#e57310] transition-colors z-10 border-2 border-white">
+        <i class="fa-solid text-[10px] transition-transform duration-300" [class.fa-chevron-left]="!isCollapsed"
+            [class.fa-chevron-right]="isCollapsed"></i>
+    </button>
+
+    <!-- NAVIGATION -->
+    <nav class="flex-1 px-3 py-6 overflow-y-auto custom-scrollbar">
+
+        <ng-container *ngFor="let item of menuItems">
+
+            <!-- SECTION HEADER -->
+            <div *ngIf="item.type === 'header'" class="mt-6 mb-3 first:mt-0" [class.px-4]="!isCollapsed"
+                [class.px-2]="isCollapsed">
+                <span *ngIf="!isCollapsed" class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em]">
+                    {{ item.title }}
+                </span>
+                <div *ngIf="isCollapsed" class="h-px bg-white/10 my-2"></div>
+            </div>
+
+            <!-- SINGLE LINK -->
+            <a *ngIf="item.type === 'link'" [routerLink]="item.disabled ? null : item.link"
+                [class.pointer-events-none]="item.disabled" [class.opacity-50]="item.disabled"
+                routerLinkActive="bg-[#FF7F11] text-white shadow-lg shadow-orange-900/30"
+                [routerLinkActiveOptions]="{exact: true}"
+                class="group relative flex items-center gap-3 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 font-medium mb-1"
+                [class.px-4]="!isCollapsed" [class.px-3]="isCollapsed" [class.justify-center]="isCollapsed"
+                [title]="isCollapsed ? item.title : ''">
+
+                <i [class]="item.icon + ' w-5 text-center transition-colors text-lg'"></i>
+                <span *ngIf="!isCollapsed" class="tracking-wide text-sm">{{ item.title }}</span>
+
+                <!-- Badge (expanded only) -->
+                <span *ngIf="item.badge && !isCollapsed"
+                    class="ml-auto text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300">
+                    {{ item.badge }}
+                </span>
+
+                <!-- Tooltip (collapsed only) -->
+                <div *ngIf="isCollapsed"
+                    class="absolute left-full ml-3 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50 shadow-xl">
+                    {{ item.title }}
+                    <div class="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-slate-800 rotate-45">
+                    </div>
+                </div>
+            </a>
+
+            <!-- DROPDOWN -->
+            <div *ngIf="item.type === 'dropdown'" class="mb-1">
+
+                <button type="button" (click)="onDropdownClick(item)" [ngClass]="{
+                          'bg-white/5 text-white': item.isOpen && !isCollapsed,
+                          'px-4': !isCollapsed,
+                          'px-3 justify-center': isCollapsed,
+                          'justify-between': !isCollapsed
+                        }"
+                    class="w-full flex items-center gap-3 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 font-medium group relative"
+                    [title]="isCollapsed ? item.title : ''">
+
+                    <div class="flex items-center gap-3">
+                        <i [class]="item.icon + ' w-5 text-center text-lg'"></i>
+                        <span *ngIf="!isCollapsed" class="tracking-wide text-sm">{{ item.title }}</span>
+                    </div>
+
+                    <div *ngIf="!isCollapsed" class="flex items-center gap-2">
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300"
+                            [class.rotate-180]="item.isOpen"></i>
+                    </div>
+
+                    <!-- Tooltip (collapsed only) -->
+                    <div *ngIf="isCollapsed"
+                        class="absolute left-full ml-3 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50 shadow-xl">
+                        {{ item.title }}
+                        <div
+                            class="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-slate-800 rotate-45">
+                        </div>
+                    </div>
+                </button>
+
+                <!-- Children (expanded only) -->
+                <div *ngIf="item.isOpen && !isCollapsed"
+                    class="mt-1 ml-4 border-l border-white/10 pl-2 space-y-1 animate-fade-in-down">
+                    <a *ngFor="let child of item.children" [routerLink]="child.disabled ? null : child.link"
+                        [class.pointer-events-none]="child.disabled" [class.opacity-50]="child.disabled"
+                        routerLinkActive="text-[#FF7F11] font-bold bg-[#FF7F11]/10 border-r-2 border-[#FF7F11]"
+                        class="flex items-center justify-between px-4 py-2 text-sm text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 rounded-r-lg">
+                        <span>{{ child.title }}</span>
+                        <span *ngIf="child.disabled" class="text-[8px] text-gray-500">Soon</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </ng-container>
+
+    </nav>
+
+    <!-- USER FOOTER -->
+    <div class="p-3 border-t border-white/10 bg-[#04183d]">
+        <div class="flex items-center gap-3 px-2 py-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group"
+            [class.justify-center]="isCollapsed">
+
+            <div class="relative shrink-0">
+                <div
+                    class="h-10 w-10 rounded-full bg-gradient-to-tr from-[#FF7F11] to-orange-600 flex items-center justify-center text-white font-bold shadow-lg border-2 border-[#051D47]">
+                    {{ currentUser?.username?.charAt(0)?.toUpperCase() || 'A' }}
+                </div>
+                <span
+                    class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#04183d] rounded-full"></span>
+            </div>
+
+            <div *ngIf="!isCollapsed" class="overflow-hidden flex-1">
+                <p class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-0.5">Logged in as</p>
+                <p class="text-sm font-bold text-white truncate group-hover:text-[#FF7F11] transition-colors">
+                    {{ currentUser?.username || 'Admin' }}
+                </p>
+            </div>
+
+            <button *ngIf="!isCollapsed" (click)="logout()"
+                class="ml-auto text-gray-500 hover:text-red-400 transition-colors" title="Logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
+    </div>
+
+</aside>
