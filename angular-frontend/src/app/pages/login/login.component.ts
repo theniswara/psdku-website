@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,9 @@ export class LoginComponent {
   id = '';
   password = '';
   errorMsg = '';
+  isDev = environment.showDevLogin;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
   doLogin() {
     const body = {
@@ -37,10 +39,23 @@ export class LoginComponent {
         }, 0);
       },
       error: (err) => {
-        this.errorMsg = err.error || 'Login gagal';
+        // Handle different error response formats
+        if (typeof err.error === 'string') {
+          this.errorMsg = err.error;
+        } else if (err.error?.message) {
+          this.errorMsg = err.error.message;
+        } else if (err.status === 0) {
+          this.errorMsg = 'Tidak dapat terhubung ke server. Gunakan tombol "Dev Login" untuk testing lokal.';
+        } else {
+          this.errorMsg = 'Login gagal. Periksa NIDN dan password Anda.';
+        }
       },
     });
   }
 
-showPassword = false;
+  showPassword = false;
+  devLogin() {
+    this.auth.loginDev('admin');
+    this.router.navigate(['/admin-dashboard']);
+  }
 }

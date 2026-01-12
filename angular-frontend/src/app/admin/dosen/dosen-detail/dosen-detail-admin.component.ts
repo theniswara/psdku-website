@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common'; // Added Location
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DosenService } from '../../services/dosen.service';
-import { AdminModalComponent } from '../admin-modal/admin-modal.component';
+import { DosenService } from '../../../services/dosen.service';
+import { AdminModalComponent } from '../../shared/admin-modal/admin-modal.component';
 
 @Component({
   selector: 'app-dosen-detail-admin',
@@ -16,20 +16,20 @@ export class DosenDetailAdminComponent implements OnInit {
   id!: number;
   dosen: any = null;
   loading = true;
-  
+
   // Changed from 'activeTab' to 'activeSection' to support the new scroll layout
   activeSection: string = 'biodata';
-  
+
   // Modal State (Kept exactly as yours)
   showModal = false;
-  modalType: string | null = null; 
+  modalType: string | null = null;
   editingItem: any = null;
 
   constructor(
     private route: ActivatedRoute,
     private dosenService: DosenService,
     private location: Location // Inject Location for goBack functionality
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Ensure ID is a number
@@ -73,17 +73,17 @@ export class DosenDetailAdminComponent implements OnInit {
   }
 
   // ✅ YOUR EXISTING MODAL LOGIC KEPT INTACT
-openModal(type: string, item: any = null) {
+  openModal(type: string, item: any = null) {
 
-  // Always attach idDosen to child items
-  if (item) {
-    item = { ...item, idDosen: this.id };
+    // Always attach idDosen to child items
+    if (item) {
+      item = { ...item, idDosen: this.id };
+    }
+
+    this.modalType = type;
+    this.editingItem = item;
+    this.showModal = true;
   }
-
-  this.modalType = type;
-  this.editingItem = item;
-  this.showModal = true;
-}
 
 
   closeModal(reload = false) {
@@ -96,9 +96,9 @@ openModal(type: string, item: any = null) {
   }
 
   openPhotoModal() {
-  this.modalType = 'foto';
-  this.editingItem = this.dosen?.dosen;
-  this.showModal = true;
-}
+    this.modalType = 'foto';
+    this.editingItem = this.dosen?.dosen;
+    this.showModal = true;
+  }
 
 }

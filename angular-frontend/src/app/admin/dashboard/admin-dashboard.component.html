@@ -1,0 +1,176 @@
+<div class="space-y-8 fade-in">
+
+  <div
+    class="relative bg-gradient-to-r from-[#051D47] to-[#0A2E6F] rounded-3xl p-8 overflow-hidden shadow-2xl text-white">
+    <div
+      class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3">
+    </div>
+    <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div>
+        <div
+          class="inline-block px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold tracking-widest uppercase mb-2 border border-white/10">
+          Academic Dashboard
+        </div>
+        <h2 class="text-3xl font-['Biryani'] font-bold mb-2">Welcome Back, {{ admin?.username }}!</h2>
+        <p class="text-blue-100 text-sm max-w-lg">
+          System is running smoothly. You have <strong class="text-[#FF7F11]">{{ totalOffline }} pending tasks</strong>
+          requiring your attention today.
+        </p>
+      </div>
+      <div class="flex gap-3">
+        <button
+          class="flex flex-col items-center justify-center w-20 h-20 bg-white/10 hover:bg-white/20 rounded-2xl border border-white/10 transition-all group">
+          <i class="fa-solid fa-user-plus text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+          <span class="text-[10px] font-bold">Add User</span>
+        </button>
+        <button
+          class="flex flex-col items-center justify-center w-20 h-20 bg-[#FF7F11] hover:bg-[#e57310] rounded-2xl shadow-lg shadow-orange-900/30 transition-all group">
+          <i class="fa-solid fa-print text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+          <span class="text-[10px] font-bold">Report</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <app-stat-card *ngFor="let stat of statCards" [title]="stat.title" [value]="stat.value" [icon]="stat.icon"
+      [iconBgClass]="stat.iconBgClass" [iconTextClass]="stat.iconTextClass" [progress]="stat.progress"
+      [progressLabel]="stat.progressLabel" [trend]="stat.trend" [subtitle]="stat.subtitle" [loading]="loading">
+    </app-stat-card>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="font-bold text-lg text-slate-800">Statistik Kehadiran Minggu Ini</h3>
+        <select class="bg-slate-50 border-none text-xs font-bold text-slate-500 rounded-lg p-2">
+          <option>Weekly</option>
+          <option>Monthly</option>
+        </select>
+      </div>
+
+      <div class="h-64 flex items-end justify-between gap-2 px-4 border-b border-slate-100 pb-2">
+        <div *ngFor="let data of attendanceChart" class="flex flex-col items-center gap-2 group w-full">
+          <div class="relative w-full md:w-12 bg-slate-50 rounded-t-lg overflow-hidden h-52 flex items-end">
+            <div class="w-full bg-[#051D47] group-hover:bg-[#FF7F11] transition-all duration-500 rounded-t-lg relative"
+              [style.height.%]="data.value">
+              <div
+                class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                {{ data.value }}% Hadir
+              </div>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-slate-400">{{ data.day }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="font-bold text-lg text-slate-800">Kalender</h3>
+        <span class="text-xs font-bold text-[#FF7F11] bg-orange-50 px-2 py-1 rounded">{{ currentMonth }} 2024</span>
+      </div>
+
+      <div class="grid grid-cols-7 gap-1 text-center mb-2">
+        <span class="text-[10px] font-bold text-slate-400">Su</span>
+        <span class="text-[10px] font-bold text-slate-400">Mo</span>
+        <span class="text-[10px] font-bold text-slate-400">Tu</span>
+        <span class="text-[10px] font-bold text-slate-400">We</span>
+        <span class="text-[10px] font-bold text-slate-400">Th</span>
+        <span class="text-[10px] font-bold text-slate-400">Fr</span>
+        <span class="text-[10px] font-bold text-slate-400">Sa</span>
+      </div>
+
+      <div class="grid grid-cols-7 gap-1 text-center">
+        <span class="h-8 w-8 flex items-center justify-center text-xs text-slate-300">29</span>
+        <span class="h-8 w-8 flex items-center justify-center text-xs text-slate-300">30</span>
+
+        <button *ngFor="let day of calendarDays"
+          class="h-8 w-8 flex items-center justify-center text-xs font-medium rounded-full transition-all hover:bg-slate-100 relative group"
+          [class.bg-[#051D47]]="day === today.getDate()" [class.text-white]="day === today.getDate()"
+          [class.text-slate-600]="day !== today.getDate()">
+
+          {{ day }}
+
+          <span *ngIf="day === 12 || day === 15 || day === 20"
+            class="absolute bottom-1 w-1 h-1 rounded-full bg-[#FF7F11]"></span>
+        </button>
+      </div>
+
+      <div class="mt-6 space-y-4">
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Upcoming Events</h4>
+
+        <div class="flex gap-3 items-center">
+          <div class="flex-col text-center w-10 shrink-0 bg-blue-50 rounded-lg py-1">
+            <span class="block text-xs font-bold text-blue-600">12</span>
+            <span class="block text-[8px] font-bold text-blue-400 uppercase">Oct</span>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-slate-700">Rapat Senat Terbuka</p>
+            <p class="text-[10px] text-slate-400">09:00 AM - Aula Utama</p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 items-center">
+          <div class="flex-col text-center w-10 shrink-0 bg-orange-50 rounded-lg py-1">
+            <span class="block text-xs font-bold text-orange-600">15</span>
+            <span class="block text-[8px] font-bold text-orange-400 uppercase">Oct</span>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-slate-700">Deadline Input Nilai</p>
+            <p class="text-[10px] text-slate-400">System close at 23:59</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+    <h3 class="font-bold text-lg text-slate-800 mb-6">Aktivitas Terkini</h3>
+
+    <div class="relative pl-4 border-l-2 border-slate-100 space-y-8">
+
+      <div class="relative group">
+        <div
+          class="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-white ring-2 ring-blue-500 bg-blue-500 group-hover:scale-125 transition-transform">
+        </div>
+        <p class="text-xs text-slate-400 mb-1">20 minutes ago</p>
+        <p class="text-sm font-medium text-slate-700">
+          <span class="font-bold text-[#051D47]">Dr. Budi Santoso</span> has uploaded materi kuliah <span
+            class="text-blue-500">Pemrograman Web</span>.
+        </p>
+      </div>
+
+      <div class="relative group">
+        <div
+          class="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-white ring-2 ring-[#FF7F11] bg-[#FF7F11] group-hover:scale-125 transition-transform">
+        </div>
+        <p class="text-xs text-slate-400 mb-1">1 hour ago</p>
+        <p class="text-sm font-medium text-slate-700">
+          New student registration <strong>#REG-2024-001</strong> waiting for validation.
+        </p>
+        <div class="mt-2 flex gap-2">
+          <button
+            class="px-3 py-1 bg-blue-50 text-blue-600 text-[10px] font-bold rounded-lg hover:bg-blue-100">Review</button>
+          <button
+            class="px-3 py-1 bg-slate-50 text-slate-600 text-[10px] font-bold rounded-lg hover:bg-slate-100">Dismiss</button>
+        </div>
+      </div>
+
+      <div class="relative group">
+        <div
+          class="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-white ring-2 ring-green-500 bg-green-500 group-hover:scale-125 transition-transform">
+        </div>
+        <p class="text-xs text-slate-400 mb-1">2 hours ago</p>
+        <p class="text-sm font-medium text-slate-700">
+          System backup completed successfully.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>

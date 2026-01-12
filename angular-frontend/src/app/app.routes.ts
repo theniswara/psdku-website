@@ -140,15 +140,50 @@ export const routes: Routes = [
       import('./pages/login/login.component').then((m) => m.LoginComponent),
   },
 
-  // DASHBOARD — Admin
+  // ========================================
+  // ADMIN MODULE (Nested Routes)
+  // ========================================
   {
-    path: 'admin-dashboard',
-    loadComponent: () =>
-      import('./pages/admin-dashboard/admin-dashboard.component').then(
-        (m) => m.AdminDashboardComponent
-      ),
+    path: 'admin',
+    loadComponent: () => import('./admin/layout/admin-layout/admin-layout.component').then(m => m.AdminLayoutComponent),
     canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
+      // Dashboard
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./admin/dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)
+      },
+
+      // Rekap Presensi
+      {
+        path: 'presensi',
+        loadComponent: () => import('./admin/presensi/rekap-presensi/admin-rekap-presensi.component').then(m => m.AdminRekapPresensiComponent)
+      },
+
+      // Dosen List
+      {
+        path: 'dosen',
+        loadComponent: () => import('./admin/dosen/dosen-list/dosen-list.component').then(m => m.DosenListComponent)
+      },
+
+      // Add New Dosen
+      {
+        path: 'dosen/add',
+        loadComponent: () => import('./admin/dosen/dosen-form/dosen-form.component').then(m => m.DosenFormComponent)
+      },
+
+      // Dosen Detail
+      {
+        path: 'dosen/:id',
+        loadComponent: () => import('./admin/dosen/dosen-detail/dosen-detail-admin.component').then(m => m.DosenDetailAdminComponent)
+      }
+    ]
   },
+
+  // Legacy redirect for old admin-dashboard URL
+  { path: 'admin-dashboard', redirectTo: 'admin/dashboard', pathMatch: 'full' },
 
   // DASHBOARD — Dosen
   {
@@ -160,40 +195,14 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
-  // ADMIN: Add New Lecturer
-  {
-    path: 'admin/dosen/add',
-    loadComponent: () =>
-      import('./admin/dosen-form/dosen-form.component').then(
-        (m) => m.DosenFormComponent
-      ),
-    canActivate: [AuthGuard],
-  },
-
-  // ADMIN: Manage a specific lecturer (CRUD full profile)
-  // {
-  //   path: 'admin/dosen/:id',
-  //   loadComponent: () =>
-  //     import('./admin/dosen-detail/admin-dosen-detail.component')
-  //       .then(m => m.AdminDosenDetailComponent),
-  //   canActivate: [AuthGuard]
-  // },
-
-  {
-    path: 'admin/dosen/:id',
-    loadComponent: () =>
-      import('./admin/dosen-detail-admin/dosen-detail-admin.component').then(
-        (m) => m.DosenDetailAdminComponent
-      ),
-    canActivate: [AuthGuard],
-  },
-
+  // PMB
   {
     path: 'pmb',
     loadComponent: () =>
       import('./pages/pmb/pmb.component').then((m) => m.PmbComponent),
   },
 
+  // Kurikulum
   {
     path: 'kurikulum',
     loadComponent: () =>
@@ -202,6 +211,7 @@ export const routes: Routes = [
       ),
   },
 
+  // Mahasiswa
   {
     path: 'mahasiswa',
     loadComponent: () =>

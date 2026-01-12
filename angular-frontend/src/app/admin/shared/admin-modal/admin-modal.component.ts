@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DosenService } from '../../services/dosen.service';
+import { DosenService } from '../../../services/dosen.service';
 
 @Component({
   selector: 'app-admin-modal',
@@ -26,14 +26,14 @@ export class AdminModalComponent implements OnChanges {
 
   formData: any = {};
   loading = false;
-  
+
   selectedFile: File | null = null;
   previewImage: string | null = null;
 
   // Change this if your backend URL changes
   private readonly IMAGE_BASE_URL = '/uploads/';
 
-  constructor(private dosenService: DosenService) {}
+  constructor(private dosenService: DosenService) { }
 
   // ==========================================
   // LIFECYCLE: SETUP DATA ON OPEN
@@ -92,7 +92,7 @@ export class AdminModalComponent implements OnChanges {
     switch (this.type) {
       case 'biodata': return 'Edit Biodata Diri';
       case 'foto': return 'Ubah Foto Profil';
-      
+
       case 'pendidikan': return 'Tambah Pendidikan';
       case 'edit-pendidikan': return 'Edit Pendidikan';
       case 'delete-pendidikan': return 'Hapus Data Pendidikan';
@@ -162,7 +162,7 @@ export class AdminModalComponent implements OnChanges {
       case 'delete-dosen': return this.deleteDosenAccount();
 
 
-      default: 
+      default:
         console.warn('Unknown type:', this.type);
         return;
     }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { DosenService } from '../../services/dosen.service';
+import { DosenService } from '../../../services/dosen.service';
 
 @Component({
   selector: 'app-dosen-form',
@@ -36,7 +36,7 @@ export class DosenFormComponent {
   constructor(
     private dosenService: DosenService,
     private router: Router
-  ) {}
+  ) { }
 
   // ===========================
   // FIXED FILE PREVIEW FUNCTION
